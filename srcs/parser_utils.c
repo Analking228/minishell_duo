@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/14 21:44:26 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 16:36:48 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,11 @@ char	**double_array_realloc(char **array, int size)
 	i = 0;
 	len = 0;
 	tmp = array;
-	if (!array)
+	if (array == NULL)
 	{
 		array = (char **)malloc(sizeof(char*) * (size + 1));
 		array[size] = NULL;
+		return (array);
 	}
 	else
 	{

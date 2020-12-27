@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   micro_utils.c                                      :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjani <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2020/08/03 16:29:59 by cjani            ###   ########.fr       */
+/*   Updated: 2020/12/27 16:57:29 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,21 @@ int			main(int argc, char **argv, char **env)
 	data = (t_data *)malloc(sizeof(t_data));
 	ft_init_struct(tab, data);
 	ft_crt_envp(data, env);
-	
+
 	while (1<2)
 	{
 		get_next_line(0, &line);
-		parse_input(line, tab, data);	//обработка приходящих команд, формирование листа,
-										//при необходимости. 
+		tab = parse_input(line, tab, data);
+		// parse_input(line, tab, data);	//обработка приходящих команд, формирование листа,
+										//при необходимости.
+		while (tab)
+		{
+			printf("%s\n", tab->cmd[0]);
+			tab = tab->next;
+		}
+
 		free(line);
 		line = NULL;
-		printf("%s\n", tab->cmd[0]);
 		//minishell_start(tab, data);		//команды исполняются до !tab->next
 		//free_cmd(tab->cmd, tab->next);
 	}

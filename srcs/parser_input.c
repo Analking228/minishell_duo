@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/24 23:12:07 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 16:56:22 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,14 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
 {
     t_args  *new;
     int     j;
-
+    int     len;
     j = 0;
     new = (t_args *)malloc(sizeof(t_args)); // error malloc
     new->cmd = NULL;
+
+    // len = array_len(array);
+    // new->cmd = (char **)malloc(sizeof(char *) * (len));
+
     while (array[j] != NULL)
     {
         new->cmd = double_array_realloc(new->cmd, 1);
@@ -179,6 +183,7 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
         // free(array[j]);
         j++;
     }
+    // new->cmd[j] = NULL;
     if ((ft_is_builtin(new->cmd[0])) == 0)
         new->exec_path = NULL;
     else if (!(ft_strchr("./", new->cmd[0][0])))
@@ -192,13 +197,14 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
     return(new);
 }
 
-void    parse_input(char *line, t_args *tab, t_data *data)
+t_args    *parse_input(char *line, t_args *tab, t_data *data)
 {
     int     i;
 	int		count;
     char    *arg;
     char    **array;
 
+// printf("tab p = %p\n", tab);
     i = 0;
     count = 0;
     array = NULL;
@@ -231,7 +237,9 @@ void    parse_input(char *line, t_args *tab, t_data *data)
             }
         }
     }
-                ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
-//                 printf("111\n");
-                // printf("cmd = %s\n", tab->cmd[0]);
+    ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
+    // if ()
+        // tab = ft_crt_newelem(array, line, &i, data);
+    // printf("cmd = %s\n", tab->cmd[0]);
+    return(tab);
 }
