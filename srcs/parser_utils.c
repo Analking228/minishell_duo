@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/27 16:36:48 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 20:19:34 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ char    *add_symbol(char *str, char c)
 char	**double_array_realloc(char **array, int size)
 {
 	int		i;
-	int		len;
 	char	**tmp;
 
 	i = 0;
-	len = 0;
 	tmp = array;
 	if (array == NULL)
 	{
@@ -47,9 +45,7 @@ char	**double_array_realloc(char **array, int size)
 	}
 	else
 	{
-		while (array[len])
-			len++;
-		size += len;
+		size += array_len(array);
 		array = (char **)malloc(sizeof(char*) * (size + 1));
 		while (i < size)
 		{

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/27 18:43:24 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 20:26:38 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
             array = double_array_realloc(array, 1);
             array[count++] = ft_strdup(arg);
             free(arg);
-            arg = NULL;
+            // arg = NULL;
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));

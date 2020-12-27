@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by flexer            #+#    #+#             */
-/*   Updated: 2020/12/27 16:48:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 20:18:41 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,11 @@ int				ft_polygon(t_args *tab, t_data *data, int cmd);
 
 /* parser part */
 
-t_args    *parse_input(char *line, t_args *tab, t_data *data);
-char	**double_array_realloc(char **array, int size);
-char    *add_symbol(char *str, char c);
-void	parse_exec_path(t_data *data, t_args *tab);
-int		ft_is_builtin(char *cmd);
+t_args			*parse_input(char *line, t_args *tab, t_data *data);
+char			**double_array_realloc(char **array, int size);
+char			*add_symbol(char *str, char c);
+void			parse_exec_path(t_data *data, t_args *tab);
+int				ft_is_builtin(char *cmd);
+int				array_len(char **array);
 
 #endif
