@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/27 16:56:22 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/12/27 18:43:24 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,6 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
     j = 0;
     new = (t_args *)malloc(sizeof(t_args)); // error malloc
     new->cmd = NULL;
-
-    // len = array_len(array);
-    // new->cmd = (char **)malloc(sizeof(char *) * (len));
-
     while (array[j] != NULL)
     {
         new->cmd = double_array_realloc(new->cmd, 1);
@@ -204,7 +200,6 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     char    *arg;
     char    **array;
 
-// printf("tab p = %p\n", tab);
     i = 0;
     count = 0;
     array = NULL;
@@ -226,15 +221,16 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
                 arg = parse_squote(arg, line, &i);
 			else if (line[i] && line[i] == '\"')
                 arg = parse_dquote(arg, line, &i, data);
-            else if (!ft_strchr(" ;><|\'\"", line[i]))
+            else if (!ft_strchr(" ;><|", line[i]))
                 arg = simple_parse(arg, line, &i, data);
-            if (ft_strncmp(arg, "", 1) != 0)
-            {
-                array = double_array_realloc(array, 1);
-                array[count++] = ft_strdup(arg);
-                free(arg);
-                arg = NULL;
-            }
+            // else
+        }
+        if (ft_strncmp(arg, "", 1) != 0)
+        {
+            array = double_array_realloc(array, 1);
+            array[count++] = ft_strdup(arg);
+            free(arg);
+            arg = NULL;
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
