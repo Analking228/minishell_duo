@@ -14,15 +14,15 @@
 
 #include "../includes/minishell.h"
 
-int			minishell_env(t_data *data, int fd_out)
+int			minishell_env(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (data->envp[i])
 	{
-		ft_putstr_fd(data->envp[i], data->fd_1);
-		ft_putchar_fd('\n', data->fd_1);
+		ft_putstr_fd(data->envp[i], data->fd_out);
+		ft_putchar_fd('\n', data->fd_out);
 		i++;
 	}
 	return (0);

@@ -72,14 +72,14 @@ typedef struct s_data
 
 /* shell part */
 
-int				minishell_pwd(t_data *data, int fd_out);
+int				minishell_pwd(t_data *data);
 int				minishell_cd(t_args *tab, t_data *data);
-int				minishell_echo(t_args *tab, t_data *data, int fd_out);
-int				minishell_export(t_args *tab, t_data *data, int fd_out);
+int				minishell_echo(t_args *tab, t_data *data);
+int				minishell_export(t_args *tab, t_data *data);
 int				minishell_exit(t_args *tab, t_data *data);
 int				minishell_unset(t_args *tab, t_data *data);
-int				minishell_env(t_data *data, int fd_out);
-int				minishell_execve(t_args *tab, t_data *data, int fd_out);
+int				minishell_env(t_data *data);
+int				minishell_execve(t_args *tab, t_data *data);
 int				minishell_start(t_args *tab, t_data *data);
 int				minishell_redirect_out(t_args *tab, t_data *data);
 void			ft_init_struct(t_args *tab, t_data *data);

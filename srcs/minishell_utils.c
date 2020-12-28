@@ -74,6 +74,8 @@ void	ft_init_struct(t_args *tab, t_data *data)
 	data->curpwd = NULL;
 	data->fd_0 = 0;
 	data->fd_1 = 1;
+	data->fd_out = dup(data->fd_1);
+	data->fd_in = dup(data->fd_0);
 }
 
 int		ft_envp_count(t_data *data)

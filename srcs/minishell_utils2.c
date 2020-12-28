@@ -18,15 +18,17 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 
 	if (tab->simbol == RLR)
 	{
-		fd = open(tab->cmd[0], O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-		return (fd);
+		close(data->fd_out);
+		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
+		return (data->fd_out = fd);
 	}
 	else if (tab->simbol == DRLR)
 	{
-		fd = open(tab->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
-		return (fd);
+		close(data->fd_out);
+		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
+		return (data->fd_out = fd);
 	}
-	return (dup(1));
+	return (0);
 }
 
 int			minishell_redirect_pipe(t_args *tab, t_data *data)
@@ -35,8 +37,8 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 	
 	if (tab->simbol == RLL)
 	{
-		fd = open(tab->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
-		return (fd);
+		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
+		return (data->fd_out = fd);
 	}
 	return (0);
 }

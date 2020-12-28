@@ -53,12 +53,12 @@ int			main(int argc, char **argv, char **env)
 			tab = parse_input(line, tab, data);
 		// while (tab)
 		// {
-		// 	printf("%s\n", tab->cmd[0]);
+		// printf("%s\n", tab->cmd[0]);
 		// 	tab = tab->next;
 		// }
 		free(line);
 		line = NULL;
-		//minishell_start(tab, data);		//команды исполняются до !tab->next
+		minishell_start(tab, data);		//команды исполняются до !tab->next
 		//free_cmd(tab->cmd, tab->next);
 	}
 	return (0);

@@ -63,13 +63,13 @@ static void	export_default(t_data *data)
 	i = 0;
 	while (data->envp[i])
 	{
-		ft_putstr_fd("declare -x ", data->fd_1);
-		ft_putstr_fd(data->envp[i++], data->fd_1);
-		ft_putchar_fd('\n', data->fd_1);
+		ft_putstr_fd("declare -x ", data->fd_out);
+		ft_putstr_fd(data->envp[i++], data->fd_out);
+		ft_putchar_fd('\n', data->fd_out);
 	}
 }
 
-int		minishell_export(t_args *tab, t_data *data, int fd_out)
+int		minishell_export(t_args *tab, t_data *data)
 {
 	int	i;
 	int	j;

@@ -12,28 +12,24 @@
 
 #include "../includes/minishell.h"
 
-int		minishell_execve(t_args *tab, t_data *data, int fd_out)
+int		minishell_execve(t_args *tab, t_data *data)
 {
-	/*pid_t	pid;
-	int		status;
-	int		pipefd[2];
+	pid_t	pid;
+	//int		pipefd[2];
 
-	minishell_redirect_pipe();
-	status = 0;
+	//minishell_redirect_pipe();
 	pid = fork();
 	if (pid < 0)
 		perror(NULL);
 	else if (pid == 0)
 	{
-		execve(tab->exec_path, tab->cmd + 1, data->envp);
-		exit(ft_atoi(all->error));
+		execve(tab->exec_path, tab->cmd, data->envp);
+		exit(data->exec_code);
 	}
 	else
 	{
 		wait(&pid);
-		status = WEXITSTATUS(pid);
-		free(all->error);
-		all->error = ft_itoa(status);
-	}*/
+		data->exec_code = WEXITSTATUS(pid);
+	}
 	return (0);
 }
