@@ -37,8 +37,7 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 	
 	if (tab->simbol == RLL)
 	{
-		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
-		return (data->fd_out = fd);
+		
 	}
 	return (0);
 }

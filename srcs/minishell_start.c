@@ -14,9 +14,12 @@
 
 int		minishell_start(t_args *tab, t_data *data)
 {
+	int	*masfd[2];
+
 	while (tab)
 	{
 		minishell_redirect_out(tab, data);
+		minishell_redirect_pipe(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
 			minishell_export(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))
