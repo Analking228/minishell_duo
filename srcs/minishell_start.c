@@ -33,9 +33,9 @@ int		minishell_start(t_args *tab, t_data *data)
 			minishell_pwd(data);
 		else if (tab->cmd[0])
 			minishell_execve(tab, data);
-		close(data->fd_out);
-		data->fd_out = dup(data->fd_1);
 		tab = tab->next;
 	}
+	close(data->fd_out);
+	data->fd_out = dup(data->fd_1);
 	return (0);
 }

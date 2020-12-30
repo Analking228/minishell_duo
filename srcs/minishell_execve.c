@@ -15,7 +15,7 @@
 int		minishell_execve(t_args *tab, t_data *data)
 {
 	pid_t	pid;
-	//int		pipefd[2];
+	int		pipefd[2];
 
 	//minishell_redirect_pipe();
 	pid = fork();
