@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/27 20:26:38 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:34:13 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char    *parse_envp(t_data *data, char *line, int *i)
     (*i)++;
     len = 0;
     j = 0;
-    // add $?
+    if (line[(*i)] == '?')
+        return(res = ft_itoa(data->exec_code));
     key = ft_strdup("");
     res = ft_strdup("");
     while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
@@ -75,7 +76,7 @@ static char    *parse_dquote(char *arg, char *line, int *i, t_data *data)
             flag = 0;
             break;
         }
-		if (line[(*i)] == '\\' && (line[(*i) + 1] == '$' || line[(*i) + 1] == '"' || line[(*i) + 1] == '\\'))
+		if (line[(*i)] == '\\' && !(ft_strchr("$\"\\", line[(*i) + 1])))
 			(*i)++;
 		else if (line[(*i)] == '$')
             envp_value = parse_envp(data, line, i);
@@ -151,6 +152,7 @@ void    ft_add_back_elem(t_args **lst, t_args *elem)
         while (tmp->next)
             tmp = tmp->next;
         tmp->next = elem;
+        elem->simbol = 1;
     }
 }
 
@@ -175,21 +177,19 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
     while (array[j] != NULL)
     {
         new->cmd = double_array_realloc(new->cmd, 1);
-        new->cmd[j] = ft_strdup(array[j]);  ////free array
-        // free(array[j]);
+        new->cmd[j] = ft_strdup(array[j]);
         j++;
     }
-    // new->cmd[j] = NULL;
+    new->exec_path = NULL;
     if ((ft_is_builtin(new->cmd[0])) == 0)
         new->exec_path = NULL;
     else if (!(ft_strchr("./", new->cmd[0][0])))
         parse_exec_path(data, new);
     else
         new->exec_path = ft_strdup(new->cmd[0]);
-    // printf("path = %s\n", new->exec_path);
 	new->simbol = cmd_parse(line, i);
 	new->next = NULL;
-    // free(array);
+    ft_free_double_array(array);
     return(new);
 }
 
@@ -205,6 +205,7 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     array = NULL;
     while (line[i])
     {
+        arg = NULL;
         arg = ft_strdup("");
         while (line[i] == ' ')
             i++;
@@ -230,12 +231,8 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
             array = double_array_realloc(array, 1);
             array[count++] = ft_strdup(arg);
             free(arg);
-            // arg = NULL;
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
-    // if ()
-        // tab = ft_crt_newelem(array, line, &i, data);
-    // printf("cmd = %s\n", tab->cmd[0]);
     return(tab);
 }

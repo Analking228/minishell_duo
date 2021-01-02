@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   micro_utils.c                                      :+:      :+:    :+:   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjani <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2020/08/03 16:29:59 by cjani            ###   ########.fr       */
+/*   Updated: 2021/01/02 14:15:42 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 void	ft_init_struct(t_args *tab, t_data *data)
 {
 	data->envp = NULL;
+	data->exec_code = 0;
 	data->oldpwd = NULL;
 	data->curpwd = NULL;
 	data->fd_0 = 0;

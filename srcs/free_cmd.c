@@ -1,33 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_echo.c                                   :+:      :+:    :+:   */
+/*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/02 14:16:12 by cquiana          ###   ########.fr       */
+/*   Created: 2021/01/02 11:05:09 by cquiana           #+#    #+#             */
+/*   Updated: 2021/01/02 17:49:41 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*with option ’-n’*/
-
 #include "../includes/minishell.h"
 
-int			minishell_echo(t_args *tab, t_data *data)
+
+void		ft_free_double_array(char **cmd)
 {
 	int		i;
 
-	i = 1;
-	if ((ft_strnstr(tab->cmd[1], "-n", 2) && tab->cmd[1][3] == 0))
-		i++;
-	while (tab->cmd[i])
+	i = 0;
+	while (cmd[i])
 	{
-		ft_putstr_fd(tab->cmd[i], data->fd_out);
-		if (tab->cmd[++i] != NULL)
-			ft_putstr_fd(" ", data->fd_out);
+		free(cmd[i]);
+		cmd[i] = NULL;
+		i++;
 	}
-	if (!(ft_strnstr(tab->cmd[1], "-n", 2) && tab->cmd[1][3] == 0))
-		ft_putstr_fd("\n", data->fd_out);
-	return (0);
+	free(cmd);
+	cmd = NULL;
+}
+
+void		free_cmd(t_args *tab)
+{
+	t_args	*tmp;
+
+	while (tab != NULL)
+	{
+		tmp = tab->next;
+		if (tab->exec_path != NULL)
+			free(tab->exec_path);
+		ft_free_double_array(tab->cmd);
+		if (tmp == NULL)
+			break;
+		tab = tmp->next;
+	}
+	free(tab);
 }

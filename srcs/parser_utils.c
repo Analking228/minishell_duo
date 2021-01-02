@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2020/12/27 20:19:34 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:54:06 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char	**double_array_realloc(char **array, int size)
 			i++;
 		}
 		array[i] = NULL;
-		free(tmp);
 	}
 	return (array);
 }

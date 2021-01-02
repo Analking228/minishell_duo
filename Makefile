@@ -7,7 +7,7 @@ INC_DIR = includes/
 INCLUDES = -I$(INC_DIR)
 
 CC = gcc
-FLAGS = -g 
+FLAGS = -g
 
 LIBFT_DIR = ./libft
 LIBFT_FLAGS = -L $(LIBFT_DIR) -lft
@@ -28,7 +28,8 @@ FILES = main\
 		polygon\
 		parse_path\
 		parser_input\
-		parser_utils
+		parser_utils\
+		free_cmd
 
 SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILES)))
 
@@ -42,7 +43,7 @@ $(NAME): $(OBJ_FILES)
 	@$(CC) -o $(NAME) $(INCLUDES) $(OBJ_FILES) $(LIBFT_FLAGS) -fsanitize=address
 
 $(OBJ_FILES): $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
-	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@ 
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJ_DIR):
 	@mkdir $(OBJ_DIR)

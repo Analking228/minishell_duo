@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2020/12/27 21:15:58 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 18:42:52 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,11 @@ int			main(int argc, char **argv, char **env)
 		get_next_line(0, &line);
 		if ((ft_strncmp(line, "", 1)) != 0)
 			tab = parse_input(line, tab, data);
-		// while (tab)
-		// {
-		// printf("%s\n", tab->cmd[0]);
-		// 	tab = tab->next;
-		// }
 		free(line);
 		line = NULL;
 		minishell_start(tab, data);		//команды исполняются до !tab->next
-		//free_cmd(tab->cmd, tab->next);
+		free_cmd(tab);
+		tab = NULL;
 	}
 	return (0);
 }

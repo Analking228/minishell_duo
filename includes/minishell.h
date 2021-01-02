@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by flexer            #+#    #+#             */
-/*   Updated: 2020/12/27 20:18:41 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 17:49:22 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int				minishell_env(t_data *data);
 int				minishell_execve(t_args *tab, t_data *data);
 int				minishell_start(t_args *tab, t_data *data);
 int				minishell_redirect_out(t_args *tab, t_data *data);
+int				minishell_redirect_pipe(t_args *tab, t_data *data);
 void			ft_init_struct(t_args *tab, t_data *data);
 int				ft_crt_envp(t_data *data, char **env);
 int				ft_envp_count(t_data *data);
@@ -98,5 +99,7 @@ char			*add_symbol(char *str, char c);
 void			parse_exec_path(t_data *data, t_args *tab);
 int				ft_is_builtin(char *cmd);
 int				array_len(char **array);
+void			free_cmd(t_args *tab);
+void			ft_free_double_array(char **cmd);
 
 #endif
