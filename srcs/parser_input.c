@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/02 18:34:13 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/03 13:31:18 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char    *simple_parse(char *arg, char *line, int *i, t_data *data)
 			(*i)++;
 		else if (line[(*i)] == '$')
             envp_value = parse_envp(data, line, i);
-        if (envp_value) //
+        if (envp_value)
             arg = ft_strjoin(arg, envp_value);
         else
             arg = add_symbol(arg, line[(*i)]);
@@ -126,9 +126,7 @@ static char    *parse_squote(char *arg, char *line, int *i)
 
 int    cmd_parse(char *line, int *i)
 {
-    if (line[(*i)] == ';')
-        return(1);
-    else if (line[(*i)] == '|')
+    if (line[(*i)] == '|')
         return(2);
     else if (line[(*i)] == '>' && line[(*i) + 1] != '>')
         return(3);
@@ -137,8 +135,7 @@ int    cmd_parse(char *line, int *i)
     else if (line[(*i)] == '>' && line[(*i) + 1] == '>')
         return(5);
     else
-        return(0);
-    // (*i)++;
+        return(1);
 }
 
 void    ft_add_back_elem(t_args **lst, t_args *elem)
@@ -152,7 +149,6 @@ void    ft_add_back_elem(t_args **lst, t_args *elem)
         while (tmp->next)
             tmp = tmp->next;
         tmp->next = elem;
-        elem->simbol = 1;
     }
 }
 
@@ -191,6 +187,12 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
 	new->next = NULL;
     ft_free_double_array(array);
     return(new);
+}
+
+void    ft_check_list(t_args *tab)
+{
+    if (tab->next == NULL)
+        tab->simbol = 0;
 }
 
 t_args    *parse_input(char *line, t_args *tab, t_data *data)
@@ -234,5 +236,6 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
+    ft_check_list(tab);
     return(tab);
 }
