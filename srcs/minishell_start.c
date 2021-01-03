@@ -38,7 +38,9 @@ int		minishell_start(t_args *tab, t_data *data)
 			minishell_execve(tab, data);
 		tab = tab->next;
 	}
-	close(data->fd_out);
-	data->fd_out = dup(data->fd_1);
+	dup2(data->fd_1, 1);
+	close(data->fd_1);
+	dup2(data->fd_0, 0);
+	close(data->fd_0);
 	return (0);
 }
