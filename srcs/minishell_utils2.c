@@ -45,8 +45,8 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 		if ((tab->simbol == PIPE) || (tab->simbol_last == PIPE))
 		{
 			pipe(pipefd);
-			data->fd_1 = dup2(1, 4);
-			data->fd_0 = dup2(0, 3);
+			data->fd_1 = dup(1);
+			data->fd_0 = dup(0);
 			data->fd_in = dup2(pipefd[R], 0);
 			close(pipefd[R]);
 			data->fd_out = dup2(pipefd[W], 1);
@@ -60,10 +60,10 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 			data->fd_in = dup2(fd, 0);
 		}
 	}
-	else if ((tab->simbol == 1) && (tab->simbol_last == PIPE))
+	else if ((tab->simbol == SMCLN) && (tab->simbol_last == PIPE))
 	{
 		close(data->fd_out);
-		data->fd_out = dup2(data->fd_0, 0);
+		data->fd_out = dup2(data->fd_1, 1);
 	}
 	return (0);
 }
