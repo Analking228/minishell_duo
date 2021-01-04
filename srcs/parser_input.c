@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/03 13:31:18 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/04 22:46:36 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,10 @@ int    cmd_parse(char *line, int *i)
     else if (line[(*i)] == '<')
         return(4);
     else if (line[(*i)] == '>' && line[(*i) + 1] == '>')
+    {
+        (*i)++;
         return(5);
+    }
     else
         return(1);
 }
