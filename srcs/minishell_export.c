@@ -56,16 +56,43 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	return (data->envp);
 }
 
+static char *adding_breckets(char *str)
+{
+	char	*tmp;
+	int		i;
+
+	tmp = ft_calloc(ft_strlen(str) + 3, sizeof(char));
+	while (str[i] && (str[i - 1] != '='))
+	{
+		tmp[i] = str[i];
+		i++;
+	}
+	if (str[i - 1] == '=')
+	{
+		tmp[i++] = '\"';
+		while (str[i - 1])
+		{
+			tmp[i] = str[i - 1];
+			i++;
+		}
+		tmp[i] = '\"';
+	}
+	return (tmp);
+}
+
 static void	export_default(t_data *data)
 {
 	int	i;
+	char	*tmp;
 
 	i = 0;
 	while (data->envp[i])
 	{
+		tmp = adding_breckets(data->envp[i++]);
 		ft_putstr_fd("declare -x ", data->fd_out);
-		ft_putstr_fd(data->envp[i++], data->fd_out);
+		ft_putstr_fd(tmp, data->fd_out);
 		ft_putchar_fd('\n', data->fd_out);
+		free(tmp);
 	}
 }
 
@@ -73,8 +100,10 @@ int		minishell_export(t_args *tab, t_data *data)
 {
 	int	i;
 	int	j;
+	int	close_out;
 
 	i = 1;
+	close_out = minishell_redirect_out(tab, data);
 	if (!tab->cmd[i])
 	{
 		export_default(data);
@@ -86,7 +115,11 @@ int		minishell_export(t_args *tab, t_data *data)
 		j++;
 		i++;
 	}
-	//ft_printf("entering add\n");
 	data->envp = export_add(tab, data, j);
+	if (close_out)
+	{
+			dup2(data->fd_1, 1);
+			close(data->fd_1);
+	}
 	return (1);
 }

@@ -24,6 +24,7 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 		data->fd_out = dup2(fd, 1);
 		close(fd);
+		return (data->fd_out);
 	}
 	else if (tab->simbol == DRLR)
 	{
@@ -31,6 +32,7 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 		data->fd_out = dup2(fd, 1);
 		close(fd);
+		return (data->fd_out);
 	}
 	return (0);
 }

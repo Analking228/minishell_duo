@@ -18,8 +18,9 @@ int		minishell_start(t_args *tab, t_data *data)
 
 	while (tab)
 	{
-		minishell_redirect_out(tab, data);
-		minishell_redirect_pipe(tab, data);
+		//close_out = minishell_redirect_out(tab, data);
+		/*minishell_redirect_pipe(tab, data);*/
+		printf("got cmd started\n");
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
 			minishell_export(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))
@@ -27,20 +28,16 @@ int		minishell_start(t_args *tab, t_data *data)
 		else if (!ft_strncmp(tab->cmd[0], "cd", 2))
 			minishell_cd(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "env", 3))
-			minishell_env(data);
+			minishell_env(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "exit", 4))
 			minishell_exit(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "unset", 5))
 			minishell_unset(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "pwd", 3))
-			minishell_pwd(data);
+			minishell_pwd(tab, data);
 		else if (tab->cmd[0])
 			minishell_execve(tab, data);
 		tab = tab->next;
 	}
-	dup2(data->fd_1, 1);
-	close(data->fd_1);
-	dup2(data->fd_0, 0);
-	close(data->fd_0);
 	return (0);
 }
