@@ -118,8 +118,8 @@ int		minishell_export(t_args *tab, t_data *data)
 	data->envp = export_add(tab, data, j);
 	if (close_out)
 	{
-			dup2(data->fd_1, 1);
-			close(data->fd_1);
+		dup2(data->fd_1, 1);
+		close(data->fd_1);
 	}
 	return (1);
 }

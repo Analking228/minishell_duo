@@ -18,9 +18,7 @@ int		minishell_start(t_args *tab, t_data *data)
 
 	while (tab)
 	{
-		//close_out = minishell_redirect_out(tab, data);
-		/*minishell_redirect_pipe(tab, data);*/
-		printf("got cmd started\n");
+		//printf("got cmd started\n");
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
 			minishell_export(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))

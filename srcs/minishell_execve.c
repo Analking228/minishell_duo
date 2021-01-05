@@ -32,10 +32,10 @@ int		minishell_execve(t_args *tab, t_data *data)
 	{
 		wait(&pid);
 		if (close_out)
-	{
+		{
 			dup2(data->fd_1, 1);
 			close(data->fd_1);
-	}
+		}
 		data->exec_code = WEXITSTATUS(pid);
 	}
 	return (0);

@@ -42,7 +42,13 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 	int		pipefd[2];
 	int		fd;
 	
-	if (data->fd_1 == 1)
+	if (tab->simbol == RLL)
+	{
+		data->fd_0 = dup2(0, 3);
+		fd = open(tab->next->cmd[0], O_RDONLY, S_IRUSR);
+		data->fd_in = dup2(fd, 0);
+	}
+	/*if (data->fd_1 == 1)
 	{
 		if ((tab->simbol == PIPE) || (tab->simbol_last == PIPE))
 		{
@@ -66,7 +72,7 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 	{
 		close(data->fd_out);
 		data->fd_out = dup2(data->fd_1, 1);
-	}
+	}*/
 	return (0);
 }
 

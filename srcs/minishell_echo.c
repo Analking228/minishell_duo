@@ -34,8 +34,8 @@ int			minishell_echo(t_args *tab, t_data *data)
 		ft_putstr_fd("\n", data->fd_out);
 	if (close_out)
 	{
-			dup2(data->fd_1, 1);
-			close(data->fd_1);
+		dup2(data->fd_1, 1);
+		close(data->fd_1);
 	}
 	return (0);
 }

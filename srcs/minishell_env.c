@@ -29,8 +29,8 @@ int			minishell_env(t_args *tab, t_data *data)
 	}
 	if (close_out)
 	{
-			dup2(data->fd_1, 1);
-			close(data->fd_1);
+		dup2(data->fd_1, 1);
+		close(data->fd_1);
 	}
 	return (0);
 }
