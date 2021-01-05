@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/04 22:46:36 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/05 17:04:12 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,10 +192,60 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
     return(new);
 }
 
+int     ft_list_len(t_args *tab)
+{
+    int     len;
+    t_args  *tmp;
+
+    len = 0;
+    tmp = tab;
+    while (tmp)
+    {
+        tmp = tmp->next;
+        len++;
+    }
+    return (len);
+}
+
+void    ft_set_simbol(t_args *tab, int *save_sym)
+{
+    int     i;
+    t_args  *tmp;
+
+    tab->simbol_last = 0;
+    tmp = tab->next;
+    i = 0;
+    while (tmp)
+    {
+        tmp->simbol_last = save_sym[i];
+        tmp = tmp->next;
+        i++;
+    }
+}
+
 void    ft_check_list(t_args *tab)
 {
+    int     *save_sym;
+    int     i;
+    t_args  *tmp;
+
+    i = 0;
     if (tab->next == NULL)
         tab->simbol = 0;
+    else
+    {
+        tab->simbol_last = 0;
+        tmp = tab;
+        save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab)); // error malloc
+        while (tmp)
+        {
+            save_sym[i] = tmp->simbol;
+            tmp = tmp->next;
+            i++;
+        }
+        ft_set_simbol(tab, save_sym);
+        free(save_sym);
+    }
 }
 
 t_args    *parse_input(char *line, t_args *tab, t_data *data)
