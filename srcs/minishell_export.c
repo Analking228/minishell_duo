@@ -100,10 +100,8 @@ int		minishell_export(t_args *tab, t_data *data)
 {
 	int	i;
 	int	j;
-	int	close_out;
 
 	i = 1;
-	close_out = minishell_redirect_out(tab, data);
 	if (!tab->cmd[i])
 	{
 		export_default(data);
@@ -116,10 +114,5 @@ int		minishell_export(t_args *tab, t_data *data)
 		i++;
 	}
 	data->envp = export_add(tab, data, j);
-	if (close_out)
-	{
-		dup2(data->fd_1, 1);
-		close(data->fd_1);
-	}
 	return (1);
 }

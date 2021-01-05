@@ -47,6 +47,8 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 		data->fd_0 = dup2(0, 3);
 		fd = open(tab->next->cmd[0], O_RDONLY, S_IRUSR);
 		data->fd_in = dup2(fd, 0);
+		close(fd);
+		return (data->fd_in);
 	}
 	/*if (data->fd_1 == 1)
 	{

@@ -17,11 +17,8 @@
 int			minishell_echo(t_args *tab, t_data *data)
 {
 	int		i;
-	int	close_out;
 
-	//minishell_redirect_pipe();
 	i = 1;
-	close_out = minishell_redirect_out(tab, data);
 	if ((ft_strnstr(tab->cmd[1], "-n", 2) && tab->cmd[1][3] == 0))
 		i++;
 	while (tab->cmd[i])
@@ -32,10 +29,5 @@ int			minishell_echo(t_args *tab, t_data *data)
 	}
 	if (!(ft_strnstr(tab->cmd[1], "-n", 2) && tab->cmd[1][3] == 0))
 		ft_putstr_fd("\n", data->fd_out);
-	if (close_out)
-	{
-		dup2(data->fd_1, 1);
-		close(data->fd_1);
-	}
 	return (0);
 }
