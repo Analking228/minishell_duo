@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/05 17:43:21 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 18:06:22 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		minishell_start(t_args *tab, t_data *data)
 			dup2(data->fd_1, 1);
 			close(data->fd_1);
 		}
-		if (close_in)
+		if (close_in == 0)
 		{
 			dup2(data->fd_0, 0);
 			close(data->fd_0);

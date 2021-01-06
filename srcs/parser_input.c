@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/06 15:33:31 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 17:20:49 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char    *parse_envp(t_data *data, char *line, int *i)
             res = ft_strjoin(res, data->envp[j] + (++len));
         j++;
     }
+    free(key);
+    key = NULL;
     return (res);
 }
 
@@ -91,7 +93,10 @@ static char    *parse_dquote(char *arg, char *line, int *i, t_data *data)
     }
     (*i)++;
     if (flag)
+    {
         printf("error \"\n");
+        arg = ft_strdup("");
+    }
 	return (arg);
 }
 
@@ -120,7 +125,11 @@ static char    *parse_squote(char *arg, char *line, int *i)
         (*i)++;
     }
     if (flag)
+   {
         printf("error \'\n");
+        arg = ft_strdup("");
+        return (arg);
+    }
 	return (NULL);
 }
 
@@ -169,9 +178,9 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
 {
     t_args  *new;
     int     j;
-    int     len;
+
     j = 0;
-    if (!array)
+    if (!array || line[(*i) + 1] == ';')
         return (NULL);
     new = (t_args *)malloc(sizeof(t_args)); // error malloc
     new->cmd = NULL;
@@ -267,17 +276,9 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     {
         while (line[i] == ' ')
             i++;
-        arg = NULL;
         arg = ft_strdup("");
         while (line[i] && line[i] != ' ')
         {
-            if (line[i] && line[i] == '\'')
-                arg = parse_squote(arg, line, &i);
-			else if (line[i] && line[i] == '\"')
-                arg = parse_dquote(arg, line, &i, data);
-            else if (!ft_strchr(" ;><|", line[i]))
-                arg = simple_parse(arg, line, &i, data);
-            // else
             if (ft_strchr(";><|", line[i]) && line[i])
             {
                 count = 0;
@@ -286,16 +287,24 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
                 array = NULL;
                 break;
             }
-        }
-        if (ft_strncmp(arg, "", 1) != 0)
-        {
-            array = double_array_realloc(array, 1);
-            array[count++] = ft_strdup(arg);
-            free(arg);
+            if (line[i] && line[i] == '\'')
+                arg = parse_squote(arg, line, &i);
+			else if (line[i] && line[i] == '\"')
+                arg = parse_dquote(arg, line, &i, data);
+            else if (!ft_strchr(";><|", line[i]))
+                arg = simple_parse(arg, line, &i, data);
+            // else
+            if (ft_strncmp(arg, "", 1) != 0)
+            {
+                array = double_array_realloc(array, 1);
+                array[count++] = ft_strdup(arg);
+                free(arg);
+            }
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
     array = NULL;
     ft_check_list(tab);
+    arg = NULL;
     return(tab);
 }
