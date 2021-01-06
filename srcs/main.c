@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/05 17:03:46 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:33:51 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,18 @@ int			main(int argc, char **argv, char **env)
 {
 	t_args	*tab;
 	t_data	*data;
-	int		i;
 	char	*line;
-	char	**tmp;
 
 	(void)argc;
 	(void)argv;
-	i = 2;
 	data = (t_data *)malloc(sizeof(t_data));
 	ft_init_struct(tab, data);
 	ft_crt_envp(data, env);
 	while (1)
 	{
-		// ft_putstr_fd(">> ", 1);
+		ft_putstr_fd(">>> ", 1);
 		get_next_line(0, &line);
-		if ((ft_strncmp(line, "", 1)) != 0)
-			tab = parse_input(line, tab, data);
+		tab = parse_input(line, tab, data);
 		free(line);
 		line = NULL;
 		minishell_start(tab, data);		//команды исполняются до !tab->next

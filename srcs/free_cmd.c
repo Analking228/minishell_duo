@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 11:05:09 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/02 17:49:41 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 14:46:21 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		ft_free_double_array(char **cmd)
 	int		i;
 
 	i = 0;
+	if (!cmd)
+		return ;
 	while (cmd[i])
 	{
 		free(cmd[i]);
@@ -25,7 +27,6 @@ void		ft_free_double_array(char **cmd)
 		i++;
 	}
 	free(cmd);
-	cmd = NULL;
 }
 
 void		free_cmd(t_args *tab)

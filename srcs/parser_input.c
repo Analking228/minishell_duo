@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/05 17:04:12 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 15:33:31 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,11 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
     int     j;
     int     len;
     j = 0;
+    if (!array)
+        return (NULL);
     new = (t_args *)malloc(sizeof(t_args)); // error malloc
     new->cmd = NULL;
+	new->simbol = cmd_parse(line, i);
     while (array[j] != NULL)
     {
         new->cmd = double_array_realloc(new->cmd, 1);
@@ -186,9 +189,9 @@ t_args  *ft_crt_newelem(char **array, char *line, int *i, t_data *data)
         parse_exec_path(data, new);
     else
         new->exec_path = ft_strdup(new->cmd[0]);
-	new->simbol = cmd_parse(line, i);
 	new->next = NULL;
     ft_free_double_array(array);
+    array = NULL;
     return(new);
 }
 
@@ -229,6 +232,8 @@ void    ft_check_list(t_args *tab)
     int     i;
     t_args  *tmp;
 
+    if (!tab)
+        return ;
     i = 0;
     if (tab->next == NULL)
         tab->simbol = 0;
@@ -260,19 +265,12 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     array = NULL;
     while (line[i])
     {
-        arg = NULL;
-        arg = ft_strdup("");
         while (line[i] == ' ')
             i++;
+        arg = NULL;
+        arg = ft_strdup("");
         while (line[i] && line[i] != ' ')
         {
-            if (ft_strchr(";><|", line[i]))
-            {
-                count = 0;
-                ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
-                i++;
-                break;
-            }
             if (line[i] && line[i] == '\'')
                 arg = parse_squote(arg, line, &i);
 			else if (line[i] && line[i] == '\"')
@@ -280,6 +278,14 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
             else if (!ft_strchr(" ;><|", line[i]))
                 arg = simple_parse(arg, line, &i, data);
             // else
+            if (ft_strchr(";><|", line[i]) && line[i])
+            {
+                count = 0;
+                ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
+                i++;
+                array = NULL;
+                break;
+            }
         }
         if (ft_strncmp(arg, "", 1) != 0)
         {
@@ -289,6 +295,7 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
+    array = NULL;
     ft_check_list(tab);
     return(tab);
 }
