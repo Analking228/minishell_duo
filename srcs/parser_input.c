@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/06 17:20:49 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 20:13:44 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,16 @@ void    ft_check_list(t_args *tab)
     }
 }
 
+char    **ft_crt_arr(char **arr, char *str, int *i)
+{
+
+    arr = double_array_realloc(arr, 1);
+    arr[(*i)++] = ft_strdup(str);
+    free(str);
+    str = NULL;
+    return (arr);
+}
+
 t_args    *parse_input(char *line, t_args *tab, t_data *data)
 {
     int     i;
@@ -284,22 +294,18 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
                 count = 0;
                 ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
                 i++;
-                array = NULL;
+                // array = NULL;
                 break;
             }
+            printf("i = %d\n", i);
             if (line[i] && line[i] == '\'')
                 arg = parse_squote(arg, line, &i);
 			else if (line[i] && line[i] == '\"')
                 arg = parse_dquote(arg, line, &i, data);
             else if (!ft_strchr(";><|", line[i]))
                 arg = simple_parse(arg, line, &i, data);
-            // else
             if (ft_strncmp(arg, "", 1) != 0)
-            {
-                array = double_array_realloc(array, 1);
-                array[count++] = ft_strdup(arg);
-                free(arg);
-            }
+                array = ft_crt_arr(array, arg, &count);
         }
     }
     ft_add_back_elem(&tab, ft_crt_newelem(array, line, &i, data));
