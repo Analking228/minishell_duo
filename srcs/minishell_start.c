@@ -12,6 +12,26 @@
 
 #include "../includes/minishell.h"
 
+static void start_fd_closer(int in, int out, t_data *data)
+{
+	if (out)
+	{
+		dup2(data->fd_1, 1);
+		close(data->fd_1);
+	}
+	if (in)
+	{
+		dup2(data->fd_0, 0);
+		close(data->fd_0);
+	}
+	if (data->pipe_fd[0] != -1)
+	{
+		close(data->pipe_fd[0]);
+		data->fd_out = dup2(data->fd_1, 0);
+		data->pipe_fd[0] = -1;
+	}
+}
+
 int		minishell_start(t_args *tab, t_data *data)
 {
 	int	*masfd[2];
@@ -20,7 +40,8 @@ int		minishell_start(t_args *tab, t_data *data)
 
 	while (tab)
 	{
-		//printf("simbol_last = %d\n", tab->simbol_last);
+		//printf("simbol = %d\nsimbol_last = %d\n", tab->simbol, tab->simbol_last);
+		minishell_pipe(tab, data);
 		close_in = minishell_redirect_pipe(tab, data);
 		close_out = minishell_redirect_out(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
@@ -37,20 +58,9 @@ int		minishell_start(t_args *tab, t_data *data)
 			minishell_unset(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "pwd", 3))
 			minishell_pwd(tab, data);
-		else if (tab->cmd[0] /*&& (tab->simbol_last < RLR)*/)
+		else if (tab->cmd[0] && (tab->simbol_last < RLR))
 			minishell_execve(tab, data);
-		if (close_in || close_out)
-			tab = tab->next;
-		if (close_out)
-		{
-			dup2(data->fd_1, 1);
-			close(data->fd_1);
-		}
-		if (close_in)
-		{
-			dup2(data->fd_0, 0);
-			close(data->fd_0);
-		}
+		start_fd_closer(close_in, close_out, data);
 		tab = tab->next;
 	}
 	return (0);

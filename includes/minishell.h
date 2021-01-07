@@ -68,6 +68,7 @@ typedef struct s_data
 	int			fd_0;		/*  ввод (см. выше) */
 	int			fd_out;
 	int			fd_in;
+	int			pipe_fd[2];
 }				t_data;
 
 /* shell part */
@@ -83,6 +84,7 @@ int				minishell_execve(t_args *tab, t_data *data);
 int				minishell_start(t_args *tab, t_data *data);
 int				minishell_redirect_out(t_args *tab, t_data *data);
 int				minishell_redirect_pipe(t_args *tab, t_data *data);
+void			minishell_pipe(t_args *tab, t_data *data);
 void			ft_init_struct(t_args *tab, t_data *data);
 int				ft_crt_envp(t_data *data, char **env);
 int				ft_envp_count(t_data *data);
