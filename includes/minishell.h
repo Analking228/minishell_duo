@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 12:50:21 by flexer            #+#    #+#             */
-/*   Updated: 2021/01/02 17:49:22 by cquiana          ###   ########.fr       */
+/*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
+/*   Updated: 2021/01/07 11:23:39 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ typedef struct s_data
 	int			fd_in;
 	int			pipe_fd[2];
 }				t_data;
+
+typedef struct  s_pars
+{
+    int         c;
+    int         i;
+    char        *arg;
+    char        **arr;
+}               t_pars;
 
 /* shell part */
 
