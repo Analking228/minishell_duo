@@ -29,6 +29,8 @@ FILES = main\
 		parse_path\
 		parser_input\
 		parser_utils\
+		parser_create_lst\
+		parser_quote_util\
 		free_cmd
 
 SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILES)))

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/08 18:12:55 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:23:37 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int			main(int argc, char **argv, char **env)
 	{
 		ft_putstr_fd(">>> ", 1);
 		get_next_line(0, &line);
+		// validate_line(line);
 		tab = parse_input(line, tab, data);
 		free(line);
 		line = NULL;

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 11:05:09 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/06 20:35:30 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:07:43 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,23 @@ void		free_cmd(t_args *tab)
 		tab = tmp->next;
 	}
 	free(tab);
+}
+
+t_pars     ft_reset(t_pars  p)
+{
+    p.i++;
+    p.c = 0;
+    p.arr = NULL;
+    return (p);
+}
+
+t_pars    ft_init_pars_sruc(void)
+{
+    t_pars p;
+
+    p.i = 0;
+    p.c = 0;
+    p.arg = NULL;
+    p.arr = NULL;
+    return (p);
 }

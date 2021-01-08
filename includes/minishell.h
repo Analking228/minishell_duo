@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/07 11:23:39 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:24:33 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,21 @@ int				ft_is_builtin(char *cmd);
 int				array_len(char **array);
 void			free_cmd(t_args *tab);
 void			ft_free_double_array(char **cmd);
+t_pars			ft_reset(t_pars  p);
+t_pars			ft_init_pars_sruc(void);
+void			ft_check_list(t_args *tab);
+char			**ft_crt_arr(char **arr, char *str, int *i);
+int				ft_skip_space(char *str, int i);
+void    		ft_add_back(t_args **lst, t_args *elem);
+t_args  		*ft_crt_new(char **array, char *line, int *i, t_data *data);
+int				ft_list_len(t_args *tab);
+int				array_len(char **array);
+char			*parse_envp(t_data *data, char *line, int *i);
+void    		ft_set_simbol(t_args *tab, int *save_sym);
+char			*parse_squote(char *arg, char *line, int *i);
+char    		*parse_dquote(char *arg, char *line, int *i, t_data *data);
+char    		*simple_parse(char *arg, char *line, int *i, t_data *data);
+
+
 
 #endif
