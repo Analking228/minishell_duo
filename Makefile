@@ -29,6 +29,7 @@ FILES = main\
 		parse_path\
 		parser_input\
 		parser_utils\
+		parser_utils2\
 		parser_create_lst\
 		parser_quote_util\
 		parser_prevalid\

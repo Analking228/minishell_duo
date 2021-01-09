@@ -3,39 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_create_lst.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:15:50 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:24:03 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int     ft_list_len(t_args *tab)
-{
-    int     len;
-    t_args  *tmp;
-
-    len = 0;
-    tmp = tab;
-    while (tmp)
-    {
-        tmp = tmp->next;
-        len++;
-    }
-    return (len);
-}
-
-int     array_len(char **array)
-{
-    int     i;
-
-    i = 0;
-    while (array[i])
-        i++;
-    return (i);
-}
 
 static int    cmd_parse(char *line, int *i)
 {

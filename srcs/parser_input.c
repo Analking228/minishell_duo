@@ -3,16 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:22:42 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 18:03:17 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char    *parse_envp(t_data *data, char *line, int *i)
+static char *dollar_cases(t_data *data, char *line, int *i)
+{
+    char    *res;
+
+    if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
+        return(res = ft_strdup("$"));
+    if (line[(*i)] == '?')
+        return(res = ft_itoa(data->exec_code));
+    if (ft_strchr("0123456789", line[(*i)]))
+        (*i)++;
+    return (NULL);
+}
+
+static char *ft_get_key(char *line, int *i, char *key)
+{
+    while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"' && line[(*i)] != '$')
+    {
+        key = add_symbol(key, line[(*i)++]);
+        if (line[(*i)] == '$')
+        {
+           (*i)++;
+            key = NULL;
+            key = ft_strdup("");
+            while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
+                key = add_symbol(key, line[(*i)++]);
+            break;
+        }
+    }
+    return (key);
+}
+
+char        *parse_envp(t_data *data, char *line, int *i)
 {
     char    *key;
     char    *res;
@@ -20,14 +51,11 @@ char    *parse_envp(t_data *data, char *line, int *i)
 
     (*i)++;
     j = 0;
-    if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
-        return(res = ft_strdup("$"));
-    if (line[(*i)] == '?')
-        return(res = ft_itoa(data->exec_code));
+    if (ft_strchr("0123456789 \"?\0", line[(*i)]))
+        return (res = dollar_cases(data, line, i));
     key = ft_strdup("");
     res = ft_strdup("");
-    while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
-        key = add_symbol(key, line[(*i)++]);
+    key = ft_get_key(line, i, key);
     key = add_symbol(key, '=');
     while (data->envp[j])
     {
@@ -38,22 +66,6 @@ char    *parse_envp(t_data *data, char *line, int *i)
     free(key);
     key = NULL;
     return (res);
-}
-
-void    ft_set_simbol(t_args *tab, int *save_sym)
-{
-    int     i;
-    t_args  *tmp;
-
-    tab->simbol_last = 0;
-    tmp = tab->next;
-    i = 0;
-    while (tmp)
-    {
-        tmp->simbol_last = save_sym[i];
-        tmp = tmp->next;
-        i++;
-    }
 }
 
 static char *parse_line(char *arg, char *line, int *i, t_data *data)
