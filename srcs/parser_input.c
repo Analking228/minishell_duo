@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 17:26:20 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 18:03:17 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,24 @@ static char *dollar_cases(t_data *data, char *line, int *i)
     return (NULL);
 }
 
+static char *ft_get_key(char *line, int *i, char *key)
+{
+    while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"' && line[(*i)] != '$')
+    {
+        key = add_symbol(key, line[(*i)++]);
+        if (line[(*i)] == '$')
+        {
+           (*i)++;
+            key = NULL;
+            key = ft_strdup("");
+            while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
+                key = add_symbol(key, line[(*i)++]);
+            break;
+        }
+    }
+    return (key);
+}
+
 char        *parse_envp(t_data *data, char *line, int *i)
 {
     char    *key;
@@ -33,13 +51,11 @@ char        *parse_envp(t_data *data, char *line, int *i)
 
     (*i)++;
     j = 0;
-
     if (ft_strchr("0123456789 \"?\0", line[(*i)]))
         return (res = dollar_cases(data, line, i));
     key = ft_strdup("");
     res = ft_strdup("");
-    while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
-        key = add_symbol(key, line[(*i)++]);
+    key = ft_get_key(line, i, key);
     key = add_symbol(key, '=');
     while (data->envp[j])
     {
