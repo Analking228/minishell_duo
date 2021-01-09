@@ -18,18 +18,6 @@
 	будут какие-то изменения - обязательно оставляй коммент. Название
 	твоих файлов и функций прошу начинать с "parser_"					*/
 
-static int	free_tmp(char **tmp, int count)
-{
-	//ft_printf("in the free\n");
-	while (count)
-	{
-		//ft_printf("freeing %d %s\n", count, tmp[count]);
-		free(tmp[count]);
-		count--;
-	}
-	free(tmp);
-	return (1);
-}
 
 int			main(int argc, char **argv, char **env)
 {

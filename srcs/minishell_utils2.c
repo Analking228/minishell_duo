@@ -37,7 +37,7 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 	return (0);
 }
 
-int			minishell_redirect_pipe(t_args *tab, t_data *data)
+int			minishell_redirect_in(t_args *tab, t_data *data)
 {
 	int		fd;
 
@@ -55,12 +55,11 @@ int			minishell_redirect_pipe(t_args *tab, t_data *data)
 void			minishell_pipe(t_args *tab, t_data *data)
 {
 	static int		pipefd[2];
-	static int		flag;
 
-	if (!flag)
+	if ((tab->simbol == PIPE) && !data->opnd_pipe)
 	{
 		pipe(pipefd);
-		flag++;
+		data->opnd_pipe = 1;
 	}
 	if ((tab->simbol == PIPE) && (tab->simbol_last < PIPE))
 	{
@@ -68,14 +67,20 @@ void			minishell_pipe(t_args *tab, t_data *data)
 		data->pipe_fd[1] = dup2(pipefd[W], 1);
 		close(pipefd[W]);
 	}
-	else if((tab->simbol_last == PIPE) && (tab->simbol_last < PIPE))
+	else if((tab->simbol < PIPE) && (tab->simbol_last == PIPE))
 	{
 		close(data->pipe_fd[1]);
 		data->fd_out = dup2(data->fd_1, 1);
+		data->pipe_fd[1] = -1;
 		data->fd_0 = dup(0);
 		data->pipe_fd[0] = dup2(pipefd[R], 0);
 		close(pipefd[R]);
-		flag = 0;
+		data->opnd_pipe = 0;
+	}
+	else if((tab->simbol == PIPE) && (tab->simbol_last == PIPE))
+	{
+		data->fd_0 = dup(0);
+		data->pipe_fd[0] = dup2(pipefd[R], 0);
 	}
 }
 

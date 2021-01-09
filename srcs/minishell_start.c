@@ -12,38 +12,49 @@
 
 #include "../includes/minishell.h"
 
-static void start_fd_closer(int in, int out, t_data *data)
+static void start_fd_closer(t_data *data)
 {
-	if (out)
+	//printf("data->fd_0 = %d\n", data->fd_0);
+	if ((data->fd_1 != 1) && (data->pipe_fd[1] == -1))
 	{
 		dup2(data->fd_1, 1);
 		close(data->fd_1);
+		data->fd_1 = 1;
 	}
-	if (in)
+	if ((data->fd_0 != 0) && (data->pipe_fd[0] == -1))
 	{
 		dup2(data->fd_0, 0);
 		close(data->fd_0);
+		data->fd_0 = 0;
 	}
-	if (data->pipe_fd[0] != -1)
+	if (!(data->opnd_pipe) && (data->pipe_fd[0] != -1))
 	{
 		close(data->pipe_fd[0]);
-		data->fd_out = dup2(data->fd_1, 0);
+		data->fd_in = dup2(data->fd_0, 0);
+		close(data->fd_0);
+		data->fd_0 = 0;
 		data->pipe_fd[0] = -1;
+	}
+	if (!(data->opnd_pipe) && (data->pipe_fd[1] != -1))
+	{
+		close(data->pipe_fd[1]);
+		data->fd_out = dup2(data->fd_1, 1);
+		close(data->fd_1);
+		data->fd_1 = 1;
+		data->pipe_fd[1] = -1;
 	}
 }
 
 int		minishell_start(t_args *tab, t_data *data)
 {
 	int	*masfd[2];
-	int	close_out;
-	int	close_in;
 
 	while (tab)
 	{
 		//printf("simbol = %d\nsimbol_last = %d\n", tab->simbol, tab->simbol_last);
 		minishell_pipe(tab, data);
-		close_in = minishell_redirect_pipe(tab, data);
-		close_out = minishell_redirect_out(tab, data);
+		minishell_redirect_in(tab, data);
+		minishell_redirect_out(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
 			minishell_export(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))
@@ -60,7 +71,7 @@ int		minishell_start(t_args *tab, t_data *data)
 			minishell_pwd(tab, data);
 		else if (tab->cmd[0] && (tab->simbol_last < RLR))
 			minishell_execve(tab, data);
-		start_fd_closer(close_in, close_out, data);
+		start_fd_closer(data);
 		tab = tab->next;
 	}
 	return (0);

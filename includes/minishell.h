@@ -69,6 +69,7 @@ typedef struct s_data
 	int			fd_out;
 	int			fd_in;
 	int			pipe_fd[2];
+	int			opnd_pipe;
 }				t_data;
 
 typedef struct  s_pars
@@ -91,7 +92,7 @@ int				minishell_env(t_args *tab, t_data *data);
 int				minishell_execve(t_args *tab, t_data *data);
 int				minishell_start(t_args *tab, t_data *data);
 int				minishell_redirect_out(t_args *tab, t_data *data);
-int				minishell_redirect_pipe(t_args *tab, t_data *data);
+int				minishell_redirect_in(t_args *tab, t_data *data);
 void			minishell_pipe(t_args *tab, t_data *data);
 void			ft_init_struct(t_args *tab, t_data *data);
 int				ft_crt_envp(t_data *data, char **env);
