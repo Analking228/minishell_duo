@@ -54,33 +54,22 @@ int			minishell_redirect_in(t_args *tab, t_data *data)
 
 void			minishell_pipe(t_args *tab, t_data *data)
 {
-	static int		pipefd[2];
+	static int		oldfd[2];
+	static int		newfd[2];
 
-	if ((tab->simbol == PIPE) && !data->opnd_pipe)
-	{
-		pipe(pipefd);
-		data->opnd_pipe = 1;
-	}
 	if ((tab->simbol == PIPE) && (tab->simbol_last < PIPE))
 	{
-		data->fd_1 = dup(1);
-		data->pipe_fd[1] = dup2(pipefd[W], 1);
-		close(pipefd[W]);
+		pipe(newfd);
+		dup2(newfd[W], 1);
+		close(newfd[W]);
+		oldfd[R] = newfd[R];
+		oldfd[W] = newfd[W];
 	}
 	else if((tab->simbol < PIPE) && (tab->simbol_last == PIPE))
 	{
-		close(data->pipe_fd[1]);
-		data->fd_out = dup2(data->fd_1, 1);
-		data->pipe_fd[1] = -1;
-		data->fd_0 = dup(0);
-		data->pipe_fd[0] = dup2(pipefd[R], 0);
-		close(pipefd[R]);
-		data->opnd_pipe = 0;
-	}
-	else if((tab->simbol == PIPE) && (tab->simbol_last == PIPE))
-	{
-		data->fd_0 = dup(0);
-		data->pipe_fd[0] = dup2(pipefd[R], 0);
+		dup2(oldfd[R], 0);
+		close(oldfd[R]);
+		dup2(data->fd_1, 1);
 	}
 }
 

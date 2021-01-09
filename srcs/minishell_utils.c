@@ -73,8 +73,8 @@ void	ft_init_struct(t_args *tab, t_data *data)
 	data->exec_code = 0;
 	data->oldpwd = NULL;
 	data->curpwd = NULL;
-	data->fd_0 = 0;
-	data->fd_1 = 1;
+	data->fd_0 = dup(0);
+	data->fd_1 = dup(1);
 	data->fd_out = data->fd_1;
 	data->fd_in = data->fd_0;
 	data->pipe_fd[0] = -1;
