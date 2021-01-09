@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/09 11:41:22 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 14:32:49 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void    		ft_set_simbol(t_args *tab, int *save_sym);
 char			*parse_squote(char *arg, char *line, int *i);
 char    		*parse_dquote(char *arg, char *line, int *i, t_data *data);
 char    		*simple_parse(char *arg, char *line, int *i, t_data *data);
-void    		validate_line(char *line);
+void	        validate_line(char *line, t_data *data);
 
 
 
