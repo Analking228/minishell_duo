@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 18:03:17 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 18:16:46 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,12 @@ static char *ft_get_key(char *line, int *i, char *key)
         if (line[(*i)] == '$')
         {
            (*i)++;
+            free(key);
             key = NULL;
             key = ft_strdup("");
             while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
                 key = add_symbol(key, line[(*i)++]);
-            break;
+            return (key);
         }
     }
     return (key);
