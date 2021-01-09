@@ -20,19 +20,17 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 
 	if (tab->simbol == RLR)
 	{
-		data->fd_1 = dup(1);
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
 		data->fd_out = dup2(fd, 1);
 		close(fd);
-		return (data->fd_out);
+		return (1);
 	}
 	else if (tab->simbol == DRLR)
 	{
-		data->fd_1 = dup(1);
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
 		data->fd_out = dup2(fd, 1);
 		close(fd);
-		return (data->fd_out);
+		return (1);
 	}
 	return (0);
 }
@@ -43,7 +41,6 @@ int			minishell_redirect_in(t_args *tab, t_data *data)
 
 	if (tab->simbol == RLL)
 	{
-		data->fd_0 = dup(0);
 		fd = open(tab->next->cmd[0], O_RDONLY, S_IRUSR);
 		data->fd_in = dup2(fd, 0);
 		close(fd);
@@ -65,11 +62,21 @@ void			minishell_pipe(t_args *tab, t_data *data)
 		oldfd[R] = newfd[R];
 		oldfd[W] = newfd[W];
 	}
-	else if((tab->simbol < PIPE) && (tab->simbol_last == PIPE))
+	else if ((tab->simbol != PIPE) && (tab->simbol_last == PIPE))
 	{
 		dup2(oldfd[R], 0);
 		close(oldfd[R]);
 		dup2(data->fd_1, 1);
+	}
+	else if ((tab->simbol == PIPE) && (tab->simbol_last == PIPE))
+	{
+		pipe(newfd);
+		dup2(newfd[W], 1);
+		close(newfd[W]);
+		dup2(oldfd[R], 0);
+		close(oldfd[R]);
+		oldfd[R] = newfd[R];
+		oldfd[W] = newfd[W];
 	}
 }
 
