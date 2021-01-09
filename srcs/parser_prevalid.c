@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 15:07:24 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 15:48:19 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void        validate_line(char *line, t_data *data)
     i = 0;
     while (is_space(line[i]))
         i++;
+    if (!(ft_strncmp(line, "echo $?", 7)))
+        return ;
     if (line[i] == ';' && line[i + 1] != ';')
     {
         ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
@@ -97,4 +99,6 @@ void        validate_line(char *line, t_data *data)
     }
     else if (check_double_pipe_sem(line))
         data->exec_code = 258;
+    else
+        data->exec_code = 0;
 }
