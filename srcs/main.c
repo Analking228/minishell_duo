@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/09 15:40:14 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 16:25:11 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int			main(int argc, char **argv, char **env)
 		ft_putstr_fd(">>> ", 1);
 		get_next_line(0, &line);
 		validate_line(line, data);
-		printf("code = %d\n", data->exec_code);
 		tab = parse_input(line, tab, data);
 		free(line);
 		line = NULL;

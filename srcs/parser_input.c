@@ -3,16 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:22:42 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 17:26:20 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char    *parse_envp(t_data *data, char *line, int *i)
+static char *dollar_cases(t_data *data, char *line, int *i)
+{
+    char    *res;
+
+    if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
+        return(res = ft_strdup("$"));
+    if (line[(*i)] == '?')
+        return(res = ft_itoa(data->exec_code));
+    if (ft_strchr("0123456789", line[(*i)]))
+        (*i)++;
+    return (NULL);
+}
+
+char        *parse_envp(t_data *data, char *line, int *i)
 {
     char    *key;
     char    *res;
@@ -20,10 +33,9 @@ char    *parse_envp(t_data *data, char *line, int *i)
 
     (*i)++;
     j = 0;
-    if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
-        return(res = ft_strdup("$"));
-    if (line[(*i)] == '?')
-        return(res = ft_itoa(data->exec_code));
+
+    if (ft_strchr("0123456789 \"?\0", line[(*i)]))
+        return (res = dollar_cases(data, line, i));
     key = ft_strdup("");
     res = ft_strdup("");
     while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
@@ -38,22 +50,6 @@ char    *parse_envp(t_data *data, char *line, int *i)
     free(key);
     key = NULL;
     return (res);
-}
-
-void    ft_set_simbol(t_args *tab, int *save_sym)
-{
-    int     i;
-    t_args  *tmp;
-
-    tab->simbol_last = 0;
-    tmp = tab->next;
-    i = 0;
-    while (tmp)
-    {
-        tmp->simbol_last = save_sym[i];
-        tmp = tmp->next;
-        i++;
-    }
 }
 
 static char *parse_line(char *arg, char *line, int *i, t_data *data)
