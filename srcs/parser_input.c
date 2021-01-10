@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 18:16:46 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/09 22:35:32 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static char *dollar_cases(t_data *data, char *line, int *i)
     char    *res;
 
     if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
-        return(res = ft_strdup("$"));
+        return(res = ft_strdup("$")); // need free???
     if (line[(*i)] == '?')
-        return(res = ft_itoa(data->exec_code));
+        return(res = ft_itoa(data->exec_code)); // need free???
     if (ft_strchr("0123456789", line[(*i)]))
         (*i)++;
     return (NULL);
