@@ -41,7 +41,7 @@ int		minishell_start(t_args *tab, t_data *data)
 	while (tab)
 	{
 		//printf("simbol = %d\nsimbol_last = %d\n", tab->simbol, tab->simbol_last);
-		//minishell_pipe(tab, data);
+		minishell_pipe(tab, data);
 		minishell_redirect_in(tab, data);
 		minishell_redirect_out(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
