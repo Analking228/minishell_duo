@@ -16,6 +16,17 @@
 
 int		minishell_cd(t_args *tab, t_data *data)
 {
-	ft_putendl_fd("cd", 1);
-	return (1);
+	chdir(tab->cmd[1]);
+	
+	return (0);
 }
+/*
+static void		minishell_cd_addpwd(t_data *data)
+{
+	int			i;
+
+	while (data->envp[i])
+	{
+		i++;
+	}
+}*/

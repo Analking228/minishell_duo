@@ -80,3 +80,19 @@ void			minishell_pipe(t_args *tab, t_data *data)
 	}
 }
 
+int			minishell_export_str_prove(char *str1, char *str2)
+{
+	int		i;
+
+	if (str1)
+	{
+		i = 0;
+		while (((str1[i] == str2[i])) && (str1[i] && str2[i]))
+		{
+			if (str1[i] == '=')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}

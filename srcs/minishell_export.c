@@ -14,16 +14,23 @@
 
 #include "../includes/minishell.h"
 
-static int	free_tmp(char **tmp, int count)
+static int	check_existed(char *tmp, t_data *data)
 {
-	while (count != -1)
+	int		i;
+	int		j;
+	char	*c;
+
+	if (tmp)
 	{
-		free(tmp[count]);
-		count--;
+		i = 0;
+		while (data->envp[i])
+		{
+			if (minishell_export_str_prove(tmp, data->envp[i]))
+				return (1);
+			i++;
+		}
 	}
-	free(tmp);
-	tmp = NULL;
-	return (1);
+	return (0);
 }
 
 static char	**export_add(t_args *tab, t_data *data, int add)
@@ -40,7 +47,10 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	i = 0;
 	while (tmp[i])
 	{
-		data->envp[i] = ft_strdup(tmp[i]);
+		if (!minishell_export_str_prove(tab->cmd[j], tmp[i]))
+			data->envp[i] = ft_strdup(tmp[i]);
+		else
+			data->envp[i] = ft_strdup(tab->cmd[j++]);
 		free(tmp[i]);
 		i++;
 	}
@@ -48,8 +58,7 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	free(tmp);
 	while (add)
 	{
-		data->envp[i++] = ft_strdup(tab->cmd[j++]); /* добавить проверку
-													на знак равно */
+		data->envp[i++] = ft_strdup(tab->cmd[j++]);
 		add--;
 	}
 	data->envp[i] = NULL;
@@ -110,7 +119,8 @@ int		minishell_export(t_args *tab, t_data *data)
 	j = 0;
 	while (tab->cmd[i])
 	{
-		j++;
+		if (!check_existed(tab->cmd[i], data))
+			j++;
 		i++;
 	}
 	data->envp = export_add(tab, data, j);

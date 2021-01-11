@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static int	ft_env_srch_len(char *str)
+int			ft_env_srch_len(char *str)
 {
 	int		count;
 
