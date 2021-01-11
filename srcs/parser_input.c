@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 18:16:46 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 09:47:19 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char        *parse_envp(t_data *data, char *line, int *i)
     while (data->envp[j])
     {
         if (ft_strncmp(key, data->envp[j], ft_strlen(key)) == 0)
-            res = ft_strjoin(res, data->envp[j] + ft_strlen(key));
+            res = ft_strjoinf(res, data->envp[j] + ft_strlen(key));
         j++;
     }
     free(key);

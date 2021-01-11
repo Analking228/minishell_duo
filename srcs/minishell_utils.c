@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/02 14:15:42 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:01:48 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	ft_init_struct(t_args *tab, t_data *data)
 	data->pipe_fd[0] = -1;
 	data->pipe_fd[1] = -1;
 	data->opnd_pipe = 0;
+	read_status = 1;
 }
 
 int		ft_envp_count(t_data *data)

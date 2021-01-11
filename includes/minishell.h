@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/09 17:23:24 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:01:31 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ typedef struct  s_pars
     char        **arr;
 }               t_pars;
 
+int				read_status;
+
 /* shell part */
 
 int				minishell_pwd(t_args *tab, t_data *data);
@@ -127,6 +129,8 @@ char			*parse_squote(char *arg, char *line, int *i);
 char    		*parse_dquote(char *arg, char *line, int *i, t_data *data);
 char    		*simple_parse(char *arg, char *line, int *i, t_data *data);
 void	        validate_line(char *line, t_data *data);
+char			*ft_strjoinf(char const *s1, char const *s2);
+int				get_line(int fd, char **line);
 
 
 

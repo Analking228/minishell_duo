@@ -33,6 +33,7 @@ FILES = main\
 		parser_create_lst\
 		parser_quote_util\
 		parser_prevalid\
+		get_line\
 		free_cmd
 
 SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_DIR), $(FILES)))
