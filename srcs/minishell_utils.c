@@ -110,7 +110,6 @@ int		ft_crt_envp(t_data *data, char **env)
 	}
 	data->envp[j] = NULL;
 	data->curpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
-	//printf("curpwd = %s\n", data->curpwd);
 	data->oldpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
 	return (0);
 }

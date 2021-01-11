@@ -19,19 +19,6 @@ static void start_fd_closer(t_args *tab, t_data *data)
 		dup2(data->fd_1, 1);
 		dup2(data->fd_0, 0);
 	}
-	//printf("data->fd_0 = %d\n", data->fd_0);
-	/*if ((data->fd_1 != 1))
-	{
-		dup2(data->fd_1, 1);
-		close(data->fd_1);
-		data->fd_1 = 1;
-	}
-	if ((data->fd_0 != 0))
-	{
-		dup2(data->fd_0, 0);
-		close(data->fd_0);
-		data->fd_0 = 0;
-	}*/
 }
 
 int		minishell_start(t_args *tab, t_data *data)
@@ -40,7 +27,6 @@ int		minishell_start(t_args *tab, t_data *data)
 
 	while (tab)
 	{
-		//printf("simbol = %d\nsimbol_last = %d\n", tab->simbol, tab->simbol_last);
 		minishell_pipe(tab, data);
 		minishell_redirect_in(tab, data);
 		minishell_redirect_out(tab, data);
