@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:16:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:20:26 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 09:53:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*parse_squote(char *arg, char *line, int *i)
         if (line[(*i)] == '\'')
         {
             res = ft_crt_res(line, start, i, &flag);
-			arg = ft_strjoin(arg, res); //need add  free() in strjoin
+			arg = ft_strjoinf(arg, res); //need add  free() in strjoin
 			free(res);
             return (arg);
         }
@@ -62,7 +62,7 @@ char    *simple_parse(char *arg, char *line, int *i, t_data *data)
 		else if (line[(*i)] == '$')
             envp_value = parse_envp(data, line, i);
         if (envp_value)
-            arg = ft_strjoin(arg, envp_value);
+            arg = ft_strjoinf(arg, envp_value); // free
         else
             arg = add_symbol(arg, line[(*i)]);
         (*i)++;
@@ -92,7 +92,7 @@ char    *parse_dquote(char *arg, char *line, int *i, t_data *data)
                 break;
         }
 		if (line[(*i)] == '$')
-            arg = ft_strjoin(arg, parse_envp(data, line, i)); // free
+            arg = ft_strjoinf(arg, parse_envp(data, line, i)); // free
         else
             arg = add_symbol(arg, line[(*i)++]);
     }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 12:59:52 by skarry            #+#    #+#             */
-/*   Updated: 2020/05/22 20:21:06 by skarry           ###   ########.fr       */
+/*   Updated: 2021/01/11 10:40:11 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 32
+# define BUFFER_SIZE 1
 
 typedef struct		s_list
 {

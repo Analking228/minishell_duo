@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 17:19:10 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 17:21:38 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 09:47:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,34 @@ void    ft_set_simbol(t_args *tab, int *save_sym)
         tmp = tmp->next;
         i++;
     }
+}
+
+char	*ft_strjoinf(char const *s1, char const *s2)
+{
+	int		i;
+	int		j;
+	int		len;
+	char	*newstr;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen((char*)s1) + ft_strlen((char*)s2);
+	if (!(newstr = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+	{
+		newstr[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0')
+	{
+		newstr[i] = s2[j];
+		i++;
+		j++;
+	}
+	newstr[i] = '\0';
+    free((void *)s1);
+	return (newstr);
 }

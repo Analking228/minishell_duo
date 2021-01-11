@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 18:34:24 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:01:08 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 09:56:03 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_exec_path(t_data *data, t_args *tab)
 	while (split_path[i] != 0)
 	{
 		tmp = ft_strjoin(split_path[i], "/");
-		tmp = ft_strjoin(tmp, tab->cmd[0]);
+		tmp = ft_strjoinf(tmp, tab->cmd[0]);
 		if ((find_exec_bin(tmp) == 0))
 		{
 			tab->exec_path = ft_strdup(tmp);
