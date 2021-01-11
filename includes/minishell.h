@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/11 13:45:42 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:01:31 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct  s_pars
     char        *arg;
     char        **arr;
 }               t_pars;
+
+int				read_status;
 
 /* shell part */
 

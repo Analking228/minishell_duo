@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:54:00 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/11 13:58:06 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 18:06:14 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int		get_line(int fd, char **line)
 	{
 		if (!byte && !ft_strlen(*line))
 			return (42);
-		// else if (!byte)
-		// 	ft_putstr_fd("  \b\b", 1);
+		else if (!byte)
+			ft_putstr_fd("  \b\b", 1);
 		buf[byte] = '\0';
 		if ((ptr_nl = ft_strchr(buf, '\n')))
 		{
