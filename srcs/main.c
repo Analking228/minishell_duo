@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/11 22:02:53 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 12:29:55 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void		signal_handler(int s)
 		if (read_status)
 		{
 			ft_putstr_fd("\b\b  \b\b\n", 1);
-			ft_putstr_fd("minishell $> ", 1);
+			ft_putstr_fd("$> ", 0);
 		}
 		else
 			ft_putstr_fd("\n", 1);
-			// status
+		gl_status = 1;
 	}
 	if (s == SIGQUIT)
 	{
@@ -39,7 +39,7 @@ void		signal_handler(int s)
 			ft_putstr_fd("\b\b  \b\b", 1);
 			// ft_putstr_fd("Quit: 3\n", 1);
 		}
-	//status
+		gl_status = 131;
 	}
 }
 
@@ -60,7 +60,7 @@ int			main(int argc, char **argv, char **env)
 	ft_crt_envp(data, env);
 	while (1)
 	{
-		ft_putstr_fd("minishell $> ", 1);
+		ft_putstr_fd("\b\b\b$> ", 1);
 		ret = get_line(0, &line);
 		if (ret == 42)
 		{

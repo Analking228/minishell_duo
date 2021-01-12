@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_create_lst.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/09 17:24:03 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:23:39 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_args    *ft_init_arg(t_args *new, char **arr)
     int j;
 
     j = 0;
+
     new = (t_args *)malloc(sizeof(t_args)); // error malloc
     new->cmd = NULL;
     new->cmd = (char **)malloc(sizeof(char*) * (array_len(arr) + 1)); // error
@@ -80,4 +81,12 @@ t_args  *ft_crt_new(char **array, char *line, int *i, t_data *data)
 	new->next = NULL;
     ft_free_double_array(array);
     return(new);
+}
+
+void       ft_free_pars_sruc(t_pars  p)
+{
+    p.arg = NULL;
+    p.arr = NULL;
+    p.c = 0;
+    p.i = 0;
 }

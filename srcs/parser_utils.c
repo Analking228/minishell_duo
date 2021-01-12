@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:06:57 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:22:26 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char    *add_symbol(char *str, char c)
     int     i;
 
     i = 0;
-    res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2)); // if
+	if (!(res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2))))
+		ft_error("malloc error", 1);
     while (str[i])
     {
         res[i] = str[i];
@@ -72,7 +73,8 @@ void    ft_check_list(t_args *tab)
     {
         tab->simbol_last = 0;
         tmp = tab;
-        save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab)); // error malloc
+		if (!(save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab))))
+        	ft_error("malloc error", 1);
         while (tmp)
         {
             save_sym[i] = tmp->simbol;
@@ -93,11 +95,4 @@ char    **ft_crt_arr(char **arr, char *str, int *i)
     free(str);
     str = NULL;
     return (arr);
-}
-
-int    ft_skip_space(char *str, int i)
-{
-    while (str[i] == ' ')
-        i++;
-    return (i);
 }

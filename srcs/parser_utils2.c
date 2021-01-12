@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 17:19:10 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/11 09:47:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:47:29 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,12 @@ char	*ft_strjoinf(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
-	int		len;
 	char	*newstr;
 
 	if (!s1 || !s2)
 		return (NULL);
-	len = ft_strlen((char*)s1) + ft_strlen((char*)s2);
-	if (!(newstr = malloc(sizeof(char) * (len + 1))))
+	if (!(newstr = malloc(sizeof(char) *
+        ((ft_strlen((char*)s1) + ft_strlen((char*)s2)) + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;

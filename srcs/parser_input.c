@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/11 22:19:53 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 14:33:26 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static char *dollar_cases(t_data *data, char *line, int *i)
     if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
         return(res = ft_strdup("$"));
     if (line[(*i)] == '?')
-        return(res = ft_itoa(data->exec_code));
+        return(res = ft_itoa(gl_status));
     if (ft_strchr("0123456789", line[(*i)]))
         (*i)++;
     return (NULL);
@@ -35,7 +35,8 @@ static char *ft_get_key(char *line, int *i, char *key)
            (*i)++;
             free(key);
             key = NULL;
-            key = ft_strdup(""); // maybe calloc?
+            if (!(key = ft_strdup("")))
+                ft_error("malloc error\n", 1);
             while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
                 key = add_symbol(key, line[(*i)++]);
             return (key);
@@ -54,8 +55,8 @@ char        *parse_envp(t_data *data, char *line, int *i)
     j = 0;
     if (ft_strchr("0123456789 \"?\0", line[(*i)]))
         return (res = dollar_cases(data, line, i));
-    key = ft_strdup(""); // maybe calloc?
-    res = ft_strdup(""); // maybe calloc?
+    if (!(key = ft_strdup("")) || !(res = ft_strdup("")))
+        ft_error("malloc error\n", 1);
     key = ft_get_key(line, i, key);
     key = add_symbol(key, '=');
     while (data->envp[j])
@@ -88,7 +89,8 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     while (line[p.i])
     {
         p.i = ft_skip_space(line, p.i);
-        p.arg = ft_strdup("");
+        if (!(p.arg = ft_calloc(sizeof(char), 1)))
+            ft_error("malloc error\n", 1);
         while (line[p.i] && line[p.i] != ' ')
         {
             if (ft_strchr(";><|", line[p.i]))
@@ -105,6 +107,6 @@ t_args    *parse_input(char *line, t_args *tab, t_data *data)
     }
     ft_add_back(&tab, ft_crt_new(p.arr, line, &p.i, data));
     ft_check_list(tab);
-    p = ft_init_pars_sruc(); // null
+    ft_free_pars_sruc(p);
     return (tab);
 }
