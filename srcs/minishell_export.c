@@ -37,6 +37,7 @@ static char	**export_add(char **cmd, t_data *data, int add)
 {
 	int		i;
 	int		j;
+	//int		len;
 	char	**tmp;
 
 	j = 1;
@@ -51,6 +52,8 @@ static char	**export_add(char **cmd, t_data *data, int add)
 			data->envp[i] = ft_strdup(tmp[i]);
 		else
 			data->envp[i] = ft_strdup(cmd[j++]);
+		/*ft_putendl_fd(tmp[i], 1);
+		ft_putendl_fd(data->envp[i], 1);*/
 		free(tmp[i]);
 		i++;
 	}
