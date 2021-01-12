@@ -31,20 +31,20 @@ int		minishell_start(t_args *tab, t_data *data)
 		minishell_redirect_in(tab, data);
 		minishell_redirect_out(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
-			minishell_export(tab, data);
+			minishell_export(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "cd", 2))
-			minishell_cd(tab, data);
+			minishell_cd(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))
-			minishell_echo(tab, data);
+			minishell_echo(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "env", 3))
-			minishell_env(tab, data);
+			minishell_env(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "pwd", 3))
-			minishell_pwd(tab, data);
+			minishell_pwd(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "exit", 4))
 			minishell_exit(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "unset", 5))
 			minishell_unset(tab, data);
-		else if (tab->cmd[0] && (tab->simbol_last < RLR))
+		else if (tab->cmd[0] && (tab->simbol_last < PIPE))
 			minishell_execve(tab, data);
 		start_fd_closer(tab, data);
 		tab = tab->next;

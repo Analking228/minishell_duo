@@ -33,7 +33,7 @@ static int	check_existed(char *tmp, t_data *data)
 	return (0);
 }
 
-static char	**export_add(t_args *tab, t_data *data, int add)
+static char	**export_add(char **cmd, t_data *data, int add)
 {
 	int		i;
 	int		j;
@@ -47,10 +47,10 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	i = 0;
 	while (tmp[i])
 	{
-		if (!minishell_export_str_prove(tab->cmd[j], tmp[i]))
+		if (!minishell_export_str_prove(cmd[j], tmp[i]))
 			data->envp[i] = ft_strdup(tmp[i]);
 		else
-			data->envp[i] = ft_strdup(tab->cmd[j++]);
+			data->envp[i] = ft_strdup(cmd[j++]);
 		free(tmp[i]);
 		i++;
 	}
@@ -58,7 +58,7 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	free(tmp);
 	while (add)
 	{
-		data->envp[i++] = ft_strdup(tab->cmd[j++]);
+		data->envp[i++] = ft_strdup(cmd[j++]);
 		add--;
 	}
 	data->envp[i] = NULL;
@@ -105,24 +105,24 @@ static void	export_default(t_data *data)
 	}
 }
 
-int		minishell_export(t_args *tab, t_data *data)
+int		minishell_export(char **cmd, t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	if (!tab->cmd[i])
+	if (!cmd[i])
 	{
 		export_default(data);
 		return (1);
 	}
 	j = 0;
-	while (tab->cmd[i])
+	while (cmd[i])
 	{
-		if (!check_existed(tab->cmd[i], data))
+		if (!check_existed(cmd[i], data))
 			j++;
 		i++;
 	}
-	data->envp = export_add(tab, data, j);
+	data->envp = export_add(cmd, data, j);
 	return (1);
 }

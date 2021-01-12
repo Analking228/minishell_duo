@@ -14,22 +14,22 @@
 
 #include "../includes/minishell.h"
 
-int			minishell_echo(t_args *tab, t_data *data)
+int			minishell_echo(char **cmd, t_data *data)
 {
 	int		i;
 
-	if (tab->cmd[1])
+	if (cmd[1])
 	{
 		i = 1;
-		if ((ft_strnstr(tab->cmd[1], "-n", 2) && tab->cmd[1][3] == 0))
+		if ((ft_strnstr(cmd[i], "-n", 2) && cmd[i][3] == 0))
 			i++;
-		while (tab->cmd[i])
+		while (cmd[i])
 		{
-			ft_putstr_fd(tab->cmd[i], data->fd_out);
-			if (tab->cmd[++i] != NULL)
+			ft_putstr_fd(cmd[i], data->fd_out);
+			if (cmd[++i] != NULL)
 				ft_putstr_fd(" ", data->fd_out);
 		}
-		if (!(ft_strnstr(tab->cmd[1], "-n", 2) && !tab->cmd[1]))
+		if (!ft_strnstr(cmd[1], "-n", 2))
 			ft_putstr_fd("\n", data->fd_out);
 	}
 	else

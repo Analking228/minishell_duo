@@ -1,7 +1,7 @@
 /*without any options*/
 #include "../includes/minishell.h"
 
-int			minishell_pwd(t_args *tab, t_data *data)
+int			minishell_pwd(char **cmd, t_data *data)
 {    
 	char	PathName[PATH_MAX];
 	char	*pn;

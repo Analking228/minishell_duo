@@ -14,7 +14,7 @@
 
 #include "../includes/minishell.h"
 
-int			minishell_env(t_args *tab, t_data *data)
+int			minishell_env(char **cmd, t_data *data)
 {
 	int	i;
 

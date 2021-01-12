@@ -14,19 +14,28 @@
 
 #include "../includes/minishell.h"
 
-int		minishell_cd(t_args *tab, t_data *data)
-{
-	chdir(tab->cmd[1]);
-	
-	return (0);
-}
-/*
 static void		minishell_cd_addpwd(t_data *data)
 {
 	int			i;
+	char		**tmp;
+	char		PathName[PATH_MAX];
 
-	while (data->envp[i])
-	{
-		i++;
-	}
-}*/
+	i = 3;
+	if (!(getwd(PathName)))
+		ft_error("getwd error", data->fd_out);
+	tmp = (char **)ft_calloc(sizeof(char *), i);
+	tmp[0] = ft_strdup("export");
+	tmp[1] = ft_strjoin("PWD=", PathName);
+	minishell_export(tmp, data);
+	free(tmp[2]);
+	free(tmp[1]);
+	free(tmp[0]);
+	free(tmp);
+}
+
+int		minishell_cd(char **cmd, t_data *data)
+{
+	chdir(cmd[1]);
+	minishell_cd_addpwd(data);
+	return (0);
+}
