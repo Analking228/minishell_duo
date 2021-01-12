@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/11 22:01:48 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:32:04 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 	return (res);
 }
 
-void	ft_init_struct(t_args *tab, t_data *data)
+void	ft_init_struct(t_data *data)
 {
 	data->envp = NULL;
 	data->exec_code = 0;
