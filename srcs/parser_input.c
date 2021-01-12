@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/11 09:47:19 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/11 22:19:53 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char *ft_get_key(char *line, int *i, char *key)
            (*i)++;
             free(key);
             key = NULL;
-            key = ft_strdup("");
+            key = ft_strdup(""); // maybe calloc?
             while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
                 key = add_symbol(key, line[(*i)++]);
             return (key);
@@ -54,8 +54,8 @@ char        *parse_envp(t_data *data, char *line, int *i)
     j = 0;
     if (ft_strchr("0123456789 \"?\0", line[(*i)]))
         return (res = dollar_cases(data, line, i));
-    key = ft_strdup("");
-    res = ft_strdup("");
+    key = ft_strdup(""); // maybe calloc?
+    res = ft_strdup(""); // maybe calloc?
     key = ft_get_key(line, i, key);
     key = add_symbol(key, '=');
     while (data->envp[j])
