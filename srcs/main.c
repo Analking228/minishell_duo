@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/12 17:59:34 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 18:19:04 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ void		signal_handler(int s)
 // 	}
 // }
 
+void		handle_ctrl_d(int ret)
+{
+	if (ret == 42)
+	{	ft_putendl_fd("Exit minishell", 1);
+		exit(gl_status);
+	}
+}
+
 int			main(int argc, char **argv, char **env)
 {
 	t_args	*tab;
@@ -89,13 +97,14 @@ int			main(int argc, char **argv, char **env)
 	{
 		ft_putstr_fd("\b\b\b$> ", 1);
 		ret = get_line(0, &line);
-		if (ret == 42)
-		{
-			ft_putendl_fd("Exit minishell", 1);
-			exit(gl_status);
-		}
-		else
-		{
+		handle_ctrl_d(ret);
+		// if (ret == 42)
+		// {
+		// 	ft_putendl_fd("Exit minishell", 1);
+		// 	exit(gl_status);
+		// }
+		// else
+		// {
 			validate_line(line, data);
 			tab = parse_input(line, tab, data);
 			free(line);
@@ -103,7 +112,8 @@ int			main(int argc, char **argv, char **env)
 			minishell_start(tab, data);		//команды исполняются до !tab->next
 			free_cmd(tab);
 			tab = NULL;
-		}
+		// }
+		// ft_putstr_fd("\b\b\b$> ", 1);
 	}
 	return (0);
 }
