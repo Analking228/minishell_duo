@@ -3,20 +3,86 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/11 09:49:28 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:55:15 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*with option ’-n’*/
-
 #include "../includes/minishell.h"
+
+void	ft_exit_error_neg_digit(t_args *tab)
+{
+	int	code;
+
+	code = ft_atoi(tab->cmd[1]);
+	if (code < 0 && code >= -256)
+	{
+		code = 256 + code;
+		ft_putendl_fd("exit", 1);
+		exit(code);
+	}
+	else if (code < -265)
+	{
+		code *= -1;
+		code %= 256;
+		code = 256 - code;
+		ft_putendl_fd("exit", 1);
+		exit(code);
+	}
+}
+
+void	ft_exit_error_digit(t_args *tab)
+{
+	int	code;
+
+	code = ft_atoi(tab->cmd[1]);
+	if (code >= 0 && code <= 255)
+	{
+		ft_putendl_fd("exit", 1);
+		exit(code);
+	}
+	else if (code >= 256)
+	{
+		code %= 256;
+		ft_putendl_fd("exit", 1);
+		exit(code);
+	}
+}
+
+void	ft_exit_error_alpha(t_args *tab)
+{
+	ft_putendl_fd("exit", 1);
+	ft_putstr_fd(tab->cmd[1], 1);
+	ft_putendl_fd(": numeric argument required", 1);
+	exit(255);
+}
 
 int		minishell_exit(t_args *tab, t_data *data)
 {
-	ft_putendl_fd("exit", 1);
-	exit(0);
+	if (!(tab->cmd[1]))
+	{
+		ft_putendl_fd("exit", 1);
+		exit(0);
+	}
+	else
+	{
+		if (tab->cmd[2])
+		{
+			gl_status = 1;
+			ft_putendl_fd("exit", 1);
+			ft_putendl_fd("exit: too many arguments", 1);
+		}
+		else
+		{
+			if (ft_isalpha(tab->cmd[1][0]))
+				ft_exit_error_alpha(tab);
+			else if (ft_isdigit(tab->cmd[1][0]))
+				ft_exit_error_digit(tab);
+			else if (tab->cmd[1][0] == '-')
+				ft_exit_error_neg_digit(tab);
+		}
+	}
 	return (1);
 }

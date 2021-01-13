@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_execve.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/12 17:42:28 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:45:10 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int		minishell_execve(t_args *tab, t_data *data)
 		ret = execve(tab->exec_path, tab->cmd, data->envp);
 		if (ret == -1)
 			ft_putstr_fd("Command not found\n", 2);
-		exit(data->exec_code);
+		exit(gl_status);
 	}
 	else
 	{
 		wait(&pid);
-		data->exec_code = WEXITSTATUS(pid);
+		gl_status = WEXITSTATUS(pid);
 	}
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/12 18:16:12 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 15:51:26 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 
 void	ft_init_struct(t_data *data)
 {
+
 	data->envp = NULL;
-	data->exec_code = 0;
+	// data->exec_code = 0;
 	data->oldpwd = NULL;
 	data->curpwd = NULL;
 	data->fd_0 = dup(0);
@@ -81,6 +82,7 @@ void	ft_init_struct(t_data *data)
 	data->pipe_fd[1] = -1;
 	data->opnd_pipe = 0;
 	read_status = 1;
+	gl_status = 0;
 }
 
 int		ft_envp_count(t_data *data)
@@ -98,6 +100,7 @@ int		ft_crt_envp(t_data *data, char **env)
 	int	i;
 	int	j;
 
+	ft_init_struct(data);
 	i = 0;
 	while (env[i])
 		i++;
