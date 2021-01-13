@@ -6,11 +6,9 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 17:20:42 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:55:15 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/*with option ’-n’*/
 
 #include "../includes/minishell.h"
 
@@ -22,6 +20,14 @@ void	ft_exit_error_neg_digit(t_args *tab)
 	if (code < 0 && code >= -256)
 	{
 		code = 256 + code;
+		ft_putendl_fd("exit", 1);
+		exit(code);
+	}
+	else if (code < -265)
+	{
+		code *= -1;
+		code %= 256;
+		code = 256 - code;
 		ft_putendl_fd("exit", 1);
 		exit(code);
 	}

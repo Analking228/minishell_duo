@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 15:52:08 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 18:40:00 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,34 +42,6 @@ void		signal_handler(int s)
 	}
 }
 
-// void		ft_read_and_start(t_data *data)
-// {
-// 	t_args	*tab;
-// 	char	*line;
-// 	int		ret;
-
-// 	while (1)
-// 	{
-// 		ft_putstr_fd("\b\b\b$> ", 1);
-// 		ret = get_line(0, &line);
-// 		if (ret == 42)
-// 		{
-// 			ft_putendl_fd("Exit minishell", 1);
-// 			exit(gl_status);
-// 		}
-// 		else
-// 		{
-// 			validate_line(line, data);
-// 			tab = parse_input(line, tab, data);
-// 			free(line);
-// 			line = NULL;
-// 			minishell_start(tab, data);		//команды исполняются до !tab->next
-// 			free_cmd(tab);
-// 			tab = NULL;
-// 		}
-// 	}
-// }
-
 void		handle_ctrl_d(int ret)
 {
 	if (ret == 42)
@@ -91,28 +63,18 @@ int			main(int argc, char **argv, char **env)
 	signal(SIGINT, (void *)signal_handler);
 	data = (t_data *)malloc(sizeof(t_data));
 	ft_crt_envp(data, env);
-	// ft_read_and_start(data);
 	while (1)
 	{
 		ft_putstr_fd("\b\b\b$> ", 1);
 		ret = get_line(0, &line);
 		handle_ctrl_d(ret);
-		if (ret == 42)
-		{
-			ft_putendl_fd("Exit minishell", 1);
-			exit(gl_status);
-		}
-		else
-		{
-			validate_line(line, data);
-			tab = parse_input(line, tab, data);
-			free(line);
-			line = NULL;
-			minishell_start(tab, data);		//команды исполняются до !tab->next
-			free_cmd(tab);
-			tab = NULL;
-		}
-		ft_putstr_fd("\b\b\b$> ", 1);
+		validate_line(line, data);
+		tab = parse_input(line, tab, data);
+		free(line);
+		line = NULL;
+		minishell_start(tab, data);
+		free_cmd(tab);
+		tab = NULL;
 	}
 	return (0);
 }
