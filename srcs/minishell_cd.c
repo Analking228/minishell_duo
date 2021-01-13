@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/12 11:03:05 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/13 16:14:29 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,9 @@ static void		minishell_cd_addpwd(t_data *data)
 {
 	int			i;
 	char		**tmp;
-	// char		PathName[PATH_MAX];
 	char		*path;
 
 	i = 3;
-	// if (!(getwd(PathName)))
-	// 	ft_error("getwd error", data->fd_out);
 	if (!(path = getcwd(NULL, 0)))
 		ft_error("getwd error", data->fd_out);
 	tmp = (char **)ft_calloc(sizeof(char *), i);
@@ -41,12 +38,9 @@ static void		minishell_cd_addoldpwd(t_data *data)
 {
 	int			i;
 	char		**tmp;
-	// char		PathName[PATH_MAX];
 	char		*path;
 
 	i = 3;
-	// if (!(getwd(PathName)))
-	// 	ft_error("getwd error", data->fd_out);
 	if (!(path = getcwd(NULL, 0)))
 		ft_error("getwd error", data->fd_out);
 	tmp = (char **)ft_calloc(sizeof(char *), i);
@@ -62,8 +56,18 @@ static void		minishell_cd_addoldpwd(t_data *data)
 
 int		minishell_cd(char **cmd, t_data *data)
 {
+	int		ret;
+
 	minishell_cd_addoldpwd(data);
-	chdir(cmd[1]);
+	ret = chdir(cmd[1]);
+	if (ret == -1 && cmd[1] != NULL)
+	{
+		gl_status = 1;
+		ft_putstr_fd("cd: no such file or directory: ", 2);
+		ft_putstr_fd(cmd[1], 2);
+		ft_putstr_fd("\n", 2);
+	}
+
 	// ft_putendl_fd("error here, in addpwd", 1);
 	minishell_cd_addpwd(data);
 	return (0);
