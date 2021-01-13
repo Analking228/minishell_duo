@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 18:34:24 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/12 18:44:13 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 19:10:25 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,37 @@ static int	find_exec_bin(char *path)
 	return (value);
 }
 
-void		parse_exec_path(t_data *data, t_args *tab)
+static void	fr_create_path(t_args *tab, char *path)
 {
 	char	*tmp;
-	char	*path;
 	char	**split_path;
 	int		i;
 
 	i = 0;
+	tmp = ft_strdup(path + 5);
+	split_path = ft_split(tmp, ':');
+	free(tmp);
+	while (split_path[i])
+	{
+		tmp = ft_strjoin(split_path[i], "/");
+		tmp = ft_strjoinf(tmp, tab->cmd[0]);
+		if ((find_exec_bin(tmp) == 0))
+		{
+			tab->exec_path = ft_strdup(tmp);
+			free(tmp);
+			break ;
+		}
+		i++;
+		free(tmp);
+	}
+	ft_free_double_array(split_path);
+	split_path = NULL;
+}
+
+void		parse_exec_path(t_data *data, t_args *tab)
+{
+	char	*path;
+
 	path = ft_envp_srch_str("PATH", data);
 	if (path == NULL)
 	{
@@ -54,24 +77,5 @@ void		parse_exec_path(t_data *data, t_args *tab)
 		return ;
 	}
 	else
-	{
-		tmp = ft_strdup(path + 5);
-		split_path = ft_split(tmp, ':');
-		free(tmp);
-		while (split_path[i] != 0)
-		{
-			tmp = ft_strjoin(split_path[i], "/");
-			tmp = ft_strjoinf(tmp, tab->cmd[0]);
-			if ((find_exec_bin(tmp) == 0))
-			{
-				tab->exec_path = ft_strdup(tmp);
-				free(tmp);
-				break ;
-			}
-			i++;
-			free(tmp);
-		}
-		ft_free_double_array(split_path);
-		split_path = NULL;
-	}
+		fr_create_path(tab, path);
 }

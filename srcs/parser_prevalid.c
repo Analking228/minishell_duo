@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/12 16:27:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/12 22:03:18 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,27 +74,42 @@ static int	check_double_pipe_sem(char *line)
 	return (0);
 }
 
+void		ft_valid_error(char c)
+{
+	ft_putstr_fd("syntax error near unexpected token \'", 1);
+	ft_putchar_fd(c, 1);
+	ft_putstr_fd("\'\n", 1);
+	gl_status = 258;
+}
+
 void		validate_line(char *line, t_data *data)
 {
 	int		i;
 
-	i = 0;
-	while (is_space(line[i]))
-		i++;
+	i = ft_skip_space(line, 0);
 	if (!(ft_strncmp(line, "echo $?", 7)))
 		return ;
-	if (line[i] == ';' && line[i + 1] != ';')
+	if (line[i] == ';')
 	{
+		i++;
+		if (line[i] == ';')
+		{
+			ft_putstr_fd("syntax error near unexpected token `;;'\n", 1);
+			gl_status = 258;
+			return ;
+		}
+		// ft_valid_error(line[i]);
 		ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
 		gl_status = 258;
+		i = ft_skip_space(line, 0);
 	}
-	if (line[i] == '|')
+	else if (line[i] == '|')
 	{
 		if (line[i + 1] == '|')
 			ft_putstr_fd("syntax error near unexpected token `||'\n", 1);
 		else
 			ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
-		gl_status = 258;
+		// gl_status = 258;
 	}
 	else if (check_double_pipe_sem(line))
 		gl_status = 258;
