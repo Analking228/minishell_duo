@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-void	ft_exit_error_neg_digit(t_args *tab)
+void		ft_exit_error_neg_digit(t_args *tab)
 {
-	int	code;
+	int		code;
 
 	code = ft_atoi(tab->cmd[1]);
 	if (code < 0 && code >= -256)
@@ -33,14 +33,24 @@ void	ft_exit_error_neg_digit(t_args *tab)
 	}
 }
 
-void	make_tabs_free(t_args *tab, t_data *data)
+static void	make_tabs_free(t_args *tab, t_data *data)
 {
+	int		i;
+
+	i = ft_envp_count(data);
 	free_cmd(tab);
+	while (i)
+		free(data->envp[i--]);
+	free(data->envp[i]);
+	free(data->envp);
+	close(data->fd_0);
+	close(data->fd_1);
+	free(data);
 }
 
-void	ft_exit_error_digit(t_args *tab)
+void		ft_exit_error_digit(t_args *tab)
 {
-	int	code;
+	int		code;
 
 	code = ft_atoi(tab->cmd[1]);
 	if (code >= 0 && code <= 255)
@@ -56,7 +66,7 @@ void	ft_exit_error_digit(t_args *tab)
 	}
 }
 
-void	ft_exit_error_alpha(t_args *tab)
+void		ft_exit_error_alpha(t_args *tab)
 {
 	ft_putendl_fd("exit", 1);
 	ft_putstr_fd(tab->cmd[1], 1);
@@ -64,10 +74,11 @@ void	ft_exit_error_alpha(t_args *tab)
 	exit(255);
 }
 
-int		minishell_exit(t_args *tab, t_data *data)
+int			minishell_exit(t_args *tab, t_data *data)
 {
 	if (!(tab->cmd[1]))
 	{
+		make_tabs_free(tab, data);
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}

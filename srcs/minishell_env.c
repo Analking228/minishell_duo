@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*without any options and any arguments*/
-
 #include "../includes/minishell.h"
 
 int			minishell_env(char **cmd, t_data *data)
@@ -21,8 +19,8 @@ int			minishell_env(char **cmd, t_data *data)
 	i = 0;
 	while (data->envp[i])
 	{
-		ft_putstr_fd(data->envp[i], data->fd_out);
-		ft_putchar_fd('\n', data->fd_out);
+		ft_putstr_fd(data->envp[i], 1);
+		ft_putchar_fd('\n', 1);
 		i++;
 	}
 	return (gl_status = 0);

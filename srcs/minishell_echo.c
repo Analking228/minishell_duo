@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*with option ’-n’*/
-
 #include "../includes/minishell.h"
 
 int			minishell_echo(char **cmd, t_data *data)
@@ -30,7 +28,7 @@ int			minishell_echo(char **cmd, t_data *data)
 				ft_putstr_fd(" ", 1);
 			i++;
 		}
-		if (!ft_strnstr(cmd[1], "-n", 2))
+		if (!((ft_strnstr(cmd[1], "-n", 3) && cmd[1][3] == 0)))
 			ft_putstr_fd("\n", 1);
 	}
 	else

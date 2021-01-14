@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-
 char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
@@ -26,7 +25,6 @@ char	*ft_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
-
 
 char	*check_tail(char **tail, char **line)
 {

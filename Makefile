@@ -25,7 +25,6 @@ FILES = main\
 		minishell_cd\
 		minishell_exit\
 		minishell_execve\
-		polygon\
 		parse_path\
 		parser_input\
 		parser_utils\

@@ -61,8 +61,6 @@ t_args		*ft_init_arg(t_args *new, char **arr)
 	}
 	new->cmd[j] = NULL;
 	new->exec_path = NULL;
-	new->fd[0] = -1;
-	new->fd[1] = -1;
 	return (new);
 }
 

@@ -11,45 +11,46 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 #define W 1
 #define R 0
 
-int			minishell_redirect_out(t_args *tab, t_data *data)
+int					minishell_redirect_out(t_args *tab, t_data *data)
 {
-	int		fd;
+	int				fd;
 
 	if (tab->simbol == RLR)
 	{
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_TRUNC, S_IRWXU);
-		data->fd_out = dup2(fd, 1);
+		dup2(fd, 1);
 		close(fd);
 		return (1);
 	}
 	else if (tab->simbol == DRLR)
 	{
 		fd = open(tab->next->cmd[0], O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
-		data->fd_out = dup2(fd, 1);
+		dup2(fd, 1);
 		close(fd);
 		return (1);
 	}
 	return (0);
 }
 
-int			minishell_redirect_in(t_args *tab, t_data *data)
+int					minishell_redirect_in(t_args *tab, t_data *data)
 {
-	int		fd;
+	int				fd;
 
 	if (tab->simbol == RLL)
 	{
 		fd = open(tab->next->cmd[0], O_RDONLY, S_IRUSR);
-		data->fd_in = dup2(fd, 0);
+		dup2(fd, 0);
 		close(fd);
 		return (1);
 	}
 	return (0);
 }
 
-void			minishell_pipe(t_args *tab, t_data *data)
+void				minishell_pipe(t_args *tab, t_data *data)
 {
 	static int		oldfd[2];
 	static int		newfd[2];
@@ -80,9 +81,24 @@ void			minishell_pipe(t_args *tab, t_data *data)
 	}
 }
 
-int			minishell_export_str_prove(char *str1, char *str2)
+int					ft_env_srch_len(char *str)
 {
-	int		i;
+	int				count;
+
+	count = 0;
+	while (*str)
+	{
+		if (*str == '=')
+			return (count);
+		count++;
+		str++;
+	}
+	return (count);
+}
+
+int					minishell_export_str_prove(char *str1, char *str2)
+{
+	int				i;
 
 	if (str1)
 	{

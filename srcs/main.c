@@ -12,13 +12,6 @@
 
 #include "../includes/minishell.h"
 
-	/* Общее начало. Часть закомменченная - начало твоей парсерной части.
-	Здесь нужно будет постоянно считывать вводимые данные и парсить их,
-	чтобы в дальнейшем я мог ими воспользоваться. Указал в неплохом виде,
-	будут какие-то изменения - обязательно оставляй коммент. Название
-	твоих файлов и функций прошу начинать с "parser_"					*/
-
-
 void		signal_handler(int s)
 {
 	if (s == SIGINT)
@@ -45,7 +38,8 @@ void		signal_handler(int s)
 void		handle_ctrl_d(int ret)
 {
 	if (ret == 42)
-	{	ft_putendl_fd("Exit minishell", 1);
+	{
+		ft_putendl_fd("Exit minishell", 1);
 		exit(gl_status);
 	}
 }
@@ -77,4 +71,3 @@ int			main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
