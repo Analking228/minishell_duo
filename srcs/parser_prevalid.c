@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/14 14:13:57 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 17:04:47 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,56 +17,6 @@ int			is_space(char c)
 	return (c == ' ');
 }
 
-static int	check_double_pipe(char *line)
-{
-	int		i;
-
-	i = 0;
-	while (is_space(line[i]) || ft_isalpha(line[i]))
-		i++;
-	if (line[i] == '|')
-	{
-		i++;
-		while (is_space(line[i]))
-			i++;
-		if (line[i] == '|')
-		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-static int	check_double_sem(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (is_space(line[i]) || ft_isalpha(line[i]))
-		i++;
-	if (line[i] == ';')
-	{
-		i++;
-		if (line[i] == ';')
-		{
-			ft_putstr_fd("syntax error near unexpected token `;;'\n", 1);
-			return (1);
-		}
-		else
-		{
-			while (is_space(line[i]))
-				i++;
-			if (line[i] == ';')
-			{
-				ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
-				return (1);
-			}
-		}
-	}
-	return (0);
-}
-
 static int	check_double_pipe_sem(char *line)
 {
 	if ((check_double_sem(line)) || (check_double_pipe(line)))
@@ -74,7 +24,7 @@ static int	check_double_pipe_sem(char *line)
 	return (0);
 }
 
-void		ft_syntax_err(char c)
+static void	ft_syntax_err(char c)
 {
 	if (c == ';')
 		ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
@@ -84,7 +34,7 @@ void		ft_syntax_err(char c)
 		ft_putstr_fd("syntax error near unexpected token `newline'\n", 1);
 }
 
-void		ft_syntax_err2(char c)
+static void	ft_syntax_err2(char c)
 {
 	if (c == ';')
 		ft_putstr_fd("syntax error near unexpected token `;;'\n", 1);

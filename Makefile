@@ -33,6 +33,7 @@ FILES = main\
 		parser_create_lst\
 		parser_quote_util\
 		parser_prevalid\
+		parser_prevalid2\
 		get_line\
 		free_cmd
 
