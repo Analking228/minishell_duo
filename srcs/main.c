@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 18:40:00 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 16:43:14 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			main(int argc, char **argv, char **env)
 	ft_crt_envp(data, env);
 	while (1)
 	{
-		ft_putstr_fd("\b\b\b$> ", 1);
+		ft_putstr_fd("$> ", 1);
 		ret = get_line(0, &line);
 		handle_ctrl_d(ret);
 		validate_line(line, data);
