@@ -23,8 +23,6 @@ static void start_fd_closer(t_args *tab, t_data *data)
 
 int		minishell_start(t_args *tab, t_data *data)
 {
-	int	*masfd[2];
-
 	while (tab)
 	{
 		minishell_pipe(tab, data);

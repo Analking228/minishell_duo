@@ -20,7 +20,6 @@ int			minishell_echo(char **cmd, t_data *data)
 
 	if (cmd[1])
 	{
-		// printf("%d\n", data->fd_out);
 		i = 1;
 		if ((ft_strnstr(cmd[i], "-n", 3) && cmd[i][3] == 0))
 			i++;
@@ -36,5 +35,5 @@ int			minishell_echo(char **cmd, t_data *data)
 	}
 	else
 		ft_putstr_fd("\n", 1);
-	return (0);
+	return (gl_status = 0);
 }

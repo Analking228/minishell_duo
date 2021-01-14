@@ -25,5 +25,5 @@ int			minishell_env(char **cmd, t_data *data)
 		ft_putchar_fd('\n', data->fd_out);
 		i++;
 	}
-	return (0);
+	return (gl_status = 0);
 }
