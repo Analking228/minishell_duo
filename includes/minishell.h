@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 17:05:36 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 18:34:22 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ int				get_line(int fd, char **line);
 char			*ft_env_value(char *key, t_data *data);
 int				check_double_pipe(char *line);
 int				check_double_sem(char *line);
+int				is_space(char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:16:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/12 17:45:00 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 18:26:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		*parse_dquote(char *arg, char *line, int *i, t_data *data)
 	(*i)++;
 	if (!flag)
 	{
-		ft_putstr_fd("quote \" error",2);
+		ft_putstr_fd("quote \" error", 2);
 		arg = ft_strdup("");
 	}
 	return (arg);
