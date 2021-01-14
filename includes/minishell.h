@@ -99,7 +99,7 @@ int				minishell_redirect_in(t_args *tab, t_data *data);
 void			minishell_pipe(t_args *tab, t_data *data);
 int				ft_env_srch_len(char *str);
 void			ft_init_struct(t_data *data);
-int				ft_crt_envp(t_data *data, char **env);
+t_data			*ft_crt_envp(char **env);
 int				ft_envp_count(t_data *data);
 void			ft_error(char *str, int fd);
 int				ft_envp_srch(char *envp_name, t_data *data);

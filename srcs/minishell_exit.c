@@ -33,6 +33,11 @@ void	ft_exit_error_neg_digit(t_args *tab)
 	}
 }
 
+void	make_tabs_free(t_args *tab, t_data *data)
+{
+	free_cmd(tab);
+}
+
 void	ft_exit_error_digit(t_args *tab)
 {
 	int	code;

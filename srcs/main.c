@@ -61,8 +61,7 @@ int			main(int argc, char **argv, char **env)
 	(void)argv;
 	signal(SIGQUIT, (void *)signal_handler);
 	signal(SIGINT, (void *)signal_handler);
-	data = (t_data *)malloc(sizeof(t_data));
-	ft_crt_envp(data, env);
+	data = ft_crt_envp(env);
 	while (1)
 	{
 		ft_putstr_fd("$> ", 1);
