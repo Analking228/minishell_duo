@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 15:17:51 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 15:21:57 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ int			minishell_echo(char **cmd, t_data *data)
 			i++;
 		while (cmd[i])
 		{
-			printf("arg1 = |%s|\n", cmd[i]);
 			ft_putstr_fd(cmd[i], data->fd_out);
 			if (cmd[++i] != NULL)
 				ft_putstr_fd(" ", data->fd_out);
-			printf("arg2 = |%s|\n", cmd[i]);
 		}
 		if (!ft_strnstr(cmd[1], "-n", 2))
 			ft_putstr_fd("\n", data->fd_out);
