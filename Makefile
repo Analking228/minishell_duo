@@ -17,6 +17,7 @@ FILES = main\
 		minishell_echo\
 		minishell_utils\
 		minishell_utils2\
+		minishell_utils3\
 		minishell_error\
 		minishell_export\
 		minishell_unset\

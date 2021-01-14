@@ -80,39 +80,3 @@ void				minishell_pipe(t_args *tab, t_data *data)
 		oldfd[W] = newfd[W];
 	}
 }
-
-int					ft_env_srch_len(char *str)
-{
-	int				count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str == '=')
-			return (count);
-		count++;
-		str++;
-	}
-	return (count);
-}
-
-int					minishell_export_str_prove(char *str1, char *str2)
-{
-	int				i;
-
-	if (str1)
-	{
-		i = 0;
-		while (((str1[i] == str2[i])) && (str1[i] && str2[i]))
-		{
-			if ((str1[i + 1] == '=') || (str2[i + 1] == '='))
-			{
-				return (1);
-				ft_putendl_fd(str1, 1);
-				ft_putendl_fd(str2, 1);
-			}
-			i++;
-		}
-	}
-	return (0);
-}
