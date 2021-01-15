@@ -19,19 +19,6 @@ static void start_fd_closer(t_args *tab, t_data *data)
 		dup2(data->fd_1, 1);
 		dup2(data->fd_0, 0);
 	}
-	//printf("data->fd_0 = %d\n", data->fd_0);
-	/*if ((data->fd_1 != 1))
-	{
-		dup2(data->fd_1, 1);
-		close(data->fd_1);
-		data->fd_1 = 1;
-	}
-	if ((data->fd_0 != 0))
-	{
-		dup2(data->fd_0, 0);
-		close(data->fd_0);
-		data->fd_0 = 0;
-	}*/
 }
 
 int		minishell_start(t_args *tab, t_data *data)
@@ -45,15 +32,15 @@ int		minishell_start(t_args *tab, t_data *data)
 		minishell_redirect_in(tab, data);
 		minishell_redirect_out(tab, data);
 		if (!ft_strncmp(tab->cmd[0], "export", 6))
-			minishell_export(tab, data);
+			minishell_export(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "cd", 2))
-			minishell_cd(tab, data);
+			minishell_cd(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "echo", 4))
-			minishell_echo(tab, data);
+			minishell_echo(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "env", 3))
-			minishell_env(tab, data);
+			minishell_env(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "pwd", 3))
-			minishell_pwd(tab, data);
+			minishell_pwd(tab->cmd, data);
 		else if (!ft_strncmp(tab->cmd[0], "exit", 4))
 			minishell_exit(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "unset", 5))

@@ -80,20 +80,25 @@ typedef struct  s_pars
     char        **arr;
 }               t_pars;
 
+int				read_status;
+int				gl_status;
+
 /* shell part */
 
-int				minishell_pwd(t_args *tab, t_data *data);
-int				minishell_cd(t_args *tab, t_data *data);
-int				minishell_echo(t_args *tab, t_data *data);
-int				minishell_export(t_args *tab, t_data *data);
+int				minishell_pwd(char **cmd, t_data *data);
+int				minishell_cd(char **cmd, t_data *data);
+int				minishell_echo(char **cmd, t_data *data);
+int				minishell_export(char **cmd, t_data *data);
+int				minishell_export_str_prove(char *str1, char *str2);
 int				minishell_exit(t_args *tab, t_data *data);
 int				minishell_unset(t_args *tab, t_data *data);
-int				minishell_env(t_args *tab, t_data *data);
+int				minishell_env(char **cmd, t_data *data);
 int				minishell_execve(t_args *tab, t_data *data);
 int				minishell_start(t_args *tab, t_data *data);
 int				minishell_redirect_out(t_args *tab, t_data *data);
 int				minishell_redirect_in(t_args *tab, t_data *data);
 void			minishell_pipe(t_args *tab, t_data *data);
+int				ft_env_srch_len(char *str);
 void			ft_init_struct(t_args *tab, t_data *data);
 int				ft_crt_envp(t_data *data, char **env);
 int				ft_envp_count(t_data *data);

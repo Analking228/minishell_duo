@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   micro_utils.c                                      :+:      :+:    :+:   */
+/*   minishell_execve.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjani <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2020/08/03 16:29:59 by cjani            ###   ########.fr       */
+/*   Updated: 2021/01/13 15:45:10 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,22 @@
 int		minishell_execve(t_args *tab, t_data *data)
 {
 	pid_t	pid;
-	int		pipefd[2];
+	int		ret;
 
-	
 	pid = fork();
 	if (pid < 0)
 		perror(NULL);
 	else if (pid == 0)
 	{
-		execve(tab->exec_path, tab->cmd, data->envp);
-		exit(data->exec_code);
+		ret = execve(tab->exec_path, tab->cmd, data->envp);
+		if (ret == -1)
+			ft_putstr_fd("Command not found\n", 2);
+		exit(gl_status);
 	}
 	else
 	{
 		wait(&pid);
-		data->exec_code = WEXITSTATUS(pid);
+		gl_status = WEXITSTATUS(pid);
 	}
 	return (0);
 }

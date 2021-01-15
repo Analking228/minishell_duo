@@ -1,46 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   micro_utils.c                                      :+:      :+:    :+:   */
+/*   minishell_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cjani <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2020/08/03 16:29:59 by cjani            ###   ########.fr       */
+/*   Updated: 2021/01/13 15:48:25 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*without any options*/
-
 #include "../includes/minishell.h"
 
-static int	free_tmp(char **tmp, int count)
+static int	check_existed(char *tmp, t_data *data)
 {
-	while (count != -1)
+	int		i;
+	int		j;
+	char	*c;
+
+	if (tmp)
 	{
-		free(tmp[count]);
-		count--;
+		i = 0;
+		while (data->envp[i])
+		{
+			if (minishell_export_str_prove(tmp, data->envp[i]))
+				return (1);
+			i++;
+		}
 	}
-	free(tmp);
-	tmp = NULL;
-	return (1);
+	return (0);
 }
 
-static char	**export_add(t_args *tab, t_data *data, int add)
+static char	**export_add(char **cmd, t_data *data, int add)
 {
 	int		i;
 	int		j;
 	char	**tmp;
 
 	j = 1;
-	i = ft_envp_count(data);
+	i = ft_envp_count(data) + 1;
 	tmp = data->envp;
 	if (!(data->envp = (char **)ft_calloc(sizeof(char *), (i + add))))
 		return (0);
 	i = 0;
 	while (tmp[i])
 	{
-		data->envp[i] = ft_strdup(tmp[i]);
+		if (!minishell_export_str_prove(cmd[j], tmp[i]))
+			data->envp[i] = ft_strdup(tmp[i]);
+		else
+			data->envp[i] = ft_strdup(cmd[j++]);
 		free(tmp[i]);
 		i++;
 	}
@@ -48,15 +56,14 @@ static char	**export_add(t_args *tab, t_data *data, int add)
 	free(tmp);
 	while (add)
 	{
-		data->envp[i++] = ft_strdup(tab->cmd[j++]); /* добавить проверку
-													на знак равно */
+		data->envp[i++] = ft_strdup(cmd[j++]);
 		add--;
 	}
 	data->envp[i] = NULL;
 	return (data->envp);
 }
 
-static char *adding_breckets(char *str)
+static char	*adding_breckets(char *str)
 {
 	char	*tmp;
 	int		i;
@@ -82,37 +89,38 @@ static char *adding_breckets(char *str)
 
 static void	export_default(t_data *data)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
 	while (data->envp[i])
 	{
 		tmp = adding_breckets(data->envp[i++]);
-		ft_putstr_fd("declare -x ", data->fd_out);
-		ft_putstr_fd(tmp, data->fd_out);
-		ft_putchar_fd('\n', data->fd_out);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(tmp, 1);
+		ft_putchar_fd('\n', 1);
 		free(tmp);
 	}
 }
 
-int		minishell_export(t_args *tab, t_data *data)
+int			minishell_export(char **cmd, t_data *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 1;
-	if (!tab->cmd[i])
+	if (!cmd[i])
 	{
 		export_default(data);
 		return (1);
 	}
 	j = 0;
-	while (tab->cmd[i])
+	while (cmd[i])
 	{
-		j++;
+		if (!check_existed(cmd[i], data))
+			j++;
 		i++;
 	}
-	data->envp = export_add(tab, data, j);
+	data->envp = export_add(cmd, data, j);
 	return (1);
 }

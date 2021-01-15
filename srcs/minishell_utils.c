@@ -12,21 +12,6 @@
 
 #include "../includes/minishell.h"
 
-static int	ft_env_srch_len(char *str)
-{
-	int		count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str == '=')
-			return (count);
-		count++;
-		str++;
-	}
-	return	(count);
-}
-
 int			ft_envp_srch(char *envp_name, t_data *data)
 {
 	int		i;

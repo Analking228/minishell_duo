@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 #define W 1
 #define R 0
 
@@ -79,4 +80,3 @@ void			minishell_pipe(t_args *tab, t_data *data)
 		oldfd[W] = newfd[W];
 	}
 }
-

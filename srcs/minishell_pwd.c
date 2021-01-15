@@ -1,18 +1,31 @@
-/*without any options*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell_export.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
+/*   Updated: 2021/01/13 15:48:25 by cquiana          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/minishell.h"
 
-int			minishell_pwd(t_args *tab, t_data *data)
-{    
-	char	PathName[PATH_MAX];
+int			minishell_pwd(char **cmd, t_data *data)
+{
 	char	*pn;
-	
-	if (!(pn = getwd(PathName)))
-		ft_error("getwd error", data->fd_out);
+
+	if (!(pn = getcwd(NULL, 0)))
+	{
+		gl_status = 127;
+		ft_error("getcwd error", 1);
+	}
 	else
 	{
-		ft_putstr_fd(PathName, data->fd_out);
-		ft_putstr_fd("\n", data->fd_out);
+		ft_putstr_fd(pn, 1);
+		ft_putstr_fd("\n", 1);
 	}
-	return 0;
+	free(pn);
+	return (gl_status = 0);
 }
-

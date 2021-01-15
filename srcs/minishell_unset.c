@@ -10,15 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*without any options*/
-
 #include "../includes/minishell.h"
 
-static int			unset_remover(int count, t_data *data)
+static int	unset_remover(int count, t_data *data)
 {
 	int		i;
 	char	*tmp;
-	
+
 	i = 0;
 	while (i != count)
 		i++;
