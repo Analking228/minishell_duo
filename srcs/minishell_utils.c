@@ -52,7 +52,7 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 	return (res);
 }
 
-void	ft_init_struct(t_args *tab, t_data *data)
+void	ft_init_struct(t_data *data)
 {
 	data->envp = NULL;
 	data->exec_code = 0;
@@ -62,9 +62,6 @@ void	ft_init_struct(t_args *tab, t_data *data)
 	data->fd_1 = dup(1);
 	data->fd_out = data->fd_1;
 	data->fd_in = data->fd_0;
-	data->pipe_fd[0] = -1;
-	data->pipe_fd[1] = -1;
-	data->opnd_pipe = 0;
 }
 
 int		ft_envp_count(t_data *data)
@@ -77,11 +74,15 @@ int		ft_envp_count(t_data *data)
 	return (i);
 }
 
-int		ft_crt_envp(t_data *data, char **env)
+t_data		*ft_crt_envp(char **env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_data	*data;
 
+	if (!(data = (t_data *)malloc(sizeof(t_data))))
+		return (NULL);
+	ft_init_struct(data);
 	i = 0;
 	while (env[i])
 		i++;
@@ -94,8 +95,5 @@ int		ft_crt_envp(t_data *data, char **env)
 		j++;
 	}
 	data->envp[j] = NULL;
-	data->curpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
-	//printf("curpwd = %s\n", data->curpwd);
-	data->oldpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
-	return (0);
+	return (data);
 }

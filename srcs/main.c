@@ -20,9 +20,7 @@ int			main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
-	data = (t_data *)malloc(sizeof(t_data));
-	ft_init_struct(tab, data);
-	ft_crt_envp(data, env);
+	data = ft_crt_envp(env);
 	while (1)
 	{
 		ft_putstr_fd(">>> ", 1);
