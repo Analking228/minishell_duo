@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_exit.c                                   :+:      :+:    :+:   */
+/*   micro_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cjani <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 17:55:15 by cquiana          ###   ########.fr       */
+/*   Updated: 2020/08/03 16:29:59 by cjani            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int			minishell_exit(t_args *tab, t_data *data)
 	{
 		if (tab->cmd[2])
 		{
-			gl_status = 1;
+			//gl_status = 1;
 			ft_putendl_fd("exit", 1);
 			ft_putendl_fd("exit: too many arguments", 1);
 		}

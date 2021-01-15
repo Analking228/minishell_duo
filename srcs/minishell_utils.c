@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 16:41:40 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 14:15:42 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int			ft_envp_srch(char *envp_name, t_data *data)
 	return (res);
 }
 
-char		*ft_envp_srch_str(char *envp_name, t_data *data)
+char			*ft_envp_srch_str(char *envp_name, t_data *data)
 {
 	int		i;
 	char	*res;
@@ -52,18 +52,24 @@ char		*ft_envp_srch_str(char *envp_name, t_data *data)
 	return (res);
 }
 
-void		ft_init_struct(t_data *data)
+void	ft_init_struct(t_args *tab, t_data *data)
 {
 	data->envp = NULL;
+	data->exec_code = 0;
+	data->oldpwd = NULL;
+	data->curpwd = NULL;
 	data->fd_0 = dup(0);
 	data->fd_1 = dup(1);
-	read_status = 1;
-	gl_status = 0;
+	data->fd_out = data->fd_1;
+	data->fd_in = data->fd_0;
+	data->pipe_fd[0] = -1;
+	data->pipe_fd[1] = -1;
+	data->opnd_pipe = 0;
 }
 
-int			ft_envp_count(t_data *data)
+int		ft_envp_count(t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (data->envp[i])
@@ -71,15 +77,11 @@ int			ft_envp_count(t_data *data)
 	return (i);
 }
 
-t_data		*ft_crt_envp(char **env)
+int		ft_crt_envp(t_data *data, char **env)
 {
-	int		i;
-	int		j;
-	t_data	*data;
+	int	i;
+	int	j;
 
-	if (!(data = (t_data *)malloc(sizeof(t_data))))
-		return (NULL);
-	ft_init_struct(data);
 	i = 0;
 	while (env[i])
 		i++;
@@ -92,5 +94,8 @@ t_data		*ft_crt_envp(char **env)
 		j++;
 	}
 	data->envp[j] = NULL;
-	return (data);
+	data->curpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
+	//printf("curpwd = %s\n", data->curpwd);
+	data->oldpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
+	return (0);
 }

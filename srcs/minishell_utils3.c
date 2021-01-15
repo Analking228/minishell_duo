@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-int					ft_env_srch_len(char *str)
+int			ft_env_srch_len(char *str)
 {
-	int				count;
+	int		count;
 
 	count = 0;
 	while (*str)
@@ -24,12 +24,12 @@ int					ft_env_srch_len(char *str)
 		count++;
 		str++;
 	}
-	return (count);
+	return	(count);
 }
 
-int					minishell_export_str_prove(char *str1, char *str2)
+int			minishell_export_str_prove(char *str1, char *str2)
 {
-	int				i;
+	int		i;
 
 	if (str1)
 	{
