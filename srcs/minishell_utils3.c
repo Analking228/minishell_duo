@@ -24,7 +24,7 @@ int			ft_env_srch_len(char *str)
 		count++;
 		str++;
 	}
-	return	(count);
+	return (count);
 }
 
 int			minishell_export_str_prove(char *str1, char *str2)

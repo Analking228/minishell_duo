@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-
 void		ft_free_double_array(char **cmd)
 {
 	int		i;
@@ -42,27 +41,27 @@ void		free_cmd(t_args *tab)
 		if (tab->cmd)
 			ft_free_double_array(tab->cmd);
 		if (tmp == NULL)
-			break;
+			break ;
 		tab = tmp->next;
 	}
 	free(tab);
 }
 
-t_pars     ft_reset(t_pars  p)
+t_pars		ft_reset(t_pars p)
 {
-    p.i++;
-    p.c = 0;
-    p.arr = NULL;
-    return (p);
+	p.i++;
+	p.c = 0;
+	p.arr = NULL;
+	return (p);
 }
 
-t_pars    ft_init_pars_sruc(void)
+t_pars		ft_init_pars_sruc(void)
 {
-    t_pars p;
+	t_pars	p;
 
-    p.i = 0;
-    p.c = 0;
-    p.arg = NULL;
-    p.arr = NULL;
-    return (p);
+	p.i = 0;
+	p.c = 0;
+	p.arg = NULL;
+	p.arr = NULL;
+	return (p);
 }

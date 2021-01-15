@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static void start_fd_closer(t_args *tab, t_data *data)
+static void	start_fd_closer(t_args *tab, t_data *data)
 {
 	if (tab->simbol < PIPE)
 	{
@@ -21,13 +21,10 @@ static void start_fd_closer(t_args *tab, t_data *data)
 	}
 }
 
-int		minishell_start(t_args *tab, t_data *data)
+int			minishell_start(t_args *tab, t_data *data)
 {
-	int	*masfd[2];
-
 	while (tab)
 	{
-		//printf("simbol = %d\nsimbol_last = %d\n", tab->simbol, tab->simbol_last);
 		minishell_pipe(tab, data);
 		minishell_redirect_in(tab, data);
 		minishell_redirect_out(tab, data);

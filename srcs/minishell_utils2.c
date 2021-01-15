@@ -15,9 +15,9 @@
 #define W 1
 #define R 0
 
-int			minishell_redirect_out(t_args *tab, t_data *data)
+int				minishell_redirect_out(t_args *tab, t_data *data)
 {
-	int		fd;
+	int			fd;
 
 	if (tab->simbol == RLR)
 	{
@@ -36,9 +36,9 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 	return (0);
 }
 
-int			minishell_redirect_in(t_args *tab, t_data *data)
+int				minishell_redirect_in(t_args *tab, t_data *data)
 {
-	int		fd;
+	int			fd;
 
 	if (tab->simbol == RLL)
 	{
@@ -52,8 +52,8 @@ int			minishell_redirect_in(t_args *tab, t_data *data)
 
 void			minishell_pipe(t_args *tab, t_data *data)
 {
-	static int		oldfd[2];
-	static int		newfd[2];
+	static int	oldfd[2];
+	static int	newfd[2];
 
 	if ((tab->simbol == PIPE) && (tab->simbol_last < PIPE))
 	{

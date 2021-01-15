@@ -19,7 +19,7 @@ static char *dollar_cases(t_data *data, char *line, int *i)
     if (line[(*i)] == ' ' || line[(*i)] == '\0' || line[(*i)] == '"')
         return(res = ft_strdup("$"));
     if (line[(*i)] == '?')
-        return(res = ft_itoa(data->exec_code));
+        return(res = ft_itoa(gl_status));
     if (ft_strchr("0123456789", line[(*i)]))
         (*i)++;
     return (NULL);

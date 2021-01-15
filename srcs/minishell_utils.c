@@ -32,7 +32,7 @@ int			ft_envp_srch(char *envp_name, t_data *data)
 	return (res);
 }
 
-char			*ft_envp_srch_str(char *envp_name, t_data *data)
+char		*ft_envp_srch_str(char *envp_name, t_data *data)
 {
 	int		i;
 	char	*res;
@@ -52,21 +52,18 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 	return (res);
 }
 
-void	ft_init_struct(t_data *data)
+void		ft_init_struct(t_data *data)
 {
 	data->envp = NULL;
-	data->exec_code = 0;
-	data->oldpwd = NULL;
-	data->curpwd = NULL;
 	data->fd_0 = dup(0);
 	data->fd_1 = dup(1);
 	data->fd_out = data->fd_1;
 	data->fd_in = data->fd_0;
 }
 
-int		ft_envp_count(t_data *data)
+int			ft_envp_count(t_data *data)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (data->envp[i])

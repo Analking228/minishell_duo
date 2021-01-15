@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static void		signal_handler(int s)
+static void	signal_handler(int s)
 {
 	if (s == SIGINT)
 	{
@@ -35,7 +35,7 @@ static void		signal_handler(int s)
 	}
 }
 
-static void		handle_ctrl_d(int ret)
+static void	handle_ctrl_d(int ret)
 {
 	if (ret == 42)
 	{
@@ -43,7 +43,6 @@ static void		handle_ctrl_d(int ret)
 		exit(gl_status);
 	}
 }
-
 
 int			main(int argc, char **argv, char **env)
 {
@@ -72,4 +71,3 @@ int			main(int argc, char **argv, char **env)
 	}
 	return (0);
 }
-
