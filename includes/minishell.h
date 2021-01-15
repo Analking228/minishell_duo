@@ -66,6 +66,9 @@ typedef struct  s_pars
 int				read_status;
 int				gl_status;
 
+int				read_status;
+int				gl_status;
+
 /* shell part */
 
 int				minishell_pwd(char **cmd, t_data *data);
@@ -82,8 +85,8 @@ int				minishell_redirect_out(t_args *tab, t_data *data);
 int				minishell_redirect_in(t_args *tab, t_data *data);
 void			minishell_pipe(t_args *tab, t_data *data);
 int				ft_env_srch_len(char *str);
-void			ft_init_struct(t_data *data);
-t_data			*ft_crt_envp(char **env);
+void			ft_init_struct(t_args *tab, t_data *data);
+int				ft_crt_envp(t_data *data, char **env);
 int				ft_envp_count(t_data *data);
 void			ft_error(char *str, int fd);
 int				ft_envp_srch(char *envp_name, t_data *data);
