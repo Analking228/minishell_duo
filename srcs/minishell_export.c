@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_export.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 15:48:25 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 12:32:33 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,8 @@ static char	**export_add(char **cmd, t_data *data, int add)
 	}
 	free(tmp[i]);
 	free(tmp);
-	while (add)
-	{
+	while (add--)
 		data->envp[i++] = ft_strdup(cmd[j++]);
-		add--;
-	}
 	data->envp[i] = NULL;
 	return (data->envp);
 }
