@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 17:04:25 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:17:07 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 11:13:46 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_double_pipe(char *line)
 			i++;
 		if (line[i] == '|')
 		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 			return (1);
 		}
 	}
@@ -45,7 +45,7 @@ int	check_double_sem(char *line)
 		i++;
 		if (line[i] == ';')
 		{
-			ft_putstr_fd("syntax error near unexpected token `;;'\n", 1);
+			ft_putstr_fd("syntax error near unexpected token `;;'\n", 2);
 			return (1);
 		}
 		else
@@ -54,7 +54,7 @@ int	check_double_sem(char *line)
 				i++;
 			if (line[i] == ';')
 			{
-				ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
+				ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
 				return (1);
 			}
 		}

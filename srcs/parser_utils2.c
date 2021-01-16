@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 17:19:10 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:18:01 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 11:14:20 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_env_value(char *key, t_data *data)
 	char	*res;
 
 	if (!(res = ft_strdup("")))
-		ft_error("malloc error\n", 1);
+		ft_error("malloc error\n", 2);
 	j = 0;
 	while (data->envp[j])
 	{

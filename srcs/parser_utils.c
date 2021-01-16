@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:17:40 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 11:14:07 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*add_symbol(char *str, char c)
 
 	i = 0;
 	if (!(res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2))))
-		ft_error("malloc error", 1);
+		ft_error("malloc error", 2);
 	while (str[i])
 	{
 		res[i] = str[i];
@@ -74,7 +74,7 @@ void	ft_check_list(t_args *tab)
 		tab->simbol_last = 0;
 		tmp = tab;
 		if (!(save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab))))
-			ft_error("malloc error", 1);
+			ft_error("malloc error", 2);
 		while (tmp)
 		{
 			save_sym[i] = tmp->simbol;

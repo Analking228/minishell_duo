@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:16:50 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 11:12:59 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ static int	check_double_pipe_sem(char *line)
 static void	ft_syntax_err(char c)
 {
 	if (c == ';')
-		ft_putstr_fd("syntax error near unexpected token `;'\n", 1);
+		ft_putstr_fd("syntax error near unexpected token `;'\n", 2);
 	else if (c == '|')
-		ft_putstr_fd("syntax error near unexpected token `|'\n", 1);
+		ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
 	else if (c == '>' || c == '<')
-		ft_putstr_fd("syntax error near unexpected token `newline'\n", 1);
+		ft_putstr_fd("syntax error near unexpected token `newline'\n", 2);
 }
 
 static void	ft_syntax_err2(char c)
 {
 	if (c == ';')
-		ft_putstr_fd("syntax error near unexpected token `;;'\n", 1);
+		ft_putstr_fd("syntax error near unexpected token `;;'\n", 2);
 	else if (c == '|')
-		ft_putstr_fd("syntax error near unexpected token `||'\n", 1);
+		ft_putstr_fd("syntax error near unexpected token `||'\n", 2);
 }
 
 void		validate_line(char *line, t_data *data)
