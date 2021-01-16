@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/01/14 19:28:38 by cquiana          ###   ########.fr       */
-=======
-/*   Updated: 2021/01/09 18:16:46 by cquiana          ###   ########.fr       */
->>>>>>> master
+/*   Updated: 2021/01/16 11:00:16 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +27,8 @@ static char	*dollar_cases(t_data *data, char *line, int *i)
 
 static char	*ft_get_key(char *line, int *i, char *key)
 {
-	while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"' && \
-	line[(*i)] != '$')
+	while (line[(*i)] && line[(*i)] != ' ' &&
+		line[(*i)] != '"' && line[(*i)] != '$')
 	{
 		key = add_symbol(key, line[(*i)++]);
 		if (line[(*i)] == '$')
@@ -40,7 +36,8 @@ static char	*ft_get_key(char *line, int *i, char *key)
 			(*i)++;
 			free(key);
 			key = NULL;
-			key = ft_strdup("");
+			if (!(key = ft_strdup("")))
+				ft_error("malloc error\n", 2);
 			while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
 				key = add_symbol(key, line[(*i)++]);
 			return (key);
@@ -53,22 +50,18 @@ char		*parse_envp(t_data *data, char *line, int *i)
 {
 	char	*key;
 	char	*res;
-	int		j;
 
 	(*i)++;
-	j = 0;
 	if (ft_strchr("0123456789 \"?\0", line[(*i)]))
-		return (res = dollar_cases(data, line, i));
-	key = ft_strdup("");
-	res = ft_strdup("");
+	{
+		res = dollar_cases(data, line, i);
+		return (res);
+	}
+	if (!(key = ft_strdup("")))
+		ft_error("malloc error\n", 2);
 	key = ft_get_key(line, i, key);
 	key = add_symbol(key, '=');
-	while (data->envp[j])
-	{
-		if (ft_strncmp(key, data->envp[j], ft_strlen(key)) == 0)
-			res = ft_strjoin(res, data->envp[j] + ft_strlen(key));
-		j++;
-	}
+	res = ft_env_value(key, data);
 	free(key);
 	key = NULL;
 	return (res);
@@ -93,7 +86,8 @@ t_args		*parse_input(char *line, t_args *tab, t_data *data)
 	while (line[p.i])
 	{
 		p.i = ft_skip_space(line, p.i);
-		p.arg = ft_strdup("");
+		if (!(p.arg = ft_calloc(sizeof(char), 1)))
+			ft_error("malloc error\n", 2);
 		while (line[p.i] && line[p.i] != ' ')
 		{
 			if (ft_strchr(";><|", line[p.i]))
@@ -103,17 +97,12 @@ t_args		*parse_input(char *line, t_args *tab, t_data *data)
 				break ;
 			}
 			p.arg = parse_line(p.arg, line, &p.i, data);
-<<<<<<< HEAD
-			p.arr = ft_crt_arr(p.arr, p.arg, &(p.c));
-=======
-			if (ft_strncmp(p.arg, "", 1) != 0 &&
-				(ft_strchr(" ;><|", line[p.i]) || !line[p.i]))
+			if (ft_strncmp(p.arg, "", 1) != 0)
 				p.arr = ft_crt_arr(p.arr, p.arg, &(p.c));
->>>>>>> master
 		}
 	}
 	ft_add_back(&tab, ft_crt_new(p.arr, line, &p.i, data));
 	ft_check_list(tab);
-	p = ft_init_pars_sruc(); // null
+	ft_free_pars_sruc(p);
 	return (tab);
 }

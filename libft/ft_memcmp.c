@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/08 16:06:47 by skarry            #+#    #+#             */
-/*   Updated: 2020/05/13 11:49:29 by skarry           ###   ########.fr       */
+/*   Created: 2020/05/18 18:23:03 by cquiana           #+#    #+#             */
+/*   Updated: 2020/05/18 18:52:14 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	const unsigned char *c1;
-	const unsigned char *c2;
+	size_t			i;
+	unsigned char	*tmps1;
+	unsigned char	*tmps2;
 
-	if (s1 == s2 || n == 0)
+	i = 0;
+	tmps1 = (unsigned char*)s1;
+	tmps2 = (unsigned char*)s2;
+	if (n == 0)
 		return (0);
-	c1 = (unsigned char *)s1;
-	c2 = (unsigned char *)s2;
-	while (--n && *c1 == *c2)
-	{
-		c1++;
-		c2++;
-	}
-	return ((int)(*c1 - *c2));
+	while ((tmps1[i] == tmps2[i]) && i + 1 < n)
+		i++;
+	return ((int)(tmps1[i] - tmps2[i]));
 }

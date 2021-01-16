@@ -3,27 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/04 22:04:11 by skarry            #+#    #+#             */
-/*   Updated: 2020/05/13 13:31:20 by skarry           ###   ########.fr       */
+/*   Created: 2020/05/19 19:59:37 by cquiana           #+#    #+#             */
+/*   Updated: 2020/05/19 21:22:58 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *str1, const char *str2, size_t n)
+char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 {
-	size_t	len;
+	size_t	i;
+	size_t	j;
 
-	if (*str2 == '\0')
-		return ((char *)str1);
-	len = ft_strlen(str2);
-	while (*str1 && n-- >= len)
+	if (!*s2)
+		return ((char*)s1);
+	i = 0;
+	while (s1[i] != '\0' && i < len)
 	{
-		if (*str1 == *str2 && ft_memcmp(str1, str2, len) == 0)
-			return ((char *)str1);
-		str1++;
+		j = 0;
+		if (s1[i] == s2[j])
+		{
+			while (i + j < len && s1[i + j] == s2[j])
+			{
+				j++;
+				if (s2[j] == '\0')
+					return ((char *)&s1[i]);
+			}
+		}
+		i++;
 	}
 	return (0);
 }

@@ -3,55 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/11 09:46:31 by skarry            #+#    #+#             */
-/*   Updated: 2020/05/15 23:26:43 by skarry           ###   ########.fr       */
+/*   Created: 2020/05/20 16:07:53 by cquiana           #+#    #+#             */
+/*   Updated: 2020/05/24 10:30:55 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*str_constructor(int len, int ren, int negativ)
+int		ft_len(int n)
 {
-	char	*str;
+	int	numlen;
 
-	if (!((str = (char*)malloc(sizeof(char) * (len + 1)))))
-		return (NULL);
-	str[len--] = '\0';
-	while (ren != 0)
+	numlen = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
 	{
-		str[len--] = ren % 10 + '0';
-		ren /= 10;
+		n = n * -1;
+		numlen++;
 	}
-	if (negativ == -1)
-		str[len] = '-';
-	return (str);
+	while (n > 0)
+	{
+		n /= 10;
+		numlen++;
+	}
+	return (numlen);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
-	int		negativ;
-	int		ren;
 	int		len;
+	char	*str;
 
 	if (n == -2147483648)
 		return (ft_strdup("-2147483648"));
 	if (n == 0)
 		return (ft_strdup("0"));
-	len = 0;
-	negativ = 0;
+	len = ft_len(n);
+	if (!(str = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	str[len--] = '\0';
 	if (n < 0)
 	{
-		negativ = -1;
-		n *= -1;
-		len++;
+		str[0] = '-';
+		n = n * -1;
 	}
-	ren = n;
-	while (n != 0)
+	while (n > 0)
 	{
-		len++;
+		str[len] = (n % 10) + '0';
 		n /= 10;
+		len--;
 	}
-	return (str_constructor(len, ren, negativ));
+	return (str);
 }

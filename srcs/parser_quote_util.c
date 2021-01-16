@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:16:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/08 19:20:26 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 10:17:26 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ char		*parse_squote(char *arg, char *line, int *i)
 	int		start;
 
 	flag = 1;
-	(*i)++;
-	start = *i;
+	start = ++(*i);
 	while (line[(*i)] && flag)
 	{
 		if (line[(*i)] == '\'')
 		{
 			res = ft_crt_res(line, start, i, &flag);
-			arg = ft_strjoin(arg, res); //need add  free() in strjoin
+			arg = ft_strjoinf(arg, res);
 			free(res);
 			return (arg);
 		}
@@ -44,7 +43,7 @@ char		*parse_squote(char *arg, char *line, int *i)
 	}
 	if (flag)
 	{
-		ft_putstr_fd("error \'\n", 1);
+		ft_putstr_fd("quote \' error", 2);
 		arg = ft_strdup("");
 		return (arg);
 	}
@@ -63,7 +62,7 @@ char		*simple_parse(char *arg, char *line, int *i, t_data *data)
 		else if (line[(*i)] == '$')
 			envp_value = parse_envp(data, line, i);
 		if (envp_value)
-			arg = ft_strjoin(arg, envp_value);
+			arg = ft_strjoinf(arg, envp_value);
 		else
 			arg = add_symbol(arg, line[(*i)]);
 		(*i)++;
@@ -85,22 +84,21 @@ char		*parse_dquote(char *arg, char *line, int *i, t_data *data)
 	{
 		if ((flag = check_dq(line[(*i)])))
 			break ;
-		if (line[(*i)] == '\\' && (ft_strchr("$\"\\", line[(*i) + 1])))
+		if (line[(*i)] == '\\' && (ft_strchr("$\"\\", line[(*i)++ + 1])))
 		{
-			(*i)++;
 			arg = add_symbol(arg, line[(*i)++]);
 			if ((flag = check_dq(line[(*i)])))
 				break ;
 		}
 		if (line[(*i)] == '$')
-			arg = ft_strjoin(arg, parse_envp(data, line, i)); // free
+			arg = ft_strjoinf(arg, parse_envp(data, line, i));
 		else
 			arg = add_symbol(arg, line[(*i)++]);
 	}
 	(*i)++;
 	if (!flag)
 	{
-		ft_putstr_fd("error \"\n", 1);
+		ft_putstr_fd("quote \" error", 2);
 		arg = ft_strdup("");
 	}
 	return (arg);

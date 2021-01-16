@@ -3,34 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/15 23:15:06 by skarry            #+#    #+#             */
-/*   Updated: 2020/05/17 12:28:10 by skarry           ###   ########.fr       */
+/*   Created: 2020/05/24 16:14:43 by cquiana           #+#    #+#             */
+/*   Updated: 2020/05/24 18:06:48 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(f)(void *), void (*del)(void *))
 {
-	t_list *new_head;
-	t_list *tmp;
-	t_list *cur;
+	t_list	*new;
+	t_list	*tmp;
 
-	if (lst == NULL || (new_head = ft_lstnew(f(lst->content))) == NULL)
-		return (NULL);
-	cur = new_head;
-	tmp = lst->next;
-	while (tmp)
+	new = NULL;
+	while (lst)
 	{
-		if ((cur->next = ft_lstnew(f(tmp->content))) == NULL)
-		{
-			ft_lstclear(&new_head, del);
-			return (NULL);
-		}
-		cur = cur->next;
-		tmp = tmp->next;
+		tmp = ft_lstnew(f(lst->content));
+		if (!tmp)
+			ft_lstclear(&new, del);
+		ft_lstadd_back(&new, tmp);
+		lst = lst->next;
 	}
-	return (new_head);
+	return (new);
 }

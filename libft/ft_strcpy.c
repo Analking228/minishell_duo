@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 15:19:07 by skarry            #+#    #+#             */
-/*   Updated: 2020/06/06 17:37:17 by skarry           ###   ########.fr       */
+/*   Created: 2020/10/15 08:38:18 by cquiana           #+#    #+#             */
+/*   Updated: 2020/10/15 08:38:21 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strtosup(char const *s, size_t len)
+char	*ft_strcpy(char *dest, char *src)
 {
-	char			*res;
-	size_t			i;
+	int	i;
 
-	if (!s)
-		return (NULL);
-	if (ft_strlen(s) < len)
-		len = ft_strlen(s);
-	if (!(res = (char *)ft_calloc(sizeof(char), (len + 1))))
-		return (NULL);
 	i = 0;
-	while (i < len)
+	while (src[i] != '\0')
 	{
-		res[i] = s[i];
+		dest[i] = src[i];
 		i++;
 	}
-	return (res);
+	dest[i] = '\0';
+	return (dest);
 }

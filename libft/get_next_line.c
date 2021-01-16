@@ -3,98 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skarry <skarry@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/24 15:29:10 by skarry            #+#    #+#             */
-/*   Updated: 2020/06/04 15:41:39 by skarry           ###   ########.fr       */
+/*   Created: 2020/07/14 12:54:00 by cquiana           #+#    #+#             */
+/*   Updated: 2020/11/07 00:52:10 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	linelen(char *s)
+char	*check_tail(char **tail, char **line)
 {
-	size_t		i;
+	char *ptr_nl;
 
-	i = 0;
-	while (s[i] != '\n')
-		i++;
-	return (i);
-}
-
-int		work_with_re(char **buffer, char **re, char **line)
-{
-	if (!(*line = ft_strtosup(*buffer, linelen(*buffer))))
-		return (-1);
-	*re = ft_strtosup(*buffer + linelen(*buffer) + 1, ft_strlen(*buffer));
-	if (!re)
-		return (-1);
-	free(*buffer);
-	return (1);
-}
-
-int		work_with_bf(char **buffer, int fd, int a)
-{
-	char		*front;
-	char		*end;
-
-	if (!(front = ft_strtosup(*buffer, ft_strlen(*buffer))))
-		return (-1);
-	free(*buffer);
-	if (!(end = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1)))
-		return (-1);
-	read(fd, end, BUFFER_SIZE);
-	if (ft_strlen(end) < (size_t)BUFFER_SIZE && !(ft_strchr(end, '\n')))
-		a = 0;
-	if (!(*buffer = ft_strjoin(front, end)))
-		return (-1);
-	free(front);
-	free(end);
-	return (a);
-}
-
-int		part_2(char *buffer, char **line, char **re, int fd)
-{
-	int			a;
-
-	a = 2;
-	while (a != 1 && a != 0)
+	ptr_nl = NULL;
+	if (*tail)
 	{
-		if (ft_strchr(buffer, '\n'))
-			a = work_with_re(&buffer, &*re, &*line);
+		if ((ptr_nl = ft_strchr(*tail, '\n')))
+		{
+			*ptr_nl = '\0';
+			*line = ft_strdup(*tail);
+			ft_strcpy(*tail, ++ptr_nl);
+		}
 		else
-			a = work_with_bf(&buffer, fd, a);
-		if (a == -1)
-			return (-1);
+		{
+			*line = ft_strdup(*tail);
+			free(*tail);
+			*tail = NULL;
+		}
 	}
-	if (a == 0)
-	{
-		if (!(*line = ft_strtosup(buffer, ft_strlen(buffer))))
-			return (-1);
-		free(buffer);
-	}
-	return (a);
+	else
+		*line = ft_strdup("");
+	return (ptr_nl);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	char		*buffer;
-	static char	*re[1024];
+	static char		*tail;
+	char			buf[BUFFER_SIZE + 1];
+	char			*ptr_nl;
+	char			*tmp;
+	int				byte;
 
-	if (line == NULL || fd > 1024 || BUFFER_SIZE < 1 || read(fd, re, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE < 1 || !line || read(fd, buf, 0) < 0)
 		return (-1);
-	if (re[fd])
+	ptr_nl = check_tail(&tail, line);
+	while (!ptr_nl && (byte = read(fd, buf, BUFFER_SIZE)))
 	{
-		if (!(buffer = ft_strtosup(re[fd], ft_strlen(re[fd]))))
-			return (-1);
-		free(re[fd]);
-		re[fd] = NULL;
+		buf[byte] = '\0';
+		if ((ptr_nl = ft_strchr(buf, '\n')))
+		{
+			*ptr_nl = '\0';
+			free(tail);
+			tail = ft_strdup(++ptr_nl);
+		}
+		tmp = *line;
+		*line = ft_strjoin(*line, buf);
+		free(tmp);
 	}
-	else
-	{
-		if (!(buffer = (char *)ft_calloc(sizeof(char), BUFFER_SIZE + 1)))
-			return (-1);
-		read(fd, buffer, BUFFER_SIZE);
-	}
-	return (part_2(buffer, &*line, &re[fd], fd));
+	return (!byte && !ptr_nl) ? 0 : 1;
 }
