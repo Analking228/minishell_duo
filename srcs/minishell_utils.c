@@ -59,8 +59,8 @@ void		ft_init_struct(t_data *data)
 	data->fd_1 = dup(1);
 	data->fd_out = data->fd_1;
 	data->fd_in = data->fd_0;
-	read_status = 1;
-	gl_status = 0;
+	g_read_status = 1;
+	g_status = 0;
 }
 
 int			ft_envp_count(t_data *data)

@@ -60,11 +60,11 @@ int				minishell_cd(char **cmd, t_data *data)
 	ret = chdir(cmd[1]);
 	if (ret == -1 && cmd[1] != NULL)
 	{
-		gl_status = 1;
+		g_status = 1;
 		ft_putstr_fd("cd: no such file or directory: ", 2);
 		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd("\n", 2);
 	}
 	minishell_cd_addpwd(data);
-	return (0);
+	return (g_status = 0);
 }

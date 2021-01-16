@@ -25,12 +25,12 @@ int		minishell_execve(t_args *tab, t_data *data)
 		ret = execve(tab->exec_path, tab->cmd, data->envp);
 		if (ret == -1)
 			ft_putstr_fd("Command not found\n", 2);
-		exit(gl_status);
+		exit(g_status);
 	}
 	else
 	{
 		wait(&pid);
-		gl_status = WEXITSTATUS(pid);
+		g_status = WEXITSTATUS(pid);
 	}
 	return (0);
 }

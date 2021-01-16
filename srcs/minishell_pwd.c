@@ -18,7 +18,7 @@ int			minishell_pwd(char **cmd, t_data *data)
 
 	if (!(pn = getcwd(NULL, 0)))
 	{
-		gl_status = 127;
+		g_status = 127;
 		ft_error("getcwd error", 1);
 	}
 	else
@@ -27,5 +27,5 @@ int			minishell_pwd(char **cmd, t_data *data)
 		ft_putstr_fd("\n", 1);
 	}
 	free(pn);
-	return (gl_status = 0);
+	return (g_status = 0);
 }

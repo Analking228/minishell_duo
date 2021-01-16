@@ -64,4 +64,8 @@ fclean: clean
 	@make -C $(LIBFT_DIR) fclean
 	@echo "$(NAME) and Libs has been removed"
 
+norm:
+	norminette ./$(SRCS_DIR)*
+	norminette ./$(INC_DIR)*
+
 re: fclean all

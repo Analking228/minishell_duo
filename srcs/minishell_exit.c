@@ -86,7 +86,7 @@ int			minishell_exit(t_args *tab, t_data *data)
 	{
 		if (tab->cmd[2])
 		{
-			gl_status = 1;
+			g_status = 1;
 			ft_putendl_fd("exit", 1);
 			ft_putendl_fd("exit: too many arguments", 1);
 		}

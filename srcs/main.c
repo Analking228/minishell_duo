@@ -16,22 +16,22 @@ static void	signal_handler(int s)
 {
 	if (s == SIGINT)
 	{
-		if (read_status)
+		if (g_read_status)
 		{
 			ft_putstr_fd("\b\b  \b\b\n", 1);
 			ft_putstr_fd("$> ", 0);
 		}
 		else
 			ft_putstr_fd("\n", 1);
-		gl_status = 1;
+		g_status = 1;
 	}
 	if (s == SIGQUIT)
 	{
-		if (read_status)
+		if (g_read_status)
 		{
 			ft_putstr_fd("\b\b  \b\b", 1);
 		}
-		gl_status = 131;
+		g_status = 131;
 	}
 }
 
@@ -40,7 +40,7 @@ static void	handle_ctrl_d(int ret)
 	if (ret == 42)
 	{
 		ft_putendl_fd("Exit minishell", 1);
-		exit(gl_status);
+		exit(g_status);
 	}
 }
 

@@ -33,5 +33,5 @@ int			minishell_echo(char **cmd, t_data *data)
 	}
 	else
 		ft_putstr_fd("\n", 1);
-	return (gl_status = 0);
+	return (g_status = 0);
 }

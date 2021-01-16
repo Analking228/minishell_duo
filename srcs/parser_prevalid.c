@@ -56,10 +56,10 @@ void		validate_line(char *line, t_data *data)
 			ft_syntax_err2(line[i]);
 		else
 			ft_syntax_err(line[--i]);
-		gl_status = 258;
+		g_status = 258;
 	}
 	else if (check_double_pipe_sem(line))
-		gl_status = 258;
+		g_status = 258;
 	else
-		gl_status = 0;
+		g_status = 0;
 }
