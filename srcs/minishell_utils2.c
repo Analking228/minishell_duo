@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 #define W 1
 #define R 0
 
-int			minishell_redirect_out(t_args *tab, t_data *data)
+int				minishell_redirect_out(t_args *tab, t_data *data)
 {
-	int		fd;
+	int			fd;
 
 	if (tab->simbol == RLR)
 	{
@@ -35,9 +36,9 @@ int			minishell_redirect_out(t_args *tab, t_data *data)
 	return (0);
 }
 
-int			minishell_redirect_in(t_args *tab, t_data *data)
+int				minishell_redirect_in(t_args *tab, t_data *data)
 {
-	int		fd;
+	int			fd;
 
 	if (tab->simbol == RLL)
 	{
@@ -51,8 +52,8 @@ int			minishell_redirect_in(t_args *tab, t_data *data)
 
 void			minishell_pipe(t_args *tab, t_data *data)
 {
-	static int		oldfd[2];
-	static int		newfd[2];
+	static int	oldfd[2];
+	static int	newfd[2];
 
 	if ((tab->simbol == PIPE) && (tab->simbol_last < PIPE))
 	{
@@ -78,25 +79,4 @@ void			minishell_pipe(t_args *tab, t_data *data)
 		oldfd[R] = newfd[R];
 		oldfd[W] = newfd[W];
 	}
-}
-
-int			minishell_export_str_prove(char *str1, char *str2)
-{
-	int		i;
-
-	if (str1)
-	{
-		i = 0;
-		while (((str1[i] == str2[i])) && (str1[i] && str2[i]))
-		{
-			if ((str1[i + 1] == '=') || (str2[i + 1] == '='))
-			{
-				return (1);
-				ft_putendl_fd(str1, 1);
-				ft_putendl_fd(str2, 1);
-			}
-			i++;
-		}
-	}
-	return (0);
 }

@@ -6,15 +6,15 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 11:05:09 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/14 19:26:39 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 09:38:33 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_free_double_array(char **cmd)
+void		ft_free_double_array(char **cmd)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	if (!cmd)
@@ -29,7 +29,7 @@ void	ft_free_double_array(char **cmd)
 	cmd = NULL;
 }
 
-void	free_cmd(t_args *tab)
+void		free_cmd(t_args *tab)
 {
 	t_args	*tmp;
 
@@ -47,7 +47,7 @@ void	free_cmd(t_args *tab)
 	free(tab);
 }
 
-t_pars	ft_reset(t_pars p)
+t_pars		ft_reset(t_pars p)
 {
 	p.i++;
 	p.c = 0;
@@ -55,7 +55,7 @@ t_pars	ft_reset(t_pars p)
 	return (p);
 }
 
-t_pars	ft_init_pars_sruc(void)
+t_pars		ft_init_pars_sruc(void)
 {
 	t_pars	p;
 

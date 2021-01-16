@@ -6,20 +6,19 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/12 15:21:04 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:06:57 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*add_symbol(char *str, char c)
+char		*add_symbol(char *str, char c)
 {
 	char	*res;
 	int		i;
 
 	i = 0;
-	if (!(res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2))))
-		ft_error("malloc error", 1);
+	res = (char *)malloc(sizeof(char) * (ft_strlen(str) + 2)); // if
 	while (str[i])
 	{
 		res[i] = str[i];
@@ -31,7 +30,7 @@ char	*add_symbol(char *str, char c)
 	return (res);
 }
 
-char	**double_array_realloc(char **array, int size)
+char		**double_array_realloc(char **array, int size)
 {
 	int		i;
 	char	**tmp;
@@ -58,7 +57,7 @@ char	**double_array_realloc(char **array, int size)
 	return (array);
 }
 
-void	ft_check_list(t_args *tab)
+void		ft_check_list(t_args *tab)
 {
 	int		*save_sym;
 	int		i;
@@ -73,8 +72,7 @@ void	ft_check_list(t_args *tab)
 	{
 		tab->simbol_last = 0;
 		tmp = tab;
-		if (!(save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab))))
-			ft_error("malloc error", 1);
+		save_sym = (int *)malloc(sizeof(int) * ft_list_len(tab)); // error malloc
 		while (tmp)
 		{
 			save_sym[i] = tmp->simbol;
@@ -86,7 +84,7 @@ void	ft_check_list(t_args *tab)
 	}
 }
 
-char	**ft_crt_arr(char **arr, char *str, int *i)
+char		**ft_crt_arr(char **arr, char *str, int *i)
 {
 	arr = double_array_realloc(arr, 1);
 	arr[(*i)] = ft_strdup(str);
@@ -94,4 +92,11 @@ char	**ft_crt_arr(char **arr, char *str, int *i)
 	free(str);
 	str = NULL;
 	return (arr);
+}
+
+int			ft_skip_space(char *str, int i)
+{
+	while (str[i] == ' ')
+		i++;
+	return (i);
 }

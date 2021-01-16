@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-/*without any options*/
-
 #include "../includes/minishell.h"
 
 static int	check_existed(char *tmp, t_data *data)
@@ -37,11 +35,10 @@ static char	**export_add(char **cmd, t_data *data, int add)
 {
 	int		i;
 	int		j;
-	//int		len;
 	char	**tmp;
 
 	j = 1;
-	i = ft_envp_count(data);
+	i = ft_envp_count(data) + 1;
 	tmp = data->envp;
 	if (!(data->envp = (char **)ft_calloc(sizeof(char *), (i + add))))
 		return (0);
@@ -52,8 +49,6 @@ static char	**export_add(char **cmd, t_data *data, int add)
 			data->envp[i] = ft_strdup(tmp[i]);
 		else
 			data->envp[i] = ft_strdup(cmd[j++]);
-		/*ft_putendl_fd(tmp[i], 1);
-		ft_putendl_fd(data->envp[i], 1);*/
 		free(tmp[i]);
 		i++;
 	}
@@ -68,7 +63,7 @@ static char	**export_add(char **cmd, t_data *data, int add)
 	return (data->envp);
 }
 
-static char *adding_breckets(char *str)
+static char	*adding_breckets(char *str)
 {
 	char	*tmp;
 	int		i;
@@ -94,24 +89,24 @@ static char *adding_breckets(char *str)
 
 static void	export_default(t_data *data)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
 	while (data->envp[i])
 	{
 		tmp = adding_breckets(data->envp[i++]);
-		ft_putstr_fd("declare -x ", data->fd_out);
-		ft_putstr_fd(tmp, data->fd_out);
-		ft_putchar_fd('\n', data->fd_out);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(tmp, 1);
+		ft_putchar_fd('\n', 1);
 		free(tmp);
 	}
 }
 
-int		minishell_export(char **cmd, t_data *data)
+int			minishell_export(char **cmd, t_data *data)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 1;
 	if (!cmd[i])

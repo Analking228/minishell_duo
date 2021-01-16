@@ -6,26 +6,11 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 16:41:40 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/02 14:15:42 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int			ft_env_srch_len(char *str)
-{
-	int		count;
-
-	count = 0;
-	while (*str)
-	{
-		if (*str == '=')
-			return (count);
-		count++;
-		str++;
-	}
-	return	(count);
-}
 
 int			ft_envp_srch(char *envp_name, t_data *data)
 {
@@ -47,7 +32,7 @@ int			ft_envp_srch(char *envp_name, t_data *data)
 	return (res);
 }
 
-char			*ft_envp_srch_str(char *envp_name, t_data *data)
+char		*ft_envp_srch_str(char *envp_name, t_data *data)
 {
 	int		i;
 	char	*res;
@@ -67,27 +52,18 @@ char			*ft_envp_srch_str(char *envp_name, t_data *data)
 	return (res);
 }
 
-void	ft_init_struct(t_data *data)
+void		ft_init_struct(t_data *data)
 {
-
 	data->envp = NULL;
-	// data->exec_code = 0;
-	data->oldpwd = NULL;
-	data->curpwd = NULL;
 	data->fd_0 = dup(0);
 	data->fd_1 = dup(1);
 	data->fd_out = data->fd_1;
 	data->fd_in = data->fd_0;
-	data->pipe_fd[0] = -1;
-	data->pipe_fd[1] = -1;
-	data->opnd_pipe = 0;
-	read_status = 1;
-	gl_status = 0;
 }
 
-int		ft_envp_count(t_data *data)
+int			ft_envp_count(t_data *data)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (data->envp[i])
@@ -95,11 +71,14 @@ int		ft_envp_count(t_data *data)
 	return (i);
 }
 
-int		ft_crt_envp(t_data *data, char **env)
+t_data		*ft_crt_envp(char **env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_data	*data;
 
+	if (!(data = (t_data *)malloc(sizeof(t_data))))
+		return (NULL);
 	ft_init_struct(data);
 	i = 0;
 	while (env[i])
@@ -113,7 +92,5 @@ int		ft_crt_envp(t_data *data, char **env)
 		j++;
 	}
 	data->envp[j] = NULL;
-	data->curpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
-	data->oldpwd = ft_strdup(ft_envp_srch_str("PWD", data) + 4);
-	return (0);
+	return (data);
 }

@@ -6,20 +6,20 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 19:29:21 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/16 09:29:36 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void		signal_handler(int s)
+static void	signal_handler(int s)
 {
 	if (s == SIGINT)
 	{
 		if (read_status)
 		{
 			ft_putstr_fd("\b\b  \b\b\n", 1);
-			ft_putstr_fd("\033[0;34m\033[1m$> \033[0m" , 0);
+			ft_putstr_fd("$> ", 0);
 		}
 		else
 			ft_putstr_fd("\n", 1);
@@ -35,10 +35,11 @@ void		signal_handler(int s)
 	}
 }
 
-void		handle_ctrl_d(int ret)
+static void	handle_ctrl_d(int ret)
 {
 	if (ret == 42)
-	{	ft_putendl_fd("Exit minishell", 1);
+	{
+		ft_putendl_fd("Exit minishell", 1);
 		exit(gl_status);
 	}
 }
@@ -54,21 +55,19 @@ int			main(int argc, char **argv, char **env)
 	(void)argv;
 	signal(SIGQUIT, (void *)signal_handler);
 	signal(SIGINT, (void *)signal_handler);
-	data = (t_data *)malloc(sizeof(t_data));
-	ft_crt_envp(data, env);
+	data = ft_crt_envp(env);
 	while (1)
 	{
-		ft_putstr_fd("\033[0;34m\033[1m$> \033[0m", 1);
-		// ft_putstr_fd("$> ", 1);
+		ft_putstr_fd("$> ", 1);
 		ret = get_line(0, &line);
 		handle_ctrl_d(ret);
 		validate_line(line, data);
 		tab = parse_input(line, tab, data);
 		free(line);
+		line = NULL;
 		minishell_start(tab, data);
 		free_cmd(tab);
 		tab = NULL;
 	}
 	return (0);
 }
-

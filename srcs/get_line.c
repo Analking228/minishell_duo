@@ -26,7 +26,6 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-
 char	*check_tail(char **tail, char **line)
 {
 	char *ptr_nl;

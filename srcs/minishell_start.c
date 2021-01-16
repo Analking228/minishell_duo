@@ -6,13 +6,13 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 16:41:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/06 20:05:42 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void start_fd_closer(t_args *tab, t_data *data)
+static void	start_fd_closer(t_args *tab, t_data *data)
 {
 	if (tab->simbol < PIPE)
 	{
@@ -21,10 +21,8 @@ static void start_fd_closer(t_args *tab, t_data *data)
 	}
 }
 
-int		minishell_start(t_args *tab, t_data *data)
+int			minishell_start(t_args *tab, t_data *data)
 {
-	int	*masfd[2];
-
 	while (tab)
 	{
 		minishell_pipe(tab, data);
@@ -44,7 +42,7 @@ int		minishell_start(t_args *tab, t_data *data)
 			minishell_exit(tab, data);
 		else if (!ft_strncmp(tab->cmd[0], "unset", 5))
 			minishell_unset(tab, data);
-		else if (tab->cmd[0] && (tab->simbol_last < PIPE))
+		else if (tab->cmd[0] && (tab->simbol_last < RLR))
 			minishell_execve(tab, data);
 		start_fd_closer(tab, data);
 		tab = tab->next;
