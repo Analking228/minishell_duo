@@ -6,18 +6,11 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/14 16:58:11 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 19:29:21 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-	/* Общее начало. Часть закомменченная - начало твоей парсерной части.
-	Здесь нужно будет постоянно считывать вводимые данные и парсить их,
-	чтобы в дальнейшем я мог ими воспользоваться. Указал в неплохом виде,
-	будут какие-то изменения - обязательно оставляй коммент. Название
-	твоих файлов и функций прошу начинать с "parser_"					*/
-
 
 void		signal_handler(int s)
 {
@@ -26,7 +19,7 @@ void		signal_handler(int s)
 		if (read_status)
 		{
 			ft_putstr_fd("\b\b  \b\b\n", 1);
-			ft_putstr_fd("$> ", 0);
+			ft_putstr_fd("\033[0;34m\033[1m$> \033[0m" , 0);
 		}
 		else
 			ft_putstr_fd("\n", 1);
@@ -65,13 +58,13 @@ int			main(int argc, char **argv, char **env)
 	ft_crt_envp(data, env);
 	while (1)
 	{
-		ft_putstr_fd("$> ", 1);
+		ft_putstr_fd("\033[0;34m\033[1m$> \033[0m", 1);
+		// ft_putstr_fd("$> ", 1);
 		ret = get_line(0, &line);
 		handle_ctrl_d(ret);
 		validate_line(line, data);
 		tab = parse_input(line, tab, data);
 		free(line);
-		line = NULL;
 		minishell_start(tab, data);
 		free_cmd(tab);
 		tab = NULL;

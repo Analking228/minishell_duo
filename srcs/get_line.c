@@ -6,12 +6,11 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:54:00 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/11 18:06:14 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/14 19:01:55 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
 
 char	*ft_strcpy(char *dest, char *src)
 {
