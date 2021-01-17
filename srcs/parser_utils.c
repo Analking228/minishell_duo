@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 11:14:07 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:11:16 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ char	**ft_crt_arr(char **arr, char *str, int *i)
 	arr = double_array_realloc(arr, 1);
 	arr[(*i)] = ft_strdup(str);
 	(*i)++;
-	free(str);
+	if (str)
+		free(str);
 	str = NULL;
 	return (arr);
 }

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:16:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:17:26 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 18:37:19 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*parse_squote(char *arg, char *line, int *i)
 		if (line[(*i)] == '\'')
 		{
 			res = ft_crt_res(line, start, i, &flag);
-			arg = ft_strjoinf(arg, res);
+			arg = ft_strjoin(arg, res);
 			free(res);
 			return (arg);
 		}

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/16 10:21:35 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:11:11 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int					ft_args_valid(char **args);
 int					ft_check_arg(char *arg);
 int					ft_polygon(t_args *tab, t_data *data, int cmd);
 
-t_args				*parse_input(char *line, t_args *tab, t_data *data);
+// t_args				*parse_input(char *line, t_args *tab, t_data *data);
+t_args				*parse_input(char *line, t_data *data);
 char				**double_array_realloc(char **array, int size);
 char				*add_symbol(char *str, char c);
 void				parse_exec_path(t_data *data, t_args *tab);
@@ -109,7 +110,7 @@ void				ft_set_simbol(t_args *tab, int *save_sym);
 char				*parse_squote(char *arg, char *line, int *i);
 char				*parse_dquote(char *arg, char *line, int *i, t_data *data);
 char				*simple_parse(char *arg, char *line, int *i, t_data *data);
-void				validate_line(char *line, t_data *data);
+void				validate_line(char *line);
 char				*ft_strjoinf(char const *s1, char const *s2);
 int					get_line(int fd, char **line);
 char				*ft_env_value(char *key, t_data *data);

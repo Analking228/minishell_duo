@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 11:00:16 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:10:11 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,12 @@ static char	*parse_line(char *arg, char *line, int *i, t_data *data)
 	return (arg);
 }
 
-t_args		*parse_input(char *line, t_args *tab, t_data *data)
+t_args		*parse_input(char *line, t_data *data)
 {
 	t_pars	p;
+	t_args	*new;
 
+	new = NULL;
 	p = ft_init_pars_sruc();
 	while (line[p.i])
 	{
@@ -92,17 +94,17 @@ t_args		*parse_input(char *line, t_args *tab, t_data *data)
 		{
 			if (ft_strchr(";><|", line[p.i]))
 			{
-				ft_add_back(&tab, ft_crt_new(p.arr, line, &p.i, data));
+				ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
 				p = ft_reset(p);
 				break ;
 			}
 			p.arg = parse_line(p.arg, line, &p.i, data);
-			if (ft_strncmp(p.arg, "", 1) != 0)
+			if ((ft_strchr(" ;><|", line[p.i]) || !line[p.i]))
 				p.arr = ft_crt_arr(p.arr, p.arg, &(p.c));
 		}
 	}
-	ft_add_back(&tab, ft_crt_new(p.arr, line, &p.i, data));
-	ft_check_list(tab);
+	ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
+	ft_check_list(new);
 	ft_free_pars_sruc(p);
-	return (tab);
+	return (new);
 }

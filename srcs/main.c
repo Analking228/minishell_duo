@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/16 09:29:36 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:11:26 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int			main(int argc, char **argv, char **env)
 		ft_putstr_fd("$> ", 1);
 		ret = get_line(0, &line);
 		handle_ctrl_d(ret);
-		validate_line(line, data);
-		tab = parse_input(line, tab, data);
+		validate_line(line);
+		tab = parse_input(line, data);
 		free(line);
 		line = NULL;
 		minishell_start(tab, data);

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 11:12:59 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 22:11:57 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	ft_syntax_err2(char c)
 		ft_putstr_fd("syntax error near unexpected token `||'\n", 2);
 }
 
-void		validate_line(char *line, t_data *data)
+void		validate_line(char *line)
 {
 	int		i;
 

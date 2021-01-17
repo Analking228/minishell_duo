@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 10:58:54 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/17 21:16:53 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ t_args		*ft_crt_new(char **array, char *line, int *i, t_data *data)
 {
 	t_args	*new;
 
-	if (!array || line[(*i) + 1] == ';')
+	// if (!array || (line[(*i) + 1] && line[(*i) + 1] == ';'))
+	if (!array)
 		return (NULL);
 	new = ft_init_arg(new, array);
 	new->simbol = cmd_parse(line, i);
