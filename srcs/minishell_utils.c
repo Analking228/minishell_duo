@@ -25,6 +25,7 @@ int			ft_envp_srch(char *envp_name, t_data *data)
 		len = ft_env_srch_len(data->envp[i]);
 		if ((ft_strnstr(data->envp[i], envp_name, len)))
 		{
+			printf("%s - %d\n", envp_name, i);
 			return (res = i);
 		}
 		i++;

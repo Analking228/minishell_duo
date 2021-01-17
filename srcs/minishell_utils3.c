@@ -19,7 +19,7 @@ int			ft_env_srch_len(char *str)
 	count = 0;
 	while (*str)
 	{
-		if (*str == '=')
+		if ((*str == '=') || (*str == 0))
 			return (count);
 		count++;
 		str++;
@@ -44,6 +44,26 @@ int			minishell_export_str_prove(char *str1, char *str2)
 			}
 			i++;
 		}
+	}
+	return (0);
+}
+
+int		ft_check_arg(char *arg)
+{
+	int	i;
+
+	i = 0;
+	if (arg == NULL)
+		return (0);
+	if (arg[0] == '=')
+		return (1);
+	i++;
+	while (arg[i] != '=' && arg[i])
+	{
+		if (!((ft_isalpha(arg[i]) || ft_isdigit(arg[i])) ||
+		arg[i] == '_'))
+			return (1);
+		i++;
 	}
 	return (0);
 }
