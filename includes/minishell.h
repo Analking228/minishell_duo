@@ -81,6 +81,7 @@ int					ft_envp_count(t_data *data);
 void				ft_error(char *str, int fd);
 int					ft_envp_srch(char *envp_name, t_data *data);
 char				*ft_envp_srch_str(char *envp_name, t_data *data);
+int					ft_check_arg(char *arg);
 int					ft_polygon(t_args *tab, t_data *data, int cmd);
 
 t_args				*parse_input(char *line, t_args *tab, t_data *data);

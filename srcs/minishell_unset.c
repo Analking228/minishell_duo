@@ -34,6 +34,57 @@ static int	unset_remover(int count, t_data *data)
 	return (1);
 }
 
+static int	unset_srch_len(char *envp_n)
+{
+	int		i;
+
+	i = 0;
+	while (envp_n[i] && envp_n[i] != '=')
+		i++;
+	return (i);
+}
+
+static int	unset_pos_checker(char *envp_n, t_data *data)
+{
+	int		i;
+	int		len;
+	int		j;
+
+	i = 0;
+	while (data->envp[i])
+	{
+		j = 0;
+		len = unset_srch_len(data->envp[i]) - 1;
+		while ((j < len) && envp_n[j])
+		{
+			if (data->envp[i][j] != envp_n[j])
+			{
+				break ;
+			}
+			j++;
+		}
+		if (data->envp[i][j] == envp_n[j])
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+static int	unset_args_valid(char **args)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (args[i])
+	{
+		if ((ft_check_arg(args[i])))
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
 int			minishell_unset(t_args *tab, t_data *data)
 {
 	char	*srch_arg;
@@ -41,14 +92,22 @@ int			minishell_unset(t_args *tab, t_data *data)
 	int		count;
 
 	i = 1;
+	count = unset_args_valid(tab->cmd);
+	if (count)
+	{
+		ft_putstr_fd("unset: ", 1);
+		ft_putstr_fd(tab->cmd[count], 1);
+		ft_putendl_fd(" : not a valid identifier\n", 1);
+		return (g_status = 1);
+	}
 	while (tab->cmd[i])
 	{
 		srch_arg = tab->cmd[i];
-		if ((count = ft_envp_srch(srch_arg, data)) > -1)
+		if ((count = unset_pos_checker(srch_arg, data)) > -1)
 		{
 			unset_remover(count, data);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }
