@@ -20,10 +20,11 @@ static int	check_existed(char *tmp, t_data *data)
 
 	if (tmp)
 	{
+		
 		i = 0;
 		while (data->envp[i])
 		{
-			if (minishell_export_str_prove(tmp, data->envp[i]))
+			if (minishell_str_prove_hard(tmp, data->envp[i]))
 				return (1);
 			i++;
 		}
@@ -45,7 +46,7 @@ static char	**export_add(char **cmd, t_data *data, int add)
 	i = 0;
 	while (tmp[i])
 	{
-		if (!minishell_export_str_prove(cmd[j], tmp[i]))
+		if (!minishell_str_prove_soft(cmd[j], tmp[i]))
 			data->envp[i] = ft_strdup(tmp[i]);
 		else
 			data->envp[i] = ft_strdup(cmd[j++]);
@@ -103,21 +104,28 @@ static void	export_default(t_data *data)
 int			minishell_export(char **cmd, t_data *data)
 {
 	int		i;
-	int		j;
+	int		count;
 
 	i = 1;
 	if (!cmd[i])
 	{
 		export_default(data);
-		return (1);
+		return (g_status = 0);
 	}
-	j = 0;
+	count = ft_args_valid(cmd);
+	if (count)
+	{
+		ft_putstr_fd("unset: ", 1);
+		ft_putstr_fd(cmd[count], 1);
+		ft_putendl_fd(" : not a valid identifier\n", 1);
+		return (g_status = 1);
+	}
 	while (cmd[i])
 	{
 		if (!check_existed(cmd[i], data))
-			j++;
+			count++;
 		i++;
 	}
-	data->envp = export_add(cmd, data, j);
-	return (1);
+	data->envp = export_add(cmd, data, count);
+	return (g_status = 0);
 }

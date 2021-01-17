@@ -27,30 +27,49 @@ int			ft_env_srch_len(char *str)
 	return (count);
 }
 
-int			minishell_export_str_prove(char *str1, char *str2)
+int			minishell_str_prove_hard(char *str1, char *str2)
 {
 	int		i;
 
 	if (str1)
 	{
 		i = 0;
-		while (((str1[i] == str2[i])) && (str1[i] && str2[i]))
-		{
-			if ((str1[i + 1] == '=') || (str2[i + 1] == '='))
-			{
-				return (1);
-				ft_putendl_fd(str1, 1);
-				ft_putendl_fd(str2, 1);
-			}
+		while (((str1[i] == str2[i])) && (str1[i] && str2[i]) &&
+		(str1[i] != '=' && str2[i] != '='))
 			i++;
-		}
+		if ((str1[i] == '=') && (str2[i] == '='))
+			return (1);
+		if ((!str1[i]) && str2[i] == '=')
+			return (1);
+		if ((!str2[i]) && str1[i] == '=')
+			return (1);
+		if (!str1[i] && !str2[i])
+			return (1);
 	}
 	return (0);
 }
 
-int		ft_check_arg(char *arg)
+int			minishell_str_prove_soft(char *str1, char *str2)
 {
-	int	i;
+	int		i;
+
+	if (str1)
+	{
+		i = 0;
+		while (((str1[i] == str2[i])) && (str1[i] && str2[i]) &&
+		(str1[i] != '=' && str2[i] != '='))
+			i++;
+		if ((str1[i] == '=') && (str2[i] == '='))
+			return (1);
+		if ((!str2[i]) && str1[i] == '=')
+			return (1);
+	}
+	return (0);
+}
+
+int			ft_check_arg(char *arg)
+{
+	int		i;
 
 	i = 0;
 	if (arg == NULL)
@@ -63,6 +82,21 @@ int		ft_check_arg(char *arg)
 		if (!((ft_isalpha(arg[i]) || ft_isdigit(arg[i])) ||
 		arg[i] == '_'))
 			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int			ft_args_valid(char **args)
+{
+	int		i;
+	int		j;
+
+	i = 1;
+	while (args[i])
+	{
+		if ((ft_check_arg(args[i])))
+			return (i);
 		i++;
 	}
 	return (0);

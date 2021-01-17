@@ -70,21 +70,6 @@ static int	unset_pos_checker(char *envp_n, t_data *data)
 	return (-1);
 }
 
-static int	unset_args_valid(char **args)
-{
-	int		i;
-	int		j;
-
-	i = 1;
-	while (args[i])
-	{
-		if ((ft_check_arg(args[i])))
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
 int			minishell_unset(t_args *tab, t_data *data)
 {
 	char	*srch_arg;
@@ -92,7 +77,7 @@ int			minishell_unset(t_args *tab, t_data *data)
 	int		count;
 
 	i = 1;
-	count = unset_args_valid(tab->cmd);
+	count = ft_args_valid(tab->cmd);
 	if (count)
 	{
 		ft_putstr_fd("unset: ", 1);
