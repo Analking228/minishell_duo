@@ -14,12 +14,10 @@
 
 static void	ft_check_redirect(t_args *tab, t_data *data)
 {
-	t_args	*tmp;
 	t_args	*buf;
 	t_args	*sym;
 	char	*cmd;
 
-	tmp = tab;
 	while (tab)
 	{
 		if (tab->simbol == RLR || tab->simbol == DRLR)
@@ -28,6 +26,8 @@ static void	ft_check_redirect(t_args *tab, t_data *data)
 			buf = tab->next;
 			while (tab->simbol == RLR || tab->simbol == DRLR)
 			{
+				minishell_redirect_out(tab, data);
+				start_fd_closer(tab, data);
 				sym->simbol = tab->simbol;
 				tab = tab->next;
 			}
@@ -37,7 +37,6 @@ static void	ft_check_redirect(t_args *tab, t_data *data)
 		}
 		tab = tab->next;
 	}
-	tab = tmp;
 }
 
 void		ft_check_list(t_args *tab, t_data *data)

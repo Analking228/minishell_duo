@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-static void	start_fd_closer(t_args *tab, t_data *data)
+void		start_fd_closer(t_args *tab, t_data *data)
 {
 	if (tab->simbol < PIPE)
 	{

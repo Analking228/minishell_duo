@@ -84,6 +84,7 @@ int					ft_envp_srch(char *envp_name, t_data *data);
 char				*ft_envp_srch_str(char *envp_name, t_data *data);
 int					ft_args_valid(char **args);
 int					ft_check_arg(char *arg);
+void				start_fd_closer(t_args *tab, t_data *data);
 int					ft_polygon(t_args *tab, t_data *data, int cmd);
 
 // t_args				*parse_input(char *line, t_args *tab, t_data *data);
