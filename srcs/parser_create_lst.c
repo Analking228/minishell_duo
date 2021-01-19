@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/17 21:16:53 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 13:26:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ t_args		*ft_crt_new(char **array, char *line, int *i, t_data *data)
 {
 	t_args	*new;
 
-	// if (!array || (line[(*i) + 1] && line[(*i) + 1] == ';'))
 	if (!array)
 		return (NULL);
 	new = ft_init_arg(new, array);
@@ -84,10 +83,10 @@ t_args		*ft_crt_new(char **array, char *line, int *i, t_data *data)
 	return (new);
 }
 
-void		ft_free_pars_sruc(t_pars p)
+void		ft_free_pars_sruc(t_pars *p)
 {
-	p.arg = NULL;
-	p.arr = NULL;
-	p.c = 0;
-	p.i = 0;
+	p->arg = NULL;
+	p->arr = NULL;
+	p->c = 0;
+	p->i = 0;
 }

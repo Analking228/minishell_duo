@@ -6,13 +6,13 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 12:44:09 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:29:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static char	*dollar_cases(t_data *data, char *line, int *i)
+char		*dollar_cases(t_data *data, char *line, int *i)
 {
 	char	*res;
 
@@ -25,7 +25,7 @@ static char	*dollar_cases(t_data *data, char *line, int *i)
 	return (NULL);
 }
 
-static char	*ft_get_key(char *line, int *i, char *key)
+char		*ft_get_key(char *line, int *i, char *key)
 {
 	while (line[(*i)] && line[(*i)] != ' ' &&
 		line[(*i)] != '"' && line[(*i)] != '$')
@@ -46,27 +46,6 @@ static char	*ft_get_key(char *line, int *i, char *key)
 	return (key);
 }
 
-char		*parse_envp(t_data *data, char *line, int *i)
-{
-	char	*key;
-	char	*res;
-
-	(*i)++;
-	if (ft_strchr("0123456789 \"?\0", line[(*i)]))
-	{
-		res = dollar_cases(data, line, i);
-		return (res);
-	}
-	if (!(key = ft_strdup("")))
-		ft_error("malloc error\n", 2);
-	key = ft_get_key(line, i, key);
-	key = add_symbol(key, '=');
-	res = ft_env_value(key, data);
-	free(key);
-	key = NULL;
-	return (res);
-}
-
 static char	*parse_line(char *arg, char *line, int *i, t_data *data)
 {
 	if (line[(*i)] && line[(*i)] == '\'')
@@ -76,6 +55,13 @@ static char	*parse_line(char *arg, char *line, int *i, t_data *data)
 	else if (!ft_strchr(" ;><|", line[(*i)]))
 		arg = simple_parse(arg, line, i, data);
 	return (arg);
+}
+
+static void	ft_crt_array(t_pars *p, char *line, int *i, t_data *data)
+{
+	p->arg = parse_line(p->arg, line, i, data);
+	if ((ft_strchr(" ;><|", line[(*i)]) || !line[(*i)]))
+		p->arr = ft_crt_arr(p->arr, p->arg, &p->c);
 }
 
 t_args		*parse_input(char *line, t_data *data)
@@ -98,13 +84,10 @@ t_args		*parse_input(char *line, t_data *data)
 				p = ft_reset(p);
 				break ;
 			}
-			p.arg = parse_line(p.arg, line, &p.i, data);
-			if ((ft_strchr(" ;><|", line[p.i]) || !line[p.i]))
-				p.arr = ft_crt_arr(p.arr, p.arg, &(p.c));
+			ft_crt_array(&p, line, &p.i, data);
 		}
 	}
 	ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
-	ft_check_list(new, data);
-	ft_free_pars_sruc(p);
+	ft_check_list(new, data, &p);
 	return (new);
 }

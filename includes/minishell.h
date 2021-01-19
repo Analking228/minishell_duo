@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/19 12:43:22 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:19:18 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int					ft_check_arg(char *arg);
 void				start_fd_closer(t_args *tab, t_data *data);
 int					ft_polygon(t_args *tab, t_data *data, int cmd);
 
-// t_args				*parse_input(char *line, t_args *tab, t_data *data);
 t_args				*parse_input(char *line, t_data *data);
 char				**double_array_realloc(char **array, int size);
 char				*add_symbol(char *str, char c);
@@ -98,8 +97,8 @@ void				free_cmd(t_args *tab);
 void				ft_free_double_array(char **cmd);
 t_pars				ft_reset(t_pars p);
 t_pars				ft_init_pars_sruc(void);
-void				ft_free_pars_sruc(t_pars p);
-void				ft_check_list(t_args *tab, t_data *data);
+void				ft_free_pars_sruc(t_pars *p);
+void				ft_check_list(t_args *tab, t_data *data, t_pars *p);
 char				**ft_crt_arr(char **arr, char *str, int *i);
 int					ft_skip_space(char *str, int i);
 void				ft_add_back(t_args **lst, t_args *elem);
@@ -115,6 +114,8 @@ void				validate_line(char *line);
 char				*ft_strjoinf(char const *s1, char const *s2);
 int					get_line(int fd, char **line);
 char				*ft_env_value(char *key, t_data *data);
+char				*dollar_cases(t_data *data, char *line, int *i);
+char				*ft_get_key(char *line, int *i, char *key);
 int					check_double_pipe(char *line);
 int					check_double_sem(char *line);
 int					is_space(char c);
