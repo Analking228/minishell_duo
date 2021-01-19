@@ -30,6 +30,7 @@ FILES = main\
 		parser_input\
 		parser_utils\
 		parser_utils2\
+		parser_utils_check\
 		parser_create_lst\
 		parser_quote_util\
 		parser_prevalid\
