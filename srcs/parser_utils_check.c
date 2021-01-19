@@ -6,13 +6,13 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 08:33:33 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 12:37:19 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:42:29 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_check_redirect(t_args *tab, t_data data)
+static void	ft_check_redirect(t_args *tab, t_data *data)
 {
 	t_args	*tmp;
 	t_args	*buf;
@@ -40,7 +40,7 @@ static void	ft_check_redirect(t_args *tab, t_data data)
 	tab = tmp;
 }
 
-void		ft_check_list(t_args *tab, t_data data)
+void		ft_check_list(t_args *tab, t_data *data)
 {
 	int		*save_sym;
 	int		i;

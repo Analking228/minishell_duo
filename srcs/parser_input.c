@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 08:53:49 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:44:09 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_args		*parse_input(char *line, t_data *data)
 		}
 	}
 	ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
-	ft_check_list(new);
+	ft_check_list(new, data);
 	ft_free_pars_sruc(p);
 	return (new);
 }

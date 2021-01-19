@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/25 12:50:21 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/17 22:11:11 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:43:22 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				ft_free_double_array(char **cmd);
 t_pars				ft_reset(t_pars p);
 t_pars				ft_init_pars_sruc(void);
 void				ft_free_pars_sruc(t_pars p);
-void				ft_check_list(t_args *tab);
+void				ft_check_list(t_args *tab, t_data *data);
 char				**ft_crt_arr(char **arr, char *str, int *i);
 int					ft_skip_space(char *str, int i);
 void				ft_add_back(t_args **lst, t_args *elem);
