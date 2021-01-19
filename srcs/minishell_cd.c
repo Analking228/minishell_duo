@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_cd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/13 16:14:29 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 15:46:16 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@ int				minishell_cd(char **cmd, t_data *data)
 		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd("\n", 2);
 	}
-	minishell_cd_addpwd(data);
-	return (g_status = 0);
+	else
+	{
+		g_status = 0;
+		minishell_cd_addpwd(data);
+	}
+	return (g_status);
 }
