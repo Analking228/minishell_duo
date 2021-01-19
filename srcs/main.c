@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/17 22:11:26 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 14:51:03 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ int			main(int argc, char **argv, char **env)
 		tab = parse_input(line, data);
 		free(line);
 		line = NULL;
-		minishell_start(tab, data);
+		if (g_status == 0)
+			minishell_start(tab, data);
 		free_cmd(tab);
 		tab = NULL;
 	}
