@@ -6,19 +6,18 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 08:33:33 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 08:34:23 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/19 12:37:19 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_check_redirect(t_args *tab)
+static void	ft_check_redirect(t_args *tab, t_data data)
 {
 	t_args	*tmp;
 	t_args	*buf;
 	t_args	*sym;
 	char	*cmd;
-
 
 	tmp = tab;
 	while (tab)
@@ -41,7 +40,7 @@ static void	ft_check_redirect(t_args *tab)
 	tab = tmp;
 }
 
-void		ft_check_list(t_args *tab)
+void		ft_check_list(t_args *tab, t_data data)
 {
 	int		*save_sym;
 	int		i;
@@ -67,5 +66,5 @@ void		ft_check_list(t_args *tab)
 		ft_set_simbol(tab, save_sym);
 		free(save_sym);
 	}
-	ft_check_redirect(tab);
+	ft_check_redirect(tab, data);
 }
