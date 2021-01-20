@@ -28,6 +28,7 @@ int		minishell_execve(t_args *tab, t_data *data)
 			ft_putstr_fd("Command not found\n", 2);
 			g_status = 127;
 		}
+		minishell_tabs_free(tab, data);
 		exit(g_status);
 	}
 	else

@@ -33,7 +33,7 @@ void		ft_exit_error_neg_digit(t_args *tab)
 	}
 }
 
-static void	make_tabs_free(t_args *tab, t_data *data)
+void		minishell_tabs_free(t_args *tab, t_data *data)
 {
 	int		i;
 
@@ -78,7 +78,7 @@ int			minishell_exit(t_args *tab, t_data *data)
 {
 	if (!(tab->cmd[1]))
 	{
-		make_tabs_free(tab, data);
+		minishell_tabs_free(tab, data);
 		ft_putendl_fd("exit", 1);
 		exit(0);
 	}

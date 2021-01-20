@@ -90,7 +90,6 @@ int			ft_check_arg(char *arg)
 int			ft_args_valid(char **args)
 {
 	int		i;
-	int		j;
 
 	i = 1;
 	while (args[i])

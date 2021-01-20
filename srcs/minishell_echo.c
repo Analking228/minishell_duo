@@ -19,7 +19,7 @@ int			minishell_echo(char **cmd, t_data *data)
 	if (cmd[1])
 	{
 		i = 1;
-		if ((ft_strnstr(cmd[i], "-n", 3) && cmd[i][3] == 0))
+		if ((ft_compare_str(cmd[i], "-n")))
 			i++;
 		while (cmd[i] != NULL)
 		{
@@ -28,7 +28,7 @@ int			minishell_echo(char **cmd, t_data *data)
 				ft_putstr_fd(" ", 1);
 			i++;
 		}
-		if (!((ft_strnstr(cmd[1], "-n", 3) && cmd[1][3] == 0)))
+		if (!(ft_compare_str(cmd[1], "-n")))
 			ft_putstr_fd("\n", 1);
 	}
 	else

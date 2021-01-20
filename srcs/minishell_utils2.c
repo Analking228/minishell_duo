@@ -86,3 +86,17 @@ void			minishell_pipe(t_args *tab, t_data *data)
 		minishell_pipe_pipe(oldfd, newfd);
 	}
 }
+
+int				ft_compare_str(char *str1, char *str2)
+{
+	int	i;
+
+	i = 0;
+	while (str1[i] == str2[i])
+	{
+		i++;
+		if (str1[i] == '\0' && str2[i] == '\0')
+			return (1);
+	}
+	return (0);
+}
