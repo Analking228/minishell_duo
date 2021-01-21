@@ -6,7 +6,7 @@
 /*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/21 13:44:21 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 19:26:45 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	handle_ctrl_d(int ret)
 	if (ret == 42)
 	{
 		ft_putendl_fd("Exit minishell", 1);
-		// minishell_tabs_free(tab, data);
 		exit(g_status);
 	}
 }
