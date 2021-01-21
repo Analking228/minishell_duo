@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/20 16:50:36 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/22 00:22:12 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_args		*ft_init_arg(t_args *new, char **arr)
 	}
 	new->cmd[j] = NULL;
 	new->exec_path = NULL;
+	new->simbol_last = 0;
 	return (new);
 }
 

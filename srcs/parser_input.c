@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 14:29:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 20:58:57 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ static char	*parse_line(char *arg, char *line, int *i, t_data *data)
 		arg = parse_squote(arg, line, i);
 	else if (line[(*i)] && line[(*i)] == '\"')
 		arg = parse_dquote(arg, line, i, data);
-	else if (!ft_strchr(" ;><|", line[(*i)]))
+	else
 		arg = simple_parse(arg, line, i, data);
+	// else if (!ft_strchr(" ;><|", line[(*i)]))
 	return (arg);
 }
 
@@ -86,6 +87,7 @@ t_args		*parse_input(char *line, t_data *data)
 			}
 			ft_crt_array(&p, line, &p.i, data);
 		}
+		free(p.arg);
 	}
 	ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
 	ft_check_list(new, data, &p);

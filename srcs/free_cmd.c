@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 11:05:09 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/16 09:38:33 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 18:43:36 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,14 @@ void		free_cmd(t_args *tab)
 
 	while (tab != NULL)
 	{
-		tmp = tab->next;
-		if (tab->exec_path != NULL)
-			free(tab->exec_path);
-		if (tab->cmd)
-			ft_free_double_array(tab->cmd);
-		if (tmp == NULL)
-			break ;
+		tmp = tab;
 		tab = tmp->next;
+		if (tmp->exec_path != NULL)
+			free(tmp->exec_path);
+		if (tmp->cmd)
+			ft_free_double_array(tmp->cmd);
+		free(tmp);
 	}
-	free(tab);
 }
 
 t_pars		ft_reset(t_pars p)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_quote_util.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:16:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/17 18:37:19 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 20:28:36 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ char		*simple_parse(char *arg, char *line, int *i, t_data *data)
 		else if (line[(*i)] == '$')
 			envp_value = parse_envp(data, line, i);
 		if (envp_value)
+		{
 			arg = ft_strjoinf(arg, envp_value);
+			free(envp_value);
+		}
 		else
 			arg = add_symbol(arg, line[(*i)]);
 		(*i)++;

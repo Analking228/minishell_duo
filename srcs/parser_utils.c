@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:43:01 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 08:34:29 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 19:15:36 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**double_array_realloc(char **array, int size)
 			array[i] = tmp[i];
 			i++;
 		}
+		free(tmp);
 		array[i] = NULL;
 	}
 	return (array);
@@ -63,8 +64,5 @@ char	**ft_crt_arr(char **arr, char *str, int *i)
 	arr = double_array_realloc(arr, 1);
 	arr[(*i)] = ft_strdup(str);
 	(*i)++;
-	if (str)
-		free(str);
-	str = NULL;
 	return (arr);
 }

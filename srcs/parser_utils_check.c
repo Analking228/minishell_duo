@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 08:33:33 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 14:13:40 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 20:36:24 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ char		*parse_envp(t_data *data, char *line, int *i)
 	if (!(key = ft_strdup("")))
 		ft_error("malloc error\n", 2);
 	key = ft_get_key(line, i, key);
-	key = add_symbol(key, '=');
+	// key = add_symbol(key, '=');
+	key = ft_strjoinf(key, "=");
 	res = ft_env_value(key, data);
 	free(key);
 	key = NULL;
