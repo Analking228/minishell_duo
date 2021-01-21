@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_create_lst.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 19:08:53 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 13:26:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 13:31:14 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_args		*ft_init_arg(t_args *new, char **arr)
 	}
 	new->cmd[j] = NULL;
 	new->exec_path = NULL;
+	new->simbol_last = 0;
 	return (new);
 }
 

@@ -47,7 +47,7 @@ all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ_FILES)
 	@make -C $(LIBFT_DIR)
-	@$(CC) -o $(NAME) $(INCLUDES) $(OBJ_FILES) $(LIBFT_FLAGS) -fsanitize=address
+	@$(CC) -o $(NAME) $(INCLUDES) $(OBJ_FILES) $(LIBFT_FLAGS)
 
 $(OBJ_FILES): $(OBJ_DIR)%.o : $(SRCS_DIR)%.c
 	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@

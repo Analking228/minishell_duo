@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_prevalid.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 11:34:50 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 15:06:32 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 11:57:43 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,20 @@ void		validate_line(char *line)
 	i = ft_skip_space(line, 0);
 	if (!(ft_strncmp(line, "echo $?", 7)))
 		return ;
-	if ((ft_strchr(";|><", line[i])))
+	if (line[i])
 	{
-		i++;
-		if ((ft_strchr(";|", line[i])) && line[i] != '\0')
-			ft_syntax_err2(line[i]);
+		if ((ft_strchr(";|><", line[i])))
+		{
+			i++;
+			if (line[i] != '\0' && (ft_strchr(";|", line[i])))
+				ft_syntax_err2(line[i]);
+			else
+				ft_syntax_err(line[--i]);
+			g_status = 258;
+		}
+		else if (check_double_pipe_sem(line))
+			g_status = 258;
 		else
-			ft_syntax_err(line[--i]);
-		g_status = 258;
+			g_status = 0;
 	}
-	else if (check_double_pipe_sem(line))
-		g_status = 258;
-	else
-		g_status = 0;
 }
