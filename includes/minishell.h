@@ -75,6 +75,7 @@ int					minishell_redirect_in(t_args *tab, t_data *data);
 void				minishell_pipe(t_args *tab, t_data *data);
 int					minishell_str_prove_soft(char *str1, char *str2);
 int					minishell_str_prove_hard(char *str1, char *str2);
+void				minishell_tabs_free(t_args *tab, t_data *data);
 int					ft_env_srch_len(char *str);
 void				ft_init_struct(t_data *data);
 t_data				*ft_crt_envp(char **env);
@@ -84,6 +85,7 @@ int					ft_envp_srch(char *envp_name, t_data *data);
 char				*ft_envp_srch_str(char *envp_name, t_data *data);
 int					ft_args_valid(char **args);
 int					ft_check_arg(char *arg);
+int					ft_compare_str(char *str1, char *str2);
 void				start_fd_closer(t_args *tab, t_data *data);
 int					ft_polygon(t_args *tab, t_data *data, int cmd);
 
