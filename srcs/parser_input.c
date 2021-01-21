@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/19 14:29:45 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/21 19:15:53 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ t_args		*parse_input(char *line, t_data *data)
 			}
 			ft_crt_array(&p, line, &p.i, data);
 		}
+		free(p.arg);
 	}
 	ft_add_back(&new, ft_crt_new(p.arr, line, &p.i, data));
 	ft_check_list(new, data, &p);
