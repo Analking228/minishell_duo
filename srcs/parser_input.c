@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/22 10:43:02 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/22 11:58:01 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static char	*parse_line(char *arg, char *line, int *i, t_data *data)
 		arg = parse_dquote(arg, line, i, data);
 	else
 		arg = simple_parse(arg, line, i, data);
-	// else if (!ft_strchr(" ;><|", line[(*i)]))
 	return (arg);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 16:29:57 by cjani             #+#    #+#             */
-/*   Updated: 2021/01/16 12:32:33 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/22 12:16:11 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	check_existed(char *tmp, t_data *data)
 
 	if (tmp)
 	{
-		
 		i = 0;
 		while (data->envp[i])
 		{
