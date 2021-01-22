@@ -26,7 +26,6 @@ char		*parse_envp(t_data *data, char *line, int *i)
 	if (!(key = ft_strdup("")))
 		ft_error("malloc error\n", 2);
 	key = ft_get_key(line, i, key);
-	// key = add_symbol(key, '=');
 	key = ft_strjoinf(key, "=");
 	res = ft_env_value(key, data);
 	free(key);

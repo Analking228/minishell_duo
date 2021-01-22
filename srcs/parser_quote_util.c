@@ -35,7 +35,7 @@ char		*parse_squote(char *arg, char *line, int *i)
 		if (line[(*i)] == '\'')
 		{
 			res = ft_crt_res(line, start, i, &flag);
-			arg = ft_strjoin(arg, res);
+			arg = ft_strjoinf(arg, res);
 			free(res);
 			return (arg);
 		}
