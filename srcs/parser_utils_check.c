@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 08:33:33 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/21 20:36:24 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/22 10:16:31 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char		*parse_envp(t_data *data, char *line, int *i)
 		res = dollar_cases(data, line, i);
 		return (res);
 	}
-	if (!(key = ft_strdup("")))
+	if (!(key = ft_calloc(sizeof(char), 1)))
 		ft_error("malloc error\n", 2);
 	key = ft_get_key(line, i, key);
 	key = ft_strjoinf(key, "=");

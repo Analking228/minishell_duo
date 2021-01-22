@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_input.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cquiana <cquiana@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cquiana <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/14 21:40:07 by cquiana           #+#    #+#             */
-/*   Updated: 2021/01/21 20:58:57 by cquiana          ###   ########.fr       */
+/*   Updated: 2021/01/22 10:43:02 by cquiana          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ char		*ft_get_key(char *line, int *i, char *key)
 		line[(*i)] != '"' && line[(*i)] != '$')
 	{
 		key = add_symbol(key, line[(*i)++]);
-		if (line[(*i)] == '$')
+		if (line[(*i)] && line[(*i)] == '$')
 		{
 			(*i)++;
 			free(key);
 			key = NULL;
-			if (!(key = ft_strdup("")))
+			if (!(key = ft_calloc(sizeof(char), 1)))
 				ft_error("malloc error\n", 2);
 			while (line[(*i)] && line[(*i)] != ' ' && line[(*i)] != '"')
 				key = add_symbol(key, line[(*i)++]);
