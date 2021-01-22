@@ -15,7 +15,6 @@
 static int	check_existed(char *tmp, t_data *data)
 {
 	int		i;
-	int		j;
 	char	*c;
 
 	if (tmp)
@@ -63,21 +62,24 @@ static char	**export_add(char **cmd, t_data *data, int add)
 static char	*adding_breckets(char *str)
 {
 	char	*tmp;
+	int		j;
 	int		i;
 
+	j = i = 0;
 	tmp = ft_calloc(ft_strlen(str) + 3, sizeof(char));
-	while (str[i] && (str[i - 1] != '='))
+	while (str[i] && (str[j] != '='))
 	{
 		tmp[i] = str[i];
-		i++;
+		j = ++i - 1;
 	}
-	if (str[i - 1] == '=')
+	if (str[j] == '=')
 	{
 		tmp[i++] = '\"';
-		while (str[i - 1])
+		j++;
+		while (str[j])
 		{
-			tmp[i] = str[i - 1];
-			i++;
+			tmp[i] = str[j];
+			j = ++i - 1;
 		}
 		tmp[i] = '\"';
 	}
