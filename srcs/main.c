@@ -70,5 +70,8 @@ int			main(int argc, char **argv, char **env)
 		free_cmd(tab);
 		tab = NULL;
 	}
+
+
+
 	return (0);
 }
